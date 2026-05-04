@@ -35,7 +35,7 @@ interface WeatherData {
   temperature?: number;
   weatherCode?: number;
   description?: string;
-  locationName?: string;
+  location名称?: string;
   iconUrl?: string;
   unit?: string;
   windSpeed?: number;
@@ -123,7 +123,7 @@ export function getWeatherIcon({ description = "", iconUrl, weatherCode, size = 
         maskSize: "contain",
         WebkitMaskSize: "contain",
       }}
-      className="
+      class名称="
           relative
           bg-white/25
           backdrop-blur-md
@@ -134,7 +134,7 @@ export function getWeatherIcon({ description = "", iconUrl, weatherCode, size = 
     >
       {/* glass gradient overlay */}
       <div
-        className="
+        class名称="
             pointer-events-none
             absolute inset-0
             bg-gradient-to-br
@@ -177,7 +177,7 @@ function parseConfiguredWeatherLocation(raw: unknown): { lat?: string; lon?: str
   }
 }
 
-export default function WeatherWidget({ className = "", params }: WeatherWidgetProps) {
+export default function WeatherWidget({ class名称 = "", params }: WeatherWidgetProps) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -195,8 +195,8 @@ export default function WeatherWidget({ className = "", params }: WeatherWidgetP
   }, [params, config, weatherUnit]);
 
 
-  if (loading) return <div className={className}>Loading weather...</div>;
-  if (!weather || weather.error) return <div className={className}>Error: {weather?.error}</div>;
+  if (loading) return <div class名称={class名称}>Loading weather...</div>;
+  if (!weather || weather.error) return <div class名称={class名称}>Error: {weather?.error}</div>;
 
   const columns = [
     { label: "Now", data: weather },
@@ -205,15 +205,15 @@ export default function WeatherWidget({ className = "", params }: WeatherWidgetP
   ];
 
   return (
-    <div className={`${className} gap-2 flex-col justify-center`}>
-      {params?.showLocation && <h3 className="w-full text-center text-sm">{weather.locationName ?? params.locationDisplayname}</h3>}
-      <div className="grid grid-cols-3 grid-rows-[1rem 1fr 1rem] gap-2 w-full my-1">
+    <div class名称={`${class名称} gap-2 flex-col justify-center`}>
+      {params?.showLocation && <h3 class名称="w-full text-center text-sm">{weather.location名称 ?? params.locationDisplayname}</h3>}
+      <div class名称="grid grid-cols-3 grid-rows-[1rem 1fr 1rem] gap-2 w-full my-1">
         {columns.map(
           (col, idx) =>
             col.data && (
-              <div key={idx} className="grid grid-cols-subgrid gap-1.5 text-xs items-center justify-items-center">
-                <strong className="text-sm">{col.label}</strong>
-                <div className="text-xl my-1">
+              <div key={idx} class名称="grid grid-cols-subgrid gap-1.5 text-xs items-center justify-items-center">
+                <strong class名称="text-sm">{col.label}</strong>
+                <div class名称="text-xl my-1">
                   {getWeatherIcon({
                     description: idx === 0 ? weather.description : col.data.description,
                     iconUrl: idx === 0 ? weather.iconUrl : col.data.iconUrl,
@@ -235,7 +235,7 @@ export default function WeatherWidget({ className = "", params }: WeatherWidgetP
   );
 }
 
-export function WeatherOverviewWidget({ className = "", params }: WeatherWidgetProps) {
+export function Weather概览Widget({ class名称 = "", params }: WeatherWidgetProps) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -253,8 +253,8 @@ export function WeatherOverviewWidget({ className = "", params }: WeatherWidgetP
   }, [params, config, weatherUnit]);
 
 
-  if (loading) return <div className={className}>Loading weather...</div>;
-  if (!weather || weather.error) return <div className={className}>Error: {weather?.error}</div>;
+  if (loading) return <div class名称={class名称}>Loading weather...</div>;
+  if (!weather || weather.error) return <div class名称={class名称}>Error: {weather?.error}</div>;
 
   const getWeatherInsight = () => {
     if (weather.rainMessage && !weather.rainMessage.toLowerCase().includes("no rain")) {
@@ -279,8 +279,8 @@ export function WeatherOverviewWidget({ className = "", params }: WeatherWidgetP
   };
 
   return (
-    <div className={`${className} flex items-center gap-3 p-2`}>
-      <div className="text-4xl">
+    <div class名称={`${class名称} flex items-center gap-3 p-2`}>
+      <div class名称="text-4xl">
         {getWeatherIcon({
           description: weather?.description,
           iconUrl: weather?.iconUrl,
@@ -290,11 +290,11 @@ export function WeatherOverviewWidget({ className = "", params }: WeatherWidgetP
           sunset: weather?.sunset
         })}
       </div>
-      <div className="flex flex-col text-sm leading-tight">
-        <div className="font-medium">
+      <div class名称="flex flex-col text-sm leading-tight">
+        <div class名称="font-medium">
           {formatTemperature(weather?.temperature, weather?.unit)} {weather?.description}
         </div>
-        <div className="text-xs text-muted-foreground">
+        <div class名称="text-xs text-muted-foreground">
           {getWeatherInsight()}
         </div>
       </div>
@@ -313,7 +313,7 @@ async function fetchWeather({
 }): Promise<WeatherData> {
   let lat: string | undefined;
   let lon: string | undefined;
-  let locationName = params?.locationDisplayname;
+  let location名称 = params?.locationDisplayname;
 
   if (params?.locationCoordinates) {
     const coords = params.locationCoordinates
@@ -328,8 +328,8 @@ async function fetchWeather({
     const fallback = parseConfiguredWeatherLocation(config.global.weatherLocation);
     lat = fallback.lat;
     lon = fallback.lon;
-    if (!locationName && fallback.name) {
-      locationName = fallback.name;
+    if (!location名称 && fallback.name) {
+      location名称 = fallback.name;
     }
   }
 
@@ -349,7 +349,7 @@ async function fetchWeather({
   const normalized: WeatherData = {
     temperature: parseNumber(raw.temperature),
     weatherCode: parseNumber(raw.weatherCode),
-    locationName,
+    location名称,
     description:
       (raw.description && raw.description.length > 0) ? raw.description :
       (raw.weatherCode ? WEATHER_CODE_MAP[Number(raw.weatherCode)]?.desc ?? "" : ""),

@@ -22,32 +22,32 @@ import {
 } from "@/components/ui/select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faPaperclip } from "@fortawesome/free-solid-svg-icons";
-import { addSearchEngine } from "@/lib/frontend/data/MUTATE/config/searchEngines/add";
+import { add搜索Engine } from "@/lib/frontend/data/MUTATE/config/searchEngines/add";
 
-export default function SearchEngineDetailsForm({
+export default function 搜索EngineDetailsForm({
     engine,
-    onSaved,
+    on保存d,
     formId,
-    hideActions,
+    hide操作,
 }: {
-    engine?: SearchEngine | null;
-    onSaved?: () => void | Promise<void>;
+    engine?: 搜索Engine | null;
+    on保存d?: () => void | Promise<void>;
     formId?: string;
-    hideActions?: boolean;
+    hide操作?: boolean;
 }) {
     const { config, refreshConfig } = useConfig();
     const { token } = useAuth();
 
-    const [name, setName] = useState(engine?.name ?? "");
+    const [name, set名称] = useState(engine?.name ?? "");
     const [slug, setSlug] = useState(engine?.slug ?? "");
     const [icon, setIcon] = useState(engine?.icon ?? "/icons/svg/default-light.svg");
-    const [searchUrl, setSearchUrl] = useState(engine?.url_params ?? "");
+    const [searchUrl, set搜索Url] = useState(engine?.url_params ?? "");
     const [urlHome, setUrlHome] = useState(engine?.url_home ?? "");
-    const [status, setStatus] = useState<SearchEngine["status"]>(engine?.status ?? "enabled");
+    const [status, set状态] = useState<搜索Engine["status"]>(engine?.status ?? "enabled");
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [iconEdited, setIconEdited] = useState(Boolean(engine?.icon));
+    const [icon编辑ed, setIcon编辑ed] = useState(Boolean(engine?.icon));
     const [icons, setIcons] = useState<any[]>([]);
     const [open, setOpen] = useState(false);
 
@@ -68,27 +68,27 @@ export default function SearchEngineDetailsForm({
 
     // auto-generate icon path (light svg) until user edits
     useEffect(() => {
-        if (!iconEdited && name.trim()) {
-            const safeName = name.trim().replace(/\s+/g, "-").toLowerCase();
-            setIcon(`/icons/svg/${safeName}-light.svg`);
+        if (!icon编辑ed && name.trim()) {
+            const safe名称 = name.trim().replace(/\s+/g, "-").toLowerCase();
+            setIcon(`/icons/svg/${safe名称}-light.svg`);
         }
-    }, [name, iconEdited]);
+    }, [name, icon编辑ed]);
 
-    const isEditing = Boolean(engine);
+    const is编辑ing = Boolean(engine);
 
     // use provided formId or fallback to a stable default
     const effectiveFormId = formId ?? "search-engine-form";
 
-    const handleSave = async (e?: React.FormEvent) => {
+    const handle保存 = async (e?: React.FormEvent) => {
         e?.preventDefault();
         setLoading(true);
         setError(null);
 
         try {
             // Basic validation
-            if (!name.trim()) throw new Error("Name is required");
+            if (!name.trim()) throw new Error("名称 is required");
             if (!slug.trim()) throw new Error("Slug is required");
-            if (!searchUrl.includes("%s")) throw new Error("Search URL must include '%s' placeholder");
+            if (!searchUrl.includes("%s")) throw new Error("搜索 URL must include '%s' placeholder");
 
             // If urlHome is empty, derive origin/base from searchUrl
             let resolvedHome = urlHome?.trim();
@@ -103,7 +103,7 @@ export default function SearchEngineDetailsForm({
                 }
             }
 
-            const payloadEngine: SearchEngine = {
+            const payloadEngine: 搜索Engine = {
                 name: name || "Untitled",
                 slug: slug || `engine-${Date.now()}`,
                 icon,
@@ -112,8 +112,8 @@ export default function SearchEngineDetailsForm({
                 url_params: searchUrl,
             };
 
-            if (isEditing) {
-                const updated = (config.searchEngines || []).map((s: SearchEngine) =>
+            if (is编辑ing) {
+                const updated = (config.searchEngines || []).map((s: 搜索Engine) =>
                     s.slug === engine!.slug ? payloadEngine : s
                 );
 
@@ -122,11 +122,11 @@ export default function SearchEngineDetailsForm({
                 await writeToConfig(`searchEngines`, updated, { token });
             } else {
                 const tokenStr = token ?? "";
-                await addSearchEngine(payloadEngine, { token: tokenStr });
+                await add搜索Engine(payloadEngine, { token: tokenStr });
             }
 
             await refreshConfig();
-            if (onSaved) await onSaved();
+            if (on保存d) await on保存d();
         } catch (err: any) {
             setError(err?.message || String(err));
         } finally {
@@ -135,36 +135,36 @@ export default function SearchEngineDetailsForm({
     };
 
     return (
-        <form id={effectiveFormId} onSubmit={handleSave} className="grid grid-cols-2 gap-4">
-            <div className="col-span-full">
-                <Label htmlFor="se-name">Name</Label>
+        <form id={effectiveFormId} on提交={handle保存} class名称="grid grid-cols-2 gap-4">
+            <div class名称="col-span-full">
+                <Label htmlFor="se-name">名称</Label>
                 <Input
                     id="se-name"
-                    placeholder="New Search Engine"
+                    placeholder="New 搜索 Engine"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="frosted"
+                    onChange={(e) => set名称(e.target.value)}
+                    class名称="frosted"
                 />
             </div>
 
 
 
-            <div className="col-span-full"><Label htmlFor="se-search" className="mt-2">
-                Search URL
+            <div class名称="col-span-full"><Label htmlFor="se-search" class名称="mt-2">
+                搜索 URL
             </Label>
                 <Input
                     id="se-search" placeholder="use %s as placeholder for search string"
                     value={searchUrl}
-                    onChange={(e) => setSearchUrl(e.target.value)}
-                    className="frosted"
+                    onChange={(e) => set搜索Url(e.target.value)}
+                    class名称="frosted"
                 /></div>
 
-            <div><Label className="mt-2">Status</Label>
-                <Select onValueChange={(v) => setStatus(v as SearchEngine["status"])} value={status}>
-                    <SelectTrigger className="w-[180px] frosted">
+            <div><Label class名称="mt-2">状态</Label>
+                <Select onValueChange={(v) => set状态(v as 搜索Engine["status"])} value={status}>
+                    <SelectTrigger class名称="w-[180px] frosted">
                         <SelectValue placeholder="Select status" />
                     </SelectTrigger>
-                    <SelectContent className="frosted text-foreground">
+                    <SelectContent class名称="frosted text-foreground">
                         <SelectGroup>
                             <SelectItem value="enabled">Enabled</SelectItem>
                             <SelectItem value="disabled">Disabled</SelectItem>
@@ -173,7 +173,7 @@ export default function SearchEngineDetailsForm({
                     </SelectContent>
                 </Select></div>
 
-            <div><Label htmlFor="se-slug" className="mt-2">
+            <div><Label htmlFor="se-slug" class名称="mt-2">
                 Shortcut (used for !bangs)
             </Label>
                 <Input
@@ -184,18 +184,18 @@ export default function SearchEngineDetailsForm({
                         if (value.startsWith("!")) value = value.slice(1);
                         setSlug(value);
                     }}
-                    className="frosted"
+                    class名称="frosted"
                     placeholder="gg"
                 /></div>
 
-            <div className="col-span-full"><Label>Icon</Label>
-                <div className="flex items-start gap-2">
+            <div class名称="col-span-full"><Label>Icon</Label>
+                <div class名称="flex items-start gap-2">
                     <Label
-                        className="h-[35px] w-[35px] frosted rounded-md flex items-center justify-center outline-2 outline-transparent cursor-pointer"
+                        class名称="h-[35px] w-[35px] frosted rounded-md flex items-center justify-center outline-2 outline-transparent cursor-pointer"
                         title="current"
                     >
                         <div
-                            className="bg-white h-[22px] w-[22px]"
+                            class名称="bg-white h-[22px] w-[22px]"
                             style={{
                                 maskImage: icon ? `url(${icon})` : "none",
                                 WebkitMaskImage: icon ? `url(${icon})` : "none",
@@ -212,26 +212,26 @@ export default function SearchEngineDetailsForm({
                     <Popover modal={true}>
                         <PopoverTrigger>
                             <Label
-                                className="h-[35px] w-[35px] frosted rounded-md flex items-center justify-center outline-2 outline-transparent cursor-pointer"
+                                class名称="h-[35px] w-[35px] frosted rounded-md flex items-center justify-center outline-2 outline-transparent cursor-pointer"
                                 title="Set icon by link"
                             >
                                 <FontAwesomeIcon icon={faPaperclip} />
                             </Label>
                         </PopoverTrigger>
 
-                        <PopoverContent className="frosted p-3 text-foreground w-[300px]">
-                            <div className="flex flex-col gap-2">
+                        <PopoverContent class名称="frosted p-3 text-foreground w-[300px]">
+                            <div class名称="flex flex-col gap-2">
                                 <Label htmlFor="iconUrl">Icon URL</Label>
                                 <Input
                                     id="iconUrl"
                                     name="iconUrl"
                                     placeholder="https://example.com/icon.svg"
-                                    className="frosted"
+                                    class名称="frosted"
                                     defaultValue={icon}
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         setIcon(value);
-                                        setIconEdited(true);
+                                        setIcon编辑ed(true);
 
                                         // update hidden input directly
                                         const hidden = document.querySelector<HTMLInputElement>('input[name="icon"]');
@@ -247,14 +247,14 @@ export default function SearchEngineDetailsForm({
                     <Popover modal={true} open={open} onOpenChange={setOpen}>
                         <PopoverTrigger>
                             <Label
-                                className="h-[35px] w-[35px] frosted rounded-md flex items-center justify-center outline-2 outline-transparent cursor-pointer"
+                                class名称="h-[35px] w-[35px] frosted rounded-md flex items-center justify-center outline-2 outline-transparent cursor-pointer"
                                 title="Pick icon"
                             >
                                 <FontAwesomeIcon icon={faEllipsisH} />
                             </Label>
                         </PopoverTrigger>
 
-                        <PopoverContent className="frosted text-foreground max-w-[480px]">
+                        <PopoverContent class名称="frosted text-foreground max-w-[480px]">
                             <IconPickerComponent
                                 initialIcons={icons}
                                 onSelect={(iconObj: any) => {
@@ -264,7 +264,7 @@ export default function SearchEngineDetailsForm({
                                     else if (iconObj.Dark === "Yes") variant = "-dark";
                                     const url = `/icons/${ext}/${iconObj.Reference}${variant}.${ext}`;
                                     setIcon(url);
-                                    setIconEdited(true);
+                                    setIcon编辑ed(true);
                                     setOpen(false);
                                 }}
                             />
@@ -275,34 +275,34 @@ export default function SearchEngineDetailsForm({
             </div>
 
             {/* Advanced collapsible for Home URL */}
-            <details className="mt-2" aria-details="true">
-                <summary className="cursor-pointer select-none text-sm text-gray-300">
+            <details class名称="mt-2" aria-details="true">
+                <summary class名称="cursor-pointer select-none text-sm text-gray-300">
                     Advanced (Home URL)
                 </summary>
-                <div className="mt-2">
-                    <Label htmlFor="se-home" className="text-xs">
+                <div class名称="mt-2">
+                    <Label htmlFor="se-home" class名称="text-xs">
                         Home URL (optional)
                     </Label>
                     <Input
                         id="se-home"
                         value={urlHome}
-                        placeholder="https://example.com (leave empty to derive from Search URL)"
+                        placeholder="https://example.com (leave empty to derive from 搜索 URL)"
                         onChange={(e) => setUrlHome(e.target.value)}
-                        className="frosted"
+                        class名称="frosted"
                     />
-                    <p className="text-xs text-gray-400 mt-1">
-                        If left empty, the base/origin will be derived from the Search URL on save.
+                    <p class名称="text-xs text-gray-400 mt-1">
+                        If left empty, the base/origin will be derived from the 搜索 URL on save.
                     </p>
                 </div>
             </details>
 
-            {error && <div className="text-red-400">{error}</div>}
+            {error && <div class名称="text-red-400">{error}</div>}
 
-            {/* only render internal submit button when hideActions is falsy */}
-            {!hideActions && (
-                <div className="mt-4">
+            {/* only render internal submit button when hide操作 is falsy */}
+            {!hide操作 && (
+                <div class名称="mt-4">
                     <Button type="submit" disabled={loading}>
-                        {loading ? (isEditing ? "Saving..." : "Adding...") : isEditing ? "Save" : "Add"}
+                        {loading ? (is编辑ing ? "Saving..." : "添加ing...") : is编辑ing ? "保存" : "添加"}
                     </Button>
                 </div>
             )}

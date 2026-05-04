@@ -12,17 +12,17 @@ export async function POST(request: Request) {
                 headers: { 'Content-Type': 'application/json' },
             }); 
         }
-        const { _name, email, password, passwordConfirm } = await request.json();
+        const { _name, email, password, password确认 } = await request.json();
 
-        if (!email || !password || !passwordConfirm) {
+        if (!email || !password || !password确认) {
             return new NextResponse(JSON.stringify({ error: 'All fields are required' }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' },
             });
         }
 
-        if (password !== passwordConfirm) {
-            return new NextResponse(JSON.stringify({ error: 'Passwords do not match' }), {
+        if (password !== password确认) {
+            return new NextResponse(JSON.stringify({ error: '密码s do not match' }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -44,12 +44,12 @@ export async function POST(request: Request) {
 
         const pb = getServerPB();
 
-        // 1. Create the user
+        // 1. 创建 the user
         const user = await pb.collection('users').create({
             name,
             email,
             password,
-            passwordConfirm,
+            password确认,
         });
 
         // 2. Load the default config from /public
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
         const configFile = await fs.readFile(configPath, 'utf-8');
         const configJson = JSON.parse(configFile);
 
-        // 3. Create a new row in userConfig
+        // 3. 创建 a new row in userConfig
         await pb.collection('userConfig').create({
             associatedUserId: user.id,
             config: configJson,

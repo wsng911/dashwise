@@ -19,8 +19,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { MoreHorizontal, Copy, Trash2, Edit2 } from "lucide-react";
-import CreateForwarderDialogComponent, { ForwarderItem } from "@/components/notifications/CreateForwarderDialog";
+import { MoreHorizontal, Copy, Trash2, 编辑2 } from "lucide-react";
+import 创建ForwarderDialogComponent, { ForwarderItem } from "@/components/notifications/创建ForwarderDialog";
 import useAuth from "@/context/useAuth";
 import { post, put, del } from "@/lib/apiClient";
 import {
@@ -33,9 +33,9 @@ export default function NotificationForwardersPage() {
     const [topics, setTopics] = useState<{ id: string; title?: string }[]>([]);
     const [activeTopic, setActiveTopic] = useState<string | null>(null);
     const [newForwarderDialogVisible, setNewForwarderDialogVisible] = useState(false);
-    const [editingForwarder, setEditingForwarder] = useState<ForwarderItem | null>(null);
-    const [editTarget, setEditTarget] = useState("");
-    const [editIsActive, setEditIsActive] = useState(true);
+    const [editingForwarder, set编辑ingForwarder] = useState<ForwarderItem | null>(null);
+    const [editTarget, set编辑Target] = useState("");
+    const [editIsActive, set编辑IsActive] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
 
     const { token } = useAuth();
@@ -91,13 +91,13 @@ export default function NotificationForwardersPage() {
         }
     };
 
-    const startEdit = (forwarder: ForwarderItem) => {
-        setEditingForwarder(forwarder);
-        setEditTarget(forwarder.target);
-        setEditIsActive(forwarder.isActive);
+    const start编辑 = (forwarder: ForwarderItem) => {
+        set编辑ingForwarder(forwarder);
+        set编辑Target(forwarder.target);
+        set编辑IsActive(forwarder.isActive);
     };
 
-    const saveEdit = async () => {
+    const save编辑 = async () => {
         if (!token || !editingForwarder) return;
         setIsSaving(true);
 
@@ -112,7 +112,7 @@ export default function NotificationForwardersPage() {
 
             setItems((old) => old.map((i) => i.id === editingForwarder.id ? { ...i, target: editTarget, isActive: editIsActive } : i));
 
-            setEditingForwarder(null);
+            set编辑ingForwarder(null);
         } catch (err) {
             console.error(err);
             alert("Failed to update forwarder");
@@ -121,8 +121,8 @@ export default function NotificationForwardersPage() {
         }
     };
 
-    const cancelEdit = () => {
-        setEditingForwarder(null);
+    const cancel编辑 = () => {
+        set编辑ingForwarder(null);
     };
 
     const getTopicTitle = (topicId: string) => {
@@ -131,18 +131,18 @@ export default function NotificationForwardersPage() {
 
     return (
         <>
-            <div className="flex items-center justify-between mb-4">
-                <h1 className="text-3xl font-semibold">Forwarders</h1>
-                <Button onClick={() => setNewForwarderDialogVisible(true)}>Add forwarder</Button>
+            <div class名称="flex items-center justify-between mb-4">
+                <h1 class名称="text-3xl font-semibold">Forwarders</h1>
+                <Button onClick={() => setNewForwarderDialogVisible(true)}>添加 forwarder</Button>
             </div>
 
-            <div className="space-y-4">
+            <div class名称="space-y-4">
                 {/* Topic chips */}
-                <div className="flex gap-2 overflow-x-auto mb-4">
+                <div class名称="flex gap-2 overflow-x-auto mb-4">
                     <button
                         key="all"
                         onClick={() => setActiveTopic(null)}
-                        className={cn(
+                        class名称={cn(
                             "px-4 py-2 rounded-xl text-sm transition whitespace-nowrap",
                             activeTopic === null
                                 ? "bg-white/20 backdrop-blur-md text-white border border-(--primary)"
@@ -156,7 +156,7 @@ export default function NotificationForwardersPage() {
                         <button
                             key={t.id}
                             onClick={() => setActiveTopic(t.id)}
-                            className={cn(
+                            class名称={cn(
                                 "px-4 py-2 rounded-xl text-sm transition whitespace-nowrap",
                                 activeTopic === t.id
                                     ? "bg-white/20 backdrop-blur-md text-white border border-(--primary)"
@@ -170,7 +170,7 @@ export default function NotificationForwardersPage() {
 
                 {/* Table */}
                 {filtered.length === 0 ? (
-                    <div className="text-center py-8 text-gray-400">
+                    <div class名称="text-center py-8 text-gray-400">
                         No forwarders configured
                     </div>
                 ) : (
@@ -179,9 +179,9 @@ export default function NotificationForwardersPage() {
                             <TableRow>
                                 <TableHead>Topic</TableHead>
                                 <TableHead>Target</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead>Created</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
+                                <TableHead>状态</TableHead>
+                                <TableHead>创建d</TableHead>
+                                <TableHead class名称="text-right">操作</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -190,13 +190,13 @@ export default function NotificationForwardersPage() {
                                     <TableCell>
                                         {getTopicTitle(fwd.topic.id)}
                                     </TableCell>
-                                    <TableCell className="font-mono text-xs">
+                                    <TableCell class名称="font-mono text-xs">
                                         {editingForwarder?.id === fwd.id ? (
                                             <input
                                                 type="text"
                                                 value={editTarget}
-                                                onChange={(e) => setEditTarget(e.target.value)}
-                                                className="w-full bg-white/10 border border-white/20 rounded px-2 py-1"
+                                                onChange={(e) => set编辑Target(e.target.value)}
+                                                class名称="w-full bg-white/10 border border-white/20 rounded px-2 py-1"
                                             />
                                         ) : (
                                             <span title={fwd.target}>{mask(fwd.target)}</span>
@@ -204,16 +204,16 @@ export default function NotificationForwardersPage() {
                                     </TableCell>
                                     <TableCell>
                                         {editingForwarder?.id === fwd.id ? (
-                                            <label className="inline-flex items-center gap-2">
+                                            <label class名称="inline-flex items-center gap-2">
                                                 <input
                                                     type="checkbox"
                                                     checked={editIsActive}
-                                                    onChange={(e) => setEditIsActive(e.target.checked)}
+                                                    onChange={(e) => set编辑IsActive(e.target.checked)}
                                                 />
-                                                <span className="text-xs">Active</span>
+                                                <span class名称="text-xs">Active</span>
                                             </label>
                                         ) : (
-                                            <span className={cn(
+                                            <span class名称={cn(
                                                 "inline-block px-2 py-1 rounded text-xs",
                                                 fwd.isActive ? "bg-green-500/20 text-green-300" : "bg-red-500/20 text-red-300"
                                             )}>
@@ -224,29 +224,29 @@ export default function NotificationForwardersPage() {
                                     <TableCell>
                                         {fmt(fwd.created)}
                                     </TableCell>
-                                    <TableCell className="text-right">
+                                    <TableCell class名称="text-right">
                                         {editingForwarder?.id === fwd.id ? (
-                                            <div className="flex gap-2 justify-end">
+                                            <div class名称="flex gap-2 justify-end">
                                                 <button
-                                                    onClick={saveEdit}
+                                                    onClick={save编辑}
                                                     disabled={isSaving}
-                                                    className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs hover:bg-blue-500/30"
+                                                    class名称="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs hover:bg-blue-500/30"
                                                 >
-                                                    {isSaving ? "Saving..." : "Save"}
+                                                    {isSaving ? "Saving..." : "保存"}
                                                 </button>
                                                 <button
-                                                    onClick={cancelEdit}
-                                                    className="px-2 py-1 bg-gray-500/20 text-gray-300 rounded text-xs hover:bg-gray-500/30"
+                                                    onClick={cancel编辑}
+                                                    class名称="px-2 py-1 bg-gray-500/20 text-gray-300 rounded text-xs hover:bg-gray-500/30"
                                                 >
-                                                    Cancel
+                                                    取消
                                                 </button>
                                             </div>
                                         ) : (
-                                            <ForwarderActionsMenu
+                                            <Forwarder操作Menu
                                                 forwarderId={fwd.id}
                                                 target={fwd.target}
-                                                onEdit={() => startEdit(fwd)}
-                                                onDelete={() => deleteForwarder(fwd.id)}
+                                                on编辑={() => start编辑(fwd)}
+                                                on删除={() => deleteForwarder(fwd.id)}
                                                 onCopy={() => copy(fwd.target)}
                                             />
                                         )}
@@ -258,11 +258,11 @@ export default function NotificationForwardersPage() {
                 )}
             </div>
 
-            <CreateForwarderDialogComponent
+            <创建ForwarderDialogComponent
                 open={newForwarderDialogVisible}
                 onOpenChange={setNewForwarderDialogVisible}
                 topics={topics.map((t) => ({ id: t.id, title: t.title ?? t.id }))}
-                onForwarderCreated={(newItem) => {
+                onForwarder创建d={(newItem) => {
                     setItems((old) => [...old, newItem]);
                 }}
             />
@@ -270,41 +270,41 @@ export default function NotificationForwardersPage() {
     );
 }
 
-function ForwarderActionsMenu({
+function Forwarder操作Menu({
     forwarderId,
     target,
-    onEdit,
-    onDelete,
+    on编辑,
+    on删除,
     onCopy,
 }: {
     forwarderId: string;
     target: string;
-    onEdit: () => void;
-    onDelete: () => void;
+    on编辑: () => void;
+    on删除: () => void;
     onCopy: () => void;
 }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                    <MoreHorizontal className="h-4 w-4" />
+                <Button variant="ghost" size="sm" class名称="h-8 w-8 p-0">
+                    <MoreHorizontal class名称="h-4 w-4" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuContent align="end" class名称="w-48">
+                <DropdownMenuLabel>操作</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={onEdit} className="cursor-pointer">
-                    <Edit2 className="mr-2 h-4 w-4" />
-                    Edit
+                <DropdownMenuItem onClick={on编辑} class名称="cursor-pointer">
+                    <编辑2 class名称="mr-2 h-4 w-4" />
+                    编辑
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={onCopy} className="cursor-pointer">
-                    <Copy className="mr-2 h-4 w-4" />
+                <DropdownMenuItem onClick={onCopy} class名称="cursor-pointer">
+                    <Copy class名称="mr-2 h-4 w-4" />
                     Copy Target
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={onDelete} className="cursor-pointer text-red-400">
-                    <Trash2 className="mr-2 h-4 w-4" />
-                    Delete
+                <DropdownMenuItem onClick={on删除} class名称="cursor-pointer text-red-400">
+                    <Trash2 class名称="mr-2 h-4 w-4" />
+                    删除
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

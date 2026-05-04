@@ -96,33 +96,33 @@ export default function ClockFontSelectionCarousel() {
 
   if (!fonts.length) {
     return (
-      <div className="text-sm text-muted-foreground">
+      <div class名称="text-sm text-muted-foreground">
         No fonts found in <code>/public/fonts/index.json</code>
       </div>
     );
   }
 
   return (
-    <div className="space-y-3 flex items-center justify-center">
-      <PaginatedCarouselViewComponent minColWidth={180} rowHeight={120} maxRows={1} className="w-full">
+    <div class名称="space-y-3 flex items-center justify-center">
+      <PaginatedCarouselViewComponent minColWidth={180} rowHeight={120} maxRows={1} class名称="w-full">
         {fonts.map((font) => (
           <button
             key={font.name}
             onClick={() => handleSelect(font)}
-            className={`rounded-xl p-4 text-center transition-all border-2 ${selected === font.name
+            class名称={`rounded-xl p-4 text-center transition-all border-2 ${selected === font.name
                 ? "border-[var(--primary)] shadow-lg"
                 : "border-transparent hover:border-[var(--primary)]/50"
               }`}
           >
             <div
-              className="text-4xl font-semibold leading-none"
+              class名称="text-4xl font-semibold leading-none"
               style={{
                 fontFamily: font.name !== "Default" ? `"${font.name}", system-ui` : undefined,
               }}
             >
               12:45
             </div>
-            <div className="text-sm mt-2">{font.name}</div>
+            <div class名称="text-sm mt-2">{font.name}</div>
           </button>
         ))}
       </PaginatedCarouselViewComponent>

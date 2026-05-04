@@ -6,7 +6,7 @@ import * as SeparatorPrimitive from "@radix-ui/react-separator"
 import { cn } from "@/lib/utils"
 
 function Separator({
-  className,
+  class名称,
   orientation = "horizontal",
   decorative = true,
   ...props
@@ -16,9 +16,9 @@ function Separator({
       data-slot="separator"
       decorative={decorative}
       orientation={orientation}
-      className={cn(
+      class名称={cn(
         "bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px",
-        className
+        class名称
       )}
       {...props}
     />

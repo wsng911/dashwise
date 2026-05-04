@@ -7,8 +7,8 @@ interface Config {
   version: string;
   allowInsecureCertsForIntegrationUrls: boolean;
   enableSSO: boolean;
-  pbAdminEmail: string;
-  pbAdminPassword: string;
+  pbAdmin邮箱: string;
+  pbAdmin密码: string;
   disableUserSignup: boolean;
 }
 const allowInsecureCertsForIntegrationUrls =
@@ -33,8 +33,8 @@ const config: Config = {
   version: '0.5',
   allowInsecureCertsForIntegrationUrls: allowInsecureCertsForIntegrationUrls || false,
   enableSSO: enableSSOLogin,
-  pbAdminEmail: process.env.PB_ADMIN_EMAIL || "",
-  pbAdminPassword: process.env.PB_ADMIN_PASSWORD || "",
+  pbAdmin邮箱: process.env.PB_ADMIN_EMAIL || "",
+  pbAdmin密码: process.env.PB_ADMIN_PASSWORD || "",
   disableUserSignup: disableUserSignup
 };
 

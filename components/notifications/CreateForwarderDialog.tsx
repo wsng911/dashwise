@@ -24,19 +24,19 @@ export type ForwarderItem = {
   updated?: string | null;
 };
 
-type CreateForwarderDialogProps = {
+type 创建ForwarderDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   topics: Topic[];
-  onForwarderCreated?: (newItem: ForwarderItem) => void;
+  onForwarder创建d?: (newItem: ForwarderItem) => void;
 };
 
-export default function CreateForwarderDialogComponent({
+export default function 创建ForwarderDialogComponent({
   open,
   onOpenChange,
   topics,
-  onForwarderCreated,
-}: CreateForwarderDialogProps) {
+  onForwarder创建d,
+}: 创建ForwarderDialogProps) {
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const [target, setTarget] = useState("");
   const [isActive, setIsActive] = useState(true);
@@ -48,7 +48,7 @@ export default function CreateForwarderDialogComponent({
     setSelectedTopic(topic);
   };
 
-  const handleCreate = async () => {
+  const handle创建 = async () => {
     if (!selectedTopic || !target) {
       alert("Please select a topic and enter a target");
       return;
@@ -67,7 +67,7 @@ export default function CreateForwarderDialogComponent({
       setIsActive(true);
       onOpenChange(false);
 
-      onForwarderCreated?.(json.item);
+      onForwarder创建d?.(json.item);
     } catch (err) {
       console.error(err);
       alert("Failed to create forwarder");
@@ -78,14 +78,14 @@ export default function CreateForwarderDialogComponent({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="frosted text-foreground">
+      <DialogContent class名称="frosted text-foreground">
         <DialogHeader>
           <DialogTitle>New Forwarder</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Topic</label>
+        <div class名称="space-y-4">
+          <div class名称="space-y-2">
+            <label class名称="text-sm font-medium">Topic</label>
             <TopicCombobox
               topics={topics}
               value={selectedTopic}
@@ -93,25 +93,25 @@ export default function CreateForwarderDialogComponent({
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Shoutrrr Target</label>
+          <div class名称="space-y-2">
+            <label class名称="text-sm font-medium">Shoutrrr Target</label>
             <Input
               placeholder="e.g., discord://webhook-url or slack://token/channel"
               value={target}
               onChange={(e) => setTarget(e.target.value)}
             />
-            <a className="text-xs text-gray-400 mt-1 hover:text-foreground" href="https://shoutrrr.nickfedor.com/">
+            <a class名称="text-xs text-gray-400 mt-1 hover:text-foreground" href="https://shoutrrr.nickfedor.com/">
               For more info, visit Shoutrrr's docs
             </a>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div class名称="flex items-center space-x-2">
             <Checkbox
               id="isActive"
               checked={isActive}
               onCheckedChange={(checked) => setIsActive(checked as boolean)}
             />
-            <label htmlFor="isActive" className="text-sm font-medium">
+            <label htmlFor="isActive" class名称="text-sm font-medium">
               Active
             </label>
           </div>
@@ -119,10 +119,10 @@ export default function CreateForwarderDialogComponent({
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
+            取消
           </Button>
-          <Button onClick={handleCreate} disabled={creating}>
-            {creating ? "Creating..." : "Create Forwarder"}
+          <Button onClick={handle创建} disabled={creating}>
+            {creating ? "Creating..." : "创建 Forwarder"}
           </Button>
         </DialogFooter>
       </DialogContent>

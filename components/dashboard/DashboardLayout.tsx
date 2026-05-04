@@ -2,22 +2,22 @@
 
 import { useConfig } from "@/context/ConfigContext";
 import ClockWidget from "../widgets/ClockWidget";
-import SearchBar from "../widgets/SearchBar";
+import 搜索Bar from "../widgets/搜索Bar";
 import LinkView from "../widgets/LinkView";
 import GlanceableComponent from "../glanceables/Glanceable";
 import { useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, use搜索Params } from "next/navigation";
 import BottomNavbar from "./BottomNavbar";
 import useAuth from "@/context/useAuth";
 import Screensaver from "./Screensaver";
 import WidgetComponent from "../widgets/Widget";
 
-export default function DashboardLayoutComponent(
+export default function 仪表盘LayoutComponent(
   children: React.PropsWithChildren<{}> = {}
 ) {
   const { config } = useConfig();
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = use搜索Params();
   const openFromURL = searchParams.get("search") === "1";
   const [isScreensaverActive, setScreensaverActive] = useState(false);
 
@@ -217,7 +217,7 @@ export default function DashboardLayoutComponent(
     };
 
 
-    const onTouchCancel = () => {
+    const onTouch取消 = () => {
       const width = el.clientWidth || window.innerWidth;
       const idx = Math.round(el.scrollLeft / width);
       el.scrollTo({ left: idx * width, behavior: "smooth" });
@@ -226,12 +226,12 @@ export default function DashboardLayoutComponent(
 
     el.addEventListener("touchstart", onTouchStart, { passive: true });
     el.addEventListener("touchend", onTouchEnd, { passive: true });
-    el.addEventListener("touchcancel", onTouchCancel, { passive: true });
+    el.addEventListener("touchcancel", onTouch取消, { passive: true });
 
     return () => {
       el.removeEventListener("touchstart", onTouchStart);
       el.removeEventListener("touchend", onTouchEnd);
-      el.removeEventListener("touchcancel", onTouchCancel);
+      el.removeEventListener("touchcancel", onTouch取消);
       if (rafId) cancelAnimationFrame(rafId);
       if (timeoutId) clearTimeout(timeoutId);
     };
@@ -244,7 +244,7 @@ export default function DashboardLayoutComponent(
         key={widget.id || `${widget.type}-${index}`}
         type={widget.type}
         params={widget.properties}
-        className={`mb-3.5 ${widget.type === "placeholder" ? "hidden md:block md:invisible md:h-[92px]" : ""}`}
+        class名称={`mb-3.5 ${widget.type === "placeholder" ? "hidden md:block md:invisible md:h-[92px]" : ""}`}
       />
     ));
   };
@@ -253,11 +253,11 @@ export default function DashboardLayoutComponent(
   return (
     <>
       <Screensaver active={isScreensaverActive} onExit={() => setScreensaverActive(false)} />
-      <div className="grid grid-rows-[minmax(0,1fr)_36px] h-dvh pt-5 md:p-3.5 p-0 overflow-x-hidden text-(--surface-foreground) bg-(--surface)">
+      <div class名称="grid grid-rows-[minmax(0,1fr)_36px] h-dvh pt-5 md:p-3.5 p-0 overflow-x-hidden text-(--surface-foreground) bg-(--surface)">
         <main
           id="page-content-container"
           ref={containerRef}
-          className="
+          class名称="
           /* mobile: horizontal swipe panels */
           flex snap-x snap-mandatory overflow-x-auto touch-pan-x overflow-y-auto scrollbar-hidden md:scrollbar-auto md:overflow-x-hidden
           md:grid md:grid-cols-[25%_1fr_25%] min-h-0
@@ -265,18 +265,18 @@ export default function DashboardLayoutComponent(
         >
           <div
             id="left-widget-panel"
-            className="flex-shrink-0 w-screen snap-start md:w-auto md:basis-auto space-y-3.5 overflow-y-visible min-w-0 min-h-0 h-fit p-1"
+            class名称="flex-shrink-0 w-screen snap-start md:w-auto md:basis-auto space-y-3.5 overflow-y-visible min-w-0 min-h-0 h-fit p-1"
             style={{ scrollSnapStop: "always", touchAction: "pan-x" }}
           >
             {renderWidgetColumn(config?.widgets?.[0])}
           </div>
 
-          <div className="flex-shrink-0 w-screen snap-start md:w-auto md:basis-auto space-y-3.5 overflow-x-hidden min-w-0 min-h-0 h-fit p-1" style={{ scrollSnapStop: "always", touchAction: "pan-x" }}>
-            <section className="responsive-glance-grid w-full">
+          <div class名称="flex-shrink-0 w-screen snap-start md:w-auto md:basis-auto space-y-3.5 overflow-x-hidden min-w-0 min-h-0 h-fit p-1" style={{ scrollSnapStop: "always", touchAction: "pan-x" }}>
+            <section class名称="responsive-glance-grid w-full">
               {/* Clock (grid-area: clock) */}
               <div
                 style={{ gridArea: "clock" }}
-                className="area-clock w-full flex items-center justify-center text-2xl md:text-4xl leading-tight"
+                class名称="area-clock w-full flex items-center justify-center text-2xl md:text-4xl leading-tight"
               >
                 {/* ensure the widget itself is centered, even if it renders full-width elements */}
                 <div style={{ margin: "0 auto", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
@@ -288,32 +288,32 @@ export default function DashboardLayoutComponent(
 
 
               {/* Left glanceable (grid-area: gl1) */}
-              <div style={{ gridArea: "gl1" }} className="area-gl1">
+              <div style={{ gridArea: "gl1" }} class名称="area-gl1">
                 <GlanceableComponent
                   type={config?.glanceables?.[0]?.type}
                   params={config?.glanceables?.[0]?.properties}
-                  className="font-medium"
+                  class名称="font-medium"
                 />
               </div>
 
               {/* Right glanceable (grid-area: gl2) */}
-              <div style={{ gridArea: "gl2" }} className="area-gl2">
+              <div style={{ gridArea: "gl2" }} class名称="area-gl2">
                 <GlanceableComponent
                   type={config?.glanceables?.[1]?.type}
                   params={config?.glanceables?.[1]?.properties}
-                  className="font-medium"
+                  class名称="font-medium"
                 />
               </div>
             </section>
 
-            <SearchBar useRedirect={true} defaultOpen={openFromURL ?? false}/>
+            <搜索Bar useRedirect={true} defaultOpen={openFromURL ?? false}/>
             <LinkView />
             {/* Render middle column widgets */}
             {renderWidgetColumn(config?.widgets?.[1])}
           </div>
           <div
             id="right-widget-panel"
-            className="flex-shrink-0 w-screen snap-start md:w-auto md:basis-auto space-y-3.5 overflow-y-visible min-w-0 min-h-0 h-fit p-1"
+            class名称="flex-shrink-0 w-screen snap-start md:w-auto md:basis-auto space-y-3.5 overflow-y-visible min-w-0 min-h-0 h-fit p-1"
             style={{ scrollSnapStop: "always", touchAction: "pan-x" }}
           >
             {renderWidgetColumn(config?.widgets?.[2])}

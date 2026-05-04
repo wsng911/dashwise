@@ -1,9 +1,9 @@
 "use client";
-import DashboardLayoutComponent from "@/components/dashboard/DashboardLayout";
+import 仪表盘LayoutComponent from "@/components/dashboard/仪表盘Layout";
 
-export default function DashboardPage() {
+export default function 仪表盘Page() {
 
     return (
-        <DashboardLayoutComponent />
+        <仪表盘LayoutComponent />
     );
 }

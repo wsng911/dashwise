@@ -3,7 +3,7 @@
 import {
     Dialog,
     DialogContent,
-    DialogClose,
+    Dialog关闭,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -81,18 +81,18 @@ export default function ImportConfigDialog() {
 
     return (
         <Dialog>
-            <DialogTrigger className="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
+            <DialogTrigger class名称="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
                 <FontAwesomeIcon icon={faUpload} />
-                <p className="text-left">Import Another Config</p>
+                <p class名称="text-left">Import Another Config</p>
                 <FontAwesomeIcon icon={faCaretRight} />
             </DialogTrigger>
 
-            <DialogContent className="frosted text-foreground">
+            <DialogContent class名称="frosted text-foreground">
                 <DialogHeader>
                     <DialogTitle>Import Config</DialogTitle>
                 </DialogHeader>
 
-                <div className="space-y-4">
+                <div class名称="space-y-4">
                     <Label htmlFor="config-file">Config File</Label>
                     <Input
                         id="config-file"
@@ -107,20 +107,20 @@ export default function ImportConfigDialog() {
 
                 <textarea
                     rows={40}
-                    className="bg-gray-900 p-4 rounded text-sm overflow-auto max-h-96 font-mono"
+                    class名称="bg-gray-900 p-4 rounded text-sm overflow-auto max-h-96 font-mono"
                     value={raw}
                     onChange={(e) => parseText(e.target.value)}
                     disabled={isUploading}
                 />
 
                 {message && (
-                    <div className="text-sm text-muted-foreground">{message}</div>
+                    <div class名称="text-sm text-muted-foreground">{message}</div>
                 )}
 
                 <DialogFooter>
-                    <DialogClose asChild>
-                        <Button variant="outline">Close</Button>
-                    </DialogClose>
+                    <Dialog关闭 asChild>
+                        <Button variant="outline">关闭</Button>
+                    </Dialog关闭>
                     <Button disabled={isUploading} onClick={handleUpload}>Upload JSON</Button>
                 </DialogFooter>
             </DialogContent>

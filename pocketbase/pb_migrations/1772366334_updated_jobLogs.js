@@ -1,6 +1,6 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((app) => {
-  const collection = app.findCollectionByNameOrId("pbc_1213242595")
+  const collection = app.findCollectionBy名称OrId("pbc_1213242595")
 
   // update field
   collection.fields.addAt(3, new Field({
@@ -21,7 +21,7 @@ migrate((app) => {
 
   return app.save(collection)
 }, (app) => {
-  const collection = app.findCollectionByNameOrId("pbc_1213242595")
+  const collection = app.findCollectionBy名称OrId("pbc_1213242595")
 
   // update field
   collection.fields.addAt(3, new Field({

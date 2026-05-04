@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, Card描述, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import config from "@/lib/config"
 import { useEffect, useState } from "react"
@@ -30,29 +30,29 @@ export default function AuthWelcomeFormComponent() {
     }, [router]);
 
     return (
-        <Card className="w-full max-w-sm frosted text-foreground">
+        <Card class名称="w-full max-w-sm frosted text-foreground">
             <CardHeader>
                 <CardTitle>Welcome to Dashwise</CardTitle>
-                <CardDescription className="text-muted-foreground">
+                <Card描述 class名称="text-muted-foreground">
                     Choose how you’d like to sign in.
-                </CardDescription>
+                </Card描述>
             </CardHeader>
 
-            <CardContent className="flex flex-col gap-3">
+            <CardContent class名称="flex flex-col gap-3">
                 {(enableSSO === true) && (
-                    <Button className="w-full" onClick={() => router.push("/api/v1/auth/sso")}>
+                    <Button class名称="w-full" onClick={() => router.push("/api/v1/auth/sso")}>
                         Continue with SSO
                     </Button>
                 )}
 
                 <Button
-                    className="w-full"
+                    class名称="w-full"
                     variant={enableSSO === true ? "outline" : "default"}
                     onClick={() => router.push("/auth/login")}
                 >
                     Login
                 </Button>
-                <Button variant="outline" className="w-full" onClick={() => router.push("/auth/signup")}>
+                <Button variant="outline" class名称="w-full" onClick={() => router.push("/auth/signup")}>
                     Sign Up
                 </Button>
             </CardContent>

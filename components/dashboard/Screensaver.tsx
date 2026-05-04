@@ -50,7 +50,7 @@ export default function Screensaver({ active, onExit }: { active: boolean; onExi
 
   return (
     <div
-      className="fixed inset-0 bg-black backdrop-blur-xl z-[100] flex items-center justify-center"
+      class名称="fixed inset-0 bg-black backdrop-blur-xl z-[100] flex items-center justify-center"
       onClick={onExit}
     >
       <ClockWidget 
@@ -58,7 +58,7 @@ export default function Screensaver({ active, onExit }: { active: boolean; onExi
         weight={clockFontWeight.startsWith('font-') ? clockFontWeight.split('-')[1] : clockFontWeight}
         color={color}
         style={{ fontSize: `${size}rem` }}
-        className="p-0"
+        class名称="p-0"
       />
     </div>
   );

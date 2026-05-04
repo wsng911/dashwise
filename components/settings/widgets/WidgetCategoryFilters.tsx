@@ -14,10 +14,10 @@ export default function WidgetCategoryFilters({
   onCategorySelect,
 }: WidgetCategoryFiltersProps) {
   return (
-    <div className="flex gap-2">
+    <div class名称="flex gap-2">
       <button
         onClick={() => onCategorySelect(null)}
-        className={cn(
+        class名称={cn(
           "px-4 py-2 rounded-xl text-sm font-medium transition",
           selectedCategory === null
             ? "bg-white/20 backdrop-blur-md text-white border border-(--primary)"
@@ -30,7 +30,7 @@ export default function WidgetCategoryFilters({
         <button
           key={cat}
           onClick={() => onCategorySelect(cat)}
-          className={cn(
+          class名称={cn(
             "px-4 py-2 rounded-xl text-sm font-medium transition",
             selectedCategory === cat
               ? "bg-white/20 backdrop-blur-md text-white border border-(--primary)"

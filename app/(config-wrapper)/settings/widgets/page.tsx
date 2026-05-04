@@ -25,7 +25,7 @@ import {
 import { SortableWidget } from "@/components/settings/widgets/SortableWidget";
 import { LibraryDraggable } from "@/components/settings/widgets/LibraryDraggable";
 import { DroppableColumn } from "@/components/settings/widgets/DroppableColumn";
-import WidgetEditDialog from "@/components/settings/widgets/EditWidgetDialog";
+import Widget编辑Dialog from "@/components/settings/widgets/编辑WidgetDialog";
 
 export interface Widget {
   id: string;
@@ -55,7 +55,7 @@ function generateWidgetId(): string {
   return Math.random().toString(36).substring(2, 15);
 }
 
-export default function WidgetsSettingsPage() {
+export default function Widgets设置Page() {
   const { config, refreshConfig } = useConfig();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [dropZones, setDropZones] = useState<DropZones>({ left: [], middle: [], right: [] });
@@ -103,15 +103,15 @@ export default function WidgetsSettingsPage() {
         filtered[category] = widgets;
         continue;
       }
-      const integrationName = category.split(":")[1];
-      if (config.integrations[integrationName]) {
+      const integration名称 = category.split(":")[1];
+      if (config.integrations[integration名称]) {
         filtered[category] = widgets;
       }
     }
     return filtered;
   }, [config?.integrations, widgetsData]);
 
-  const isEditable = (type: string) => {
+  const is编辑able = (type: string) => {
     return Object.values(filteredWidgetsData)
       .flat()
       .some((w) => w.slug === type && w.properties && Object.keys(w.properties).length > 0);
@@ -245,11 +245,11 @@ export default function WidgetsSettingsPage() {
     setDragOver(null);
   };
 
-  const topPlaceholders = ["Clock", "Search", "Links"];
+  const topPlaceholders = ["Clock", "搜索", "Links"];
 
   return (
-    <section className="space-y-4">
-      <h1 className="text-2xl font-semibold">Widgets</h1>
+    <section class名称="space-y-4">
+      <h1 class名称="text-2xl font-semibold">Widgets</h1>
 
       <DndContext
         sensors={sensors}
@@ -259,10 +259,10 @@ export default function WidgetsSettingsPage() {
         onDragEnd={handleDragEnd}
       >
         {/* main layout */}
-        <div className="grid grid-cols-[25%_1fr_25%] gap-2 p-2 h-[500px] bg-(--surface) rounded-lg frosted">
+        <div class名称="grid grid-cols-[25%_1fr_25%] gap-2 p-2 h-[500px] bg-(--surface) rounded-lg frosted">
           {(["left", "middle", "right"] as const).map((zoneKey) => (
             <SortableContext key={zoneKey} items={dropZones[zoneKey].map((w) => w.id)} strategy={verticalListSortingStrategy}>
-              <DroppableColumn id={`${zoneKey}-container`} className="flex flex-col gap-2">
+              <DroppableColumn id={`${zoneKey}-container`} class名称="flex flex-col gap-2">
                 {zoneKey === "middle" &&
                   topPlaceholders.map((p) => {
                     const h =
@@ -275,17 +275,17 @@ export default function WidgetsSettingsPage() {
                     return (
                       <div
                         key={p}
-                        className={`frosted rounded-md p-2 flex items-center justify-center ${h}`}
+                        class名称={`frosted rounded-md p-2 flex items-center justify-center ${h}`}
                       >
-                        <span className="text-sm">{p}</span>
+                        <span class名称="text-sm">{p}</span>
                       </div>
                     );
                   })}
                 {dropZones[zoneKey].map((w, i) => (
                   <div key={w.id}>
                     {dragOver && dragOver.zone === zoneKey && dragOver.index === i && activeWidgetInfo && (
-                      <div className="relative">
-                        <div className="opacity-80 border-2 border-dashed border-blue-300 rounded-lg overflow-hidden">
+                      <div class名称="relative">
+                        <div class名称="opacity-80 border-2 border-dashed border-blue-300 rounded-lg overflow-hidden">
                           <WidgetComponent
                             type={"slug" in activeWidgetInfo ? activeWidgetInfo.slug : (activeWidgetInfo as Widget).type}
                             params={
@@ -293,7 +293,7 @@ export default function WidgetsSettingsPage() {
                                 ? (activeWidgetInfo as WidgetInfo).exampleProps || {}
                                 : (activeWidgetInfo as Widget).properties || {}
                             }
-                            className="h-[90px] w-full"
+                            class名称="h-[90px] w-full"
                           />
                         </div>
                       </div>
@@ -301,8 +301,8 @@ export default function WidgetsSettingsPage() {
                     <SortableWidget
                       widget={w}
                       activeId={activeId}
-                      onEdit={isEditable(w.type) ? () => editWidget(w, zoneKey) : undefined}
-                      onRemove={() => removeWidget(zoneKey, i)}
+                      on编辑={is编辑able(w.type) ? () => editWidget(w, zoneKey) : undefined}
+                      on移除={() => removeWidget(zoneKey, i)}
                     />
                   </div>
                 ))}
@@ -313,7 +313,7 @@ export default function WidgetsSettingsPage() {
 
         <DragOverlay>
           {activeWidgetInfo && (
-            <div className="rounded-lg h-[90px] flex items-center justify-center">
+            <div class名称="rounded-lg h-[90px] flex items-center justify-center">
               <WidgetComponent
                 type={"slug" in activeWidgetInfo ? activeWidgetInfo.slug : (activeWidgetInfo as Widget).type}
                 params={
@@ -321,7 +321,7 @@ export default function WidgetsSettingsPage() {
                     ? (activeWidgetInfo as WidgetInfo).exampleProps || {}
                     : (activeWidgetInfo as Widget).properties || {}
                 }
-                className="h-[90px] w-full opacity-95"
+                class名称="h-[90px] w-full opacity-95"
               />
             </div>
           )}
@@ -333,17 +333,17 @@ export default function WidgetsSettingsPage() {
           onCategorySelect={setSelectedCategory}
         />
 
-        <ul className="grid gap-4 overflow-x-scroll" style={{ gridTemplateColumns: `repeat(${displayedWidgets.length}, 220px)` }}>
+        <ul class名称="grid gap-4 overflow-x-scroll" style={{ gridTemplateColumns: `repeat(${displayedWidgets.length}, 220px)` }}>
           {displayedWidgets.map((w, i) => (
             <LibraryDraggable key={`${w.slug}-${i}`} info={w} index={i} />
           ))}
         </ul>
       </DndContext>
-      <WidgetEditDialog
+      <Widget编辑Dialog
         open={dialogOpen}
         widget={selectedWidget}
-        onClose={() => setDialogOpen(false)}
-        onSave={(updated) => {
+        on关闭={() => setDialogOpen(false)}
+        on保存={(updated) => {
           if (!dropZoneTarget || !updated) return;
 
           const newZones = { ...dropZones };

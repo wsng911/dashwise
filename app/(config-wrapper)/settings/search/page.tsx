@@ -16,21 +16,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-  DialogClose,
+  Dialog关闭,
 } from "@/components/ui/dialog";
 import { Plus, MoreHorizontal } from "lucide-react";
 import { useConfig } from "@/context/ConfigContext";
-import SearchEngineDetailsForm from "@/components/settings/SearchEngineDetailsForm";
+import 搜索EngineDetailsForm from "@/components/settings/搜索EngineDetailsForm";
 import TabSwitcher from "@/components/common/TabSwitcher";
-import SearchEngineBrowseFeedComponent from "@/components/settings/SearchEngineBrowseFeed";
+import 搜索EngineBrowseFeedComponent from "@/components/settings/搜索EngineBrowseFeed";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Select, SelectValue, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { write } from "fs";
 
-export default function SearchSettingsPage() {
+export default function 搜索设置Page() {
   const { config, refreshConfig } = useConfig();
-  const [engines, setEngines] = useState<SearchEngine[]>(config?.searchEngines || []);
+  const [engines, setEngines] = useState<搜索Engine[]>(config?.searchEngines || []);
   const [activeTab, setActiveTab] = useState("manual");
 
   // sync when config changes
@@ -39,14 +39,14 @@ export default function SearchSettingsPage() {
   }, [config?.searchEngines]);
 
   const handleOpenChange = (open: boolean) => {
-    setCreateOpen(open);
+    set创建Open(open);
     if (!open) {
       // Small delay to reset tab so it looks fresh next time
       setTimeout(() => setActiveTab("manual"), 200);
     }
   };
 
-  async function persistEngines(updated: SearchEngine[]) {
+  async function persistEngines(updated: 搜索Engine[]) {
     // update local state immediately for snappy UI
     setEngines(updated);
 
@@ -101,59 +101,59 @@ export default function SearchSettingsPage() {
   }
 
   // create/edit dialog state
-  const [createOpen, setCreateOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
-  const [editingEngine, setEditingEngine] = useState<SearchEngine | null>(null);
+  const [createOpen, set创建Open] = useState(false);
+  const [editOpen, set编辑Open] = useState(false);
+  const [editingEngine, set编辑ingEngine] = useState<搜索Engine | null>(null);
 
   const createFormId = "se-create-form";
   const editFormId = "se-edit-form";
 
   return (
     <>
-      <h1 className="text-2xl font-semibold mb-4">Search</h1>
-      <div className="content space-y-4 flex flex-col gap-2">
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold mb-2">Search engines</h2>
-          <div className="flex items-center gap-2">
-            <Button onClick={() => setCreateOpen(true)}>
-              <Plus className="mr-2 h-4 w-4" /> Add
+      <h1 class名称="text-2xl font-semibold mb-4">搜索</h1>
+      <div class名称="content space-y-4 flex flex-col gap-2">
+        <div class名称="flex justify-between items-center">
+          <h2 class名称="text-xl font-semibold mb-2">搜索 engines</h2>
+          <div class名称="flex items-center gap-2">
+            <Button onClick={() => set创建Open(true)}>
+              <Plus class名称="mr-2 h-4 w-4" /> 添加
             </Button>
           </div>
         </div>
 
-        <div className="grid gap-4">
+        <div class名称="grid gap-4">
           {engines.map((engine) => (
             <div
               key={engine.slug}
-              className="frosted rounded-2xl p-4 flex justify-between items-center group"
+              class名称="frosted rounded-2xl p-4 flex justify-between items-center group"
             >
-              <div className="flex items-center gap-4">
-                <img src={engine.icon} alt="" className="w-6 h-6" />
+              <div class名称="flex items-center gap-4">
+                <img src={engine.icon} alt="" class名称="w-6 h-6" />
                 <div>
-                  <h3 className="text-lg font-medium group-hover:text-(--primary)">{engine.name}</h3>
-                  <p className="text-sm text-gray-100">
+                  <h3 class名称="text-lg font-medium group-hover:text-(--primary)">{engine.name}</h3>
+                  <p class名称="text-sm text-gray-100">
                     {engine.url_home} - !{engine.slug} {engine.status === "default" && " - Default engine"}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
+              <div class名称="flex items-center gap-4">
                 <Switch
                   checked={engine.status !== "disabled"}
                   onCheckedChange={() => toggleEngine(engine.slug)}
-                  className="[&>span]:bg-white [&>span[data-state=checked]]:bg-white"
+                  class名称="[&>span]:bg-white [&>span[data-state=checked]]:bg-white"
                 />
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="icon">
-                      <MoreHorizontal className="h-5 w-5" />
+                      <MoreHorizontal class名称="h-5 w-5" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     {engine.status === "default" ? (
                       <DropdownMenuItem onClick={() => removeDefault(engine.slug)}>
-                        Remove default
+                        移除 default
                       </DropdownMenuItem>
                     ) : (
                       <DropdownMenuItem onClick={() => setDefault(engine.slug)}>
@@ -163,14 +163,14 @@ export default function SearchSettingsPage() {
 
                     <DropdownMenuItem
                       onClick={() => {
-                        setEditingEngine(engine);
-                        setEditOpen(true);
+                        set编辑ingEngine(engine);
+                        set编辑Open(true);
                       }}
                     >
-                      Edit
+                      编辑
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-500" onClick={() => deleteEngine(engine.slug)}>
-                      Delete
+                    <DropdownMenuItem class名称="text-red-500" onClick={() => deleteEngine(engine.slug)}>
+                      删除
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -179,31 +179,31 @@ export default function SearchSettingsPage() {
           ))}
         </div>
 
-        {/* Create dialog */}
-        <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-          <DialogContent className="frosted text-white max-w-2xl">
+        {/* 创建 dialog */}
+        <Dialog open={createOpen} onOpenChange={set创建Open}>
+          <DialogContent class名称="frosted text-white max-w-2xl">
             <DialogHeader>
-              <DialogTitle>Add search engine</DialogTitle>
+              <DialogTitle>添加 search engine</DialogTitle>
             </DialogHeader>
 
             <TabSwitcher
               value={activeTab}
               onValueChange={setActiveTab}
-              className="mt-1"
+              class名称="mt-1"
               items={[
                 { value: "manual", label: "Manual" },
                 { value: "browse", label: "Browse" },
               ]}
             />
 
-            <div className="flex-1 min-h-0 relative">
+            <div class名称="flex-1 min-h-0 relative">
               {/* MANUAL MODE */}
               {activeTab === "manual" && (
-                <SearchEngineDetailsForm
+                <搜索EngineDetailsForm
                   formId="create-engine-form"
-                  hideActions
-                  onSaved={async () => {
-                    setCreateOpen(false);
+                  hide操作
+                  on保存d={async () => {
+                    set创建Open(false);
                     // Trigger your refresh/sync logic here
                   }}
                 />
@@ -212,46 +212,46 @@ export default function SearchSettingsPage() {
               {/* BROWSE MODE */}
               {activeTab === "browse" && (
                 // Scroll area wrapper is critical for infinite scroll to work inside a modal
-                <div className="h-[50vh] overflow-y-auto">
-                  <SearchEngineBrowseFeedComponent />
+                <div class名称="h-[50vh] overflow-y-auto">
+                  <搜索EngineBrowseFeedComponent />
                 </div>
               )}
             </div>
 
             {/* 4. Dynamic Footer */}
-            <DialogFooter className="flex justify-end gap-2 mt-4">
-              <DialogClose asChild>
+            <DialogFooter class名称="flex justify-end gap-2 mt-4">
+              <Dialog关闭 asChild>
                 <Button variant="outline">
-                  {activeTab === "browse" ? "Done" : "Cancel"}
+                  {activeTab === "browse" ? "Done" : "取消"}
                 </Button>
-              </DialogClose>
+              </Dialog关闭>
 
-              {/* Only show 'Add' button if in Manual mode (Browse mode has individual add buttons) */}
+              {/* Only show '添加' button if in Manual mode (Browse mode has individual add buttons) */}
               {activeTab === "manual" && (
                 <Button form="create-engine-form" type="submit">
-                  Add
+                  添加
                 </Button>
               )}
             </DialogFooter>
           </DialogContent>
         </Dialog>
 
-        {/* Edit dialog */}
-        <Dialog open={editOpen} onOpenChange={(v) => { setEditOpen(v); if (!v) setEditingEngine(null); }}>
-          <DialogContent className="frosted text-white max-w-2xl">
+        {/* 编辑 dialog */}
+        <Dialog open={editOpen} onOpenChange={(v) => { set编辑Open(v); if (!v) set编辑ingEngine(null); }}>
+          <DialogContent class名称="frosted text-white max-w-2xl">
             <DialogHeader>
-              <DialogTitle>Edit search engine</DialogTitle>
+              <DialogTitle>编辑 search engine</DialogTitle>
             </DialogHeader>
 
             {editingEngine && (
-              <SearchEngineDetailsForm
+              <搜索EngineDetailsForm
                 engine={editingEngine}
                 formId={editFormId}
-                hideActions
-                onSaved={async () => {
+                hide操作
+                on保存d={async () => {
                   // close edit dialog, clear editing engine, refresh and re-sync local engines
-                  setEditOpen(false);
-                  setEditingEngine(null);
+                  set编辑Open(false);
+                  set编辑ingEngine(null);
                   try {
                     await refreshConfig();
                     setEngines(config?.searchEngines || []);
@@ -262,18 +262,18 @@ export default function SearchSettingsPage() {
               />
             )}
 
-            {/* footer with Cancel + Save on one line; disable Save until we have an editingEngine */}
-            <DialogFooter className="flex justify-end gap-2">
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
+            {/* footer with 取消 + 保存 on one line; disable 保存 until we have an editingEngine */}
+            <DialogFooter class名称="flex justify-end gap-2">
+              <Dialog关闭 asChild>
+                <Button variant="outline">取消</Button>
+              </Dialog关闭>
               <Button form={editFormId} type="submit" disabled={!editingEngine}>
-                Save
+                保存
               </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-          <h2 className="text-xl font-semibold mb-0">Shortcuts</h2>
+          <h2 class名称="text-xl font-semibold mb-0">Shortcuts</h2>
         <RedirectBangsSetting />
       </div>
     </>
@@ -293,9 +293,9 @@ function RedirectBangsSetting() {
   }
 
   return (
-    <div className="flex border border-transparent items-center col-span-full p-1.5 rounded-md gap-2">
+    <div class名称="flex border border-transparent items-center col-span-full p-1.5 rounded-md gap-2">
       <FontAwesomeIcon icon={faArrowRight} />
-      <p className="w-full">Redirect Unknown Shortcuts To</p>
+      <p class名称="w-full">Redirect Unknown Shortcuts To</p>
 
       <Select
         value={config.global.searchEngineShortcutFallback}

@@ -1,19 +1,19 @@
 import { getServerPB } from "@/lib/pb";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request): Promise<NextResponse<ChangePasswordResponse>> {
+export async function POST(request: Request): Promise<NextResponse<Change密码Response>> {
   try {
-    const body = (await request.json().catch(() => ({}))) as ChangePasswordRequest;
-    const { email: bodyEmail, oldPassword, newPassword, confirmPassword } = body || {};
+    const body = (await request.json().catch(() => ({}))) as Change密码Request;
+    const { email: body邮箱, old密码, new密码, confirm密码 } = body || {};
 
     // basic validation
-    if (!oldPassword || !newPassword || !confirmPassword) {
+    if (!old密码 || !new密码 || !confirm密码) {
       return NextResponse.json({ error: "All fields are required" }, { status: 400 });
     }
-    if (newPassword !== confirmPassword) {
+    if (new密码 !== confirm密码) {
       return NextResponse.json({ error: "New passwords do not match" }, { status: 400 });
     }
-    if (newPassword.length < 8) {
+    if (new密码.length < 8) {
       return NextResponse.json({ error: "New password should be at least 8 characters" }, { status: 400 });
     }
 
@@ -36,9 +36,9 @@ export async function POST(request: Request): Promise<NextResponse<ChangePasswor
     }
 
     // default to session email if none provided
-    const email = bodyEmail ?? authModel.record.email;
+    const email = body邮箱 ?? authModel.record.email;
     if (!email) {
-      return NextResponse.json({ error: "Email is required or you must be authenticated" }, { status: 401 });
+      return NextResponse.json({ error: "邮箱 is required or you must be authenticated" }, { status: 401 });
     }
 
     const userId = authModel.record.id;
@@ -46,9 +46,9 @@ export async function POST(request: Request): Promise<NextResponse<ChangePasswor
     // update password in db
     try {
       await pb.collection("users").update(userId, {
-        oldPassword,
-        password: newPassword,
-        passwordConfirm: confirmPassword,
+        old密码,
+        password: new密码,
+        password确认: confirm密码,
       });
     } catch (updateErr: unknown) {
       console.error("PocketBase update error:", updateErr);
@@ -59,11 +59,11 @@ export async function POST(request: Request): Promise<NextResponse<ChangePasswor
 
     // re-authenticate and return new token
     try {
-      await pb.collection("users").authWithPassword(email, newPassword);
+      await pb.collection("users").authWith密码(email, new密码);
     } catch (reauthErr: unknown) {
       console.error("Re-auth after password change failed:", reauthErr);
       return NextResponse.json(
-        { message: "Password changed - Please log in again." },
+        { message: "密码 changed - Please log in again." },
         { status: 200 }
       );
     }
@@ -71,7 +71,7 @@ export async function POST(request: Request): Promise<NextResponse<ChangePasswor
     const newToken = pb.authStore.token ?? null;
 
     return NextResponse.json(
-      { message: "Password changed successfully", token: newToken },
+      { message: "密码 changed successfully", token: newToken },
       { status: 200 }
     );
 
@@ -82,20 +82,20 @@ export async function POST(request: Request): Promise<NextResponse<ChangePasswor
   }
 }
 
-export interface ChangePasswordRequest {
+export interface Change密码Request {
   email?: string;
-  oldPassword: string;
-  newPassword: string;
-  confirmPassword: string;
+  old密码: string;
+  new密码: string;
+  confirm密码: string;
 }
 
-export interface ChangePasswordSuccess {
+export interface Change密码Success {
   message: string;
   token?: string | null;
 }
 
-export interface ChangePasswordError {
+export interface Change密码Error {
   error: string;
 }
 
-export type ChangePasswordResponse = ChangePasswordSuccess | ChangePasswordError;
+export type Change密码Response = Change密码Success | Change密码Error;

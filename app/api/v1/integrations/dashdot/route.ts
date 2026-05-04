@@ -39,15 +39,15 @@ export async function POST(request: Request) {
             body.serverUrl ??
             Buffer.from(configRecord.config.integrations.Dashdot.server_location, "base64").toString("utf8");
 
-        const displayName =
-            body.displayName ??
+        const display名称 =
+            body.display名称 ??
             Buffer.from(configRecord.config.integrations.Dashdot.server_displayname, "base64").toString("utf8");
         
         // fetch bookmarks
         const metrics = await getDashdotMetrics({ serverUrl, allowInsecureCerts: config.allowInsecureCertsForIntegrationUrls ? true : false })
         
         // full list mapped
-        return NextResponse.json({ metrics, serverDetails: { url: serverUrl, displayName } }, { status: 200 });
+        return NextResponse.json({ metrics, serverDetails: { url: serverUrl, display名称 } }, { status: 200 });
 
 
     } catch (error) {

@@ -7,7 +7,7 @@ const pb = new PocketBase(config.PB_URL);
 export async function getSuperuserPB() {
     const pb = new PocketBase(config.PB_URL);
     try {
-        await pb.collection('_superusers').authWithPassword(
+        await pb.collection('_superusers').authWith密码(
             config.PB_ADMIN_EMAIL,
             config.PB_ADMIN_PASSWORD
         );

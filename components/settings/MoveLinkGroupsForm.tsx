@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/context/useAuth";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertTitle, Alert描述 } from "@/components/ui/alert";
 import { postConfigMoveArrayitems } from "@/lib/apiClient";
-import { DialogClose } from "@/components/ui/dialog";
+import { Dialog关闭 } from "@/components/ui/dialog";
 import { useConfig } from "@/context/ConfigContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -133,32 +133,32 @@ export default function MoveLinkGroupsFormComponent({ linkGroups = [], onReorder
 
   return (
     <div
-      className="text-[var(--text-primary)]"
+      class名称="text-[var(--text-primary)]"
     >
-      <div className="mb-2 text-sm text-[var(--text-secondary)]">
-        Drag to reorder your link groups. Confirm to apply the new order.
+      <div class名称="mb-2 text-sm text-[var(--text-secondary)]">
+        Drag to reorder your link groups. 确认 to apply the new order.
       </div>
 
       {error && (
-        <Alert className="mb-2" variant="destructive">
+        <Alert class名称="mb-2" variant="destructive">
           <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
+          <Alert描述>{error}</Alert描述>
         </Alert>
       )}
 
       {success && (
-        <Alert className="mb-2">
+        <Alert class名称="mb-2">
           <AlertTitle>Success</AlertTitle>
-          <AlertDescription>{success}</AlertDescription>
+          <Alert描述>{success}</Alert描述>
         </Alert>
       )}
 
       <div
-        className="max-h-80 overflow-auto border rounded p-2 bg-[var(--surface)]/50"
-        style={{ WebkitBackdropFilter: "blur(4px)", backdropFilter: "blur(4px)" }}
+        class名称="max-h-80 overflow-auto border rounded p-2 bg-[var(--surface)]/50"
+        style={{ Webkit返回dropFilter: "blur(4px)", backdropFilter: "blur(4px)" }}
       >
         <ul
-          className="space-y-2"
+          class名称="space-y-2"
           onDragOver={handleDragOverList}
           onDrop={handleDrop}
           role="list"
@@ -167,10 +167,10 @@ export default function MoveLinkGroupsFormComponent({ linkGroups = [], onReorder
             const isDragging = draggingIndex === idx;
             const showInsertBefore = dropIndex === idx;
             return (
-              <div key={name} className="relative">
+              <div key={name} class名称="relative">
                 {showInsertBefore && (
                   <div
-                    className="w-full my-1 rounded h-0 overflow-visible"
+                    class名称="w-full my-1 rounded h-0 overflow-visible"
                     style={{
                       transition: "height 140ms ease, opacity 140ms ease",
                       height: "2px",
@@ -178,7 +178,7 @@ export default function MoveLinkGroupsFormComponent({ linkGroups = [], onReorder
                     }}
                   >
                     <div
-                      className="w-full h-[2px] rounded"
+                      class名称="w-full h-[2px] rounded"
                       style={{ background: "var(--primary)" }}
                     />
                   </div>
@@ -192,17 +192,17 @@ export default function MoveLinkGroupsFormComponent({ linkGroups = [], onReorder
                   onDragEnd={handleDragEnd}
                   role="listitem"
                   aria-grabbed={isDragging}
-                  className={
+                  class名称={
                     `flex items-center gap-3 p-2 rounded border 
                      transition-transform duration-150 ease-out transform will-change-transform
                      ${isDragging ? "opacity-70 scale-105 shadow-lg cursor-grabbing" : "cursor-grab hover:translate-y-[-2px]"}`
                   }
                   style={{ transitionProperty: "transform, opacity, box-shadow" }}
                 >
-                  <div className="w-6 h-6 flex items-center justify-center">
+                  <div class名称="w-6 h-6 flex items-center justify-center">
                     <FontAwesomeIcon icon={faBars} />
                   </div>
-                  <div className="flex-1 text-sm font-medium">{name}</div>
+                  <div class名称="flex-1 text-sm font-medium">{name}</div>
                 </li>
               </div>
             );
@@ -210,7 +210,7 @@ export default function MoveLinkGroupsFormComponent({ linkGroups = [], onReorder
 
           {dropIndex === order.length && (
             <div
-              className="w-full my-1 rounded h-0 overflow-visible"
+              class名称="w-full my-1 rounded h-0 overflow-visible"
               style={{
                 transition: "height 140ms ease, opacity 140ms ease",
                 height: "2px",
@@ -218,7 +218,7 @@ export default function MoveLinkGroupsFormComponent({ linkGroups = [], onReorder
               }}
             >
               <div
-                className="w-full h-[2px] rounded"
+                class名称="w-full h-[2px] rounded"
                 style={{ background: "var(--primary)" }}
               />
             </div>
@@ -226,15 +226,15 @@ export default function MoveLinkGroupsFormComponent({ linkGroups = [], onReorder
         </ul>
       </div>
 
-      <div className="mt-4 flex justify-end gap-2">
-        <DialogClose asChild>
+      <div class名称="mt-4 flex justify-end gap-2">
+        <Dialog关闭 asChild>
           <Button variant="outline" disabled={loading}>
-            Cancel
+            取消
           </Button>
-        </DialogClose>
+        </Dialog关闭>
 
         <Button onClick={persistOrder} disabled={loading}>
-          {loading ? "Saving..." : "Confirm"}
+          {loading ? "Saving..." : "确认"}
         </Button>
       </div>
     </div>

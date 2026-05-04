@@ -5,15 +5,15 @@ import { promisify } from "util";
 const execAsync = promisify(exec);
 
 /**
- * Process all notifications with forwardStatus="queued" and forward them
+ * Process all notifications with forward状态="queued" and forward them
  */
 export async function processQueuedNotifications() {
     try {
         const pb = await getSuperuserPB();
 
-        // Find all notifications with forwardStatus="queued"
+        // Find all notifications with forward状态="queued"
         const queuedNotifications = await pb.collection("notificationItems").getFullList({
-            filter: `forwardStatus="queued"`,
+            filter: `forward状态="queued"`,
             batch: 100,
         });
 
@@ -44,7 +44,7 @@ export async function processQueuedNotifications() {
                     // No forwarders for this topic, mark as done
                     for (const notif of notifications) {
                         await pb.collection("notificationItems").update(notif.id, {
-                            forwardStatus: "done",
+                            forward状态: "done",
                         });
                     }
                     continue;
@@ -73,7 +73,7 @@ export async function processQueuedNotifications() {
                     // Mark as done if at least one forwarder succeeded
                     if (successCount > 0) {
                         await pb.collection("notificationItems").update(notif.id, {
-                            forwardStatus: "done",
+                            forward状态: "done",
                         });
                     }
                 }
@@ -122,7 +122,7 @@ async function sendViaShoutrrr(target: string, message: string): Promise<void> {
  * Escape string for safe use in shell commands
  */
 function escapeShellArg(arg: string): string {
-    // Remove any existing quotes and escape special characters
+    // 移除 any existing quotes and escape special characters
     return arg
         .replace(/\\/g, "\\\\")
         .replace(/"/g, '\\"')

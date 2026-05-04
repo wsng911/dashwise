@@ -6,14 +6,14 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "lucide-react"
-import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker"
+import { DayButton, DayPicker, getDefaultClass名称s } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 
 function Calendar({
-  className,
-  classNames,
+  class名称,
+  class名称s,
   showOutsideDays = true,
   captionLayout = "label",
   buttonVariant = "ghost",
@@ -23,16 +23,16 @@ function Calendar({
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"]
 }) {
-  const defaultClassNames = getDefaultClassNames()
+  const defaultClass名称s = getDefaultClass名称s()
 
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn(
+      class名称={cn(
         "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
-        className
+        class名称
       )}
       captionLayout={captionLayout}
       formatters={{
@@ -40,129 +40,129 @@ function Calendar({
           date.toLocaleString("default", { month: "short" }),
         ...formatters,
       }}
-      classNames={{
-        root: cn("w-fit", defaultClassNames.root),
+      class名称s={{
+        root: cn("w-fit", defaultClass名称s.root),
         months: cn(
           "flex gap-4 flex-col md:flex-row relative",
-          defaultClassNames.months
+          defaultClass名称s.months
         ),
-        month: cn("flex flex-col w-full gap-4", defaultClassNames.month),
+        month: cn("flex flex-col w-full gap-4", defaultClass名称s.month),
         nav: cn(
           "flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between",
-          defaultClassNames.nav
+          defaultClass名称s.nav
         ),
         button_previous: cn(
           buttonVariants({ variant: buttonVariant }),
           "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none",
-          defaultClassNames.button_previous
+          defaultClass名称s.button_previous
         ),
         button_next: cn(
           buttonVariants({ variant: buttonVariant }),
           "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none",
-          defaultClassNames.button_next
+          defaultClass名称s.button_next
         ),
         month_caption: cn(
           "flex items-center justify-center h-(--cell-size) w-full px-(--cell-size)",
-          defaultClassNames.month_caption
+          defaultClass名称s.month_caption
         ),
         dropdowns: cn(
           "w-full flex items-center text-sm font-medium justify-center h-(--cell-size) gap-1.5",
-          defaultClassNames.dropdowns
+          defaultClass名称s.dropdowns
         ),
         dropdown_root: cn(
           "relative has-focus:border-ring border border-input shadow-xs has-focus:ring-ring/50 has-focus:ring-[3px] rounded-md",
-          defaultClassNames.dropdown_root
+          defaultClass名称s.dropdown_root
         ),
         dropdown: cn(
           "absolute bg-popover inset-0 opacity-0",
-          defaultClassNames.dropdown
+          defaultClass名称s.dropdown
         ),
         caption_label: cn(
           "select-none font-medium",
           captionLayout === "label"
             ? "text-sm"
             : "rounded-md pl-2 pr-1 flex items-center gap-1 text-sm h-8 [&>svg]:text-muted-foreground [&>svg]:size-3.5",
-          defaultClassNames.caption_label
+          defaultClass名称s.caption_label
         ),
         table: "w-full border-collapse",
-        weekdays: cn("flex", defaultClassNames.weekdays),
+        weekdays: cn("flex", defaultClass名称s.weekdays),
         weekday: cn(
           "text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none",
-          defaultClassNames.weekday
+          defaultClass名称s.weekday
         ),
-        week: cn("flex w-full mt-2", defaultClassNames.week),
+        week: cn("flex w-full mt-2", defaultClass名称s.week),
         week_number_header: cn(
           "select-none w-(--cell-size)",
-          defaultClassNames.week_number_header
+          defaultClass名称s.week_number_header
         ),
         week_number: cn(
           "text-[0.8rem] select-none text-muted-foreground",
-          defaultClassNames.week_number
+          defaultClass名称s.week_number
         ),
         day: cn(
           "relative w-full h-full p-0 text-center [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none",
           props.showWeekNumber
             ? "[&:nth-child(2)[data-selected=true]_button]:rounded-l-md"
             : "[&:first-child[data-selected=true]_button]:rounded-l-md",
-          defaultClassNames.day
+          defaultClass名称s.day
         ),
         range_start: cn(
           "rounded-l-md bg-accent",
-          defaultClassNames.range_start
+          defaultClass名称s.range_start
         ),
-        range_middle: cn("rounded-none", defaultClassNames.range_middle),
-        range_end: cn("rounded-r-md bg-accent", defaultClassNames.range_end),
+        range_middle: cn("rounded-none", defaultClass名称s.range_middle),
+        range_end: cn("rounded-r-md bg-accent", defaultClass名称s.range_end),
         today: cn(
           "bg-accent text-accent-foreground rounded-md data-[selected=true]:rounded-none",
-          defaultClassNames.today
+          defaultClass名称s.today
         ),
         outside: cn(
           "text-muted-foreground aria-selected:text-muted-foreground",
-          defaultClassNames.outside
+          defaultClass名称s.outside
         ),
         disabled: cn(
           "text-muted-foreground opacity-50",
-          defaultClassNames.disabled
+          defaultClass名称s.disabled
         ),
-        hidden: cn("invisible", defaultClassNames.hidden),
-        ...classNames,
+        hidden: cn("invisible", defaultClass名称s.hidden),
+        ...class名称s,
       }}
       components={{
-        Root: ({ className, rootRef, ...props }) => {
+        Root: ({ class名称, rootRef, ...props }) => {
           return (
             <div
               data-slot="calendar"
               ref={rootRef}
-              className={cn(className)}
+              class名称={cn(class名称)}
               {...props}
             />
           )
         },
-        Chevron: ({ className, orientation, ...props }) => {
+        Chevron: ({ class名称, orientation, ...props }) => {
           if (orientation === "left") {
             return (
-              <ChevronLeftIcon className={cn("size-4", className)} {...props} />
+              <ChevronLeftIcon class名称={cn("size-4", class名称)} {...props} />
             )
           }
 
           if (orientation === "right") {
             return (
               <ChevronRightIcon
-                className={cn("size-4", className)}
+                class名称={cn("size-4", class名称)}
                 {...props}
               />
             )
           }
 
           return (
-            <ChevronDownIcon className={cn("size-4", className)} {...props} />
+            <ChevronDownIcon class名称={cn("size-4", class名称)} {...props} />
           )
         },
         DayButton: CalendarDayButton,
         WeekNumber: ({ children, ...props }) => {
           return (
             <td {...props}>
-              <div className="flex size-(--cell-size) items-center justify-center text-center">
+              <div class名称="flex size-(--cell-size) items-center justify-center text-center">
                 {children}
               </div>
             </td>
@@ -176,12 +176,12 @@ function Calendar({
 }
 
 function CalendarDayButton({
-  className,
+  class名称,
   day,
   modifiers,
   ...props
 }: React.ComponentProps<typeof DayButton>) {
-  const defaultClassNames = getDefaultClassNames()
+  const defaultClass名称s = getDefaultClass名称s()
 
   const ref = React.useRef<HTMLButtonElement>(null)
   React.useEffect(() => {
@@ -203,10 +203,10 @@ function CalendarDayButton({
       data-range-start={modifiers.range_start}
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
-      className={cn(
+      class名称={cn(
         "data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 dark:hover:text-accent-foreground flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md [&>span]:text-xs [&>span]:opacity-70",
-        defaultClassNames.day,
-        className
+        defaultClass名称s.day,
+        class名称
       )}
       {...props}
     />

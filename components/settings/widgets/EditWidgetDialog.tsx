@@ -9,18 +9,18 @@ import { useEffect, useState } from "react";
 import { WidgetInfo } from "@/app/(config-wrapper)/settings/widgets/page";
 import LocationSelectFormComponent from "../LocationSelectForm";
 
-interface WidgetEditDialogProps {
+interface Widget编辑DialogProps {
     open: boolean;
     widget: WidgetInfo | null;
-    onClose: () => void;
-    onSave: (updatedWidget: WidgetInfo) => void;
+    on关闭: () => void;
+    on保存: (updatedWidget: WidgetInfo) => void;
 }
 
-export default function WidgetEditDialog({ open, widget, onClose, onSave }: WidgetEditDialogProps) {
-    const [editedWidget, setEditedWidget] = useState<WidgetInfo | null>(widget);
+export default function Widget编辑Dialog({ open, widget, on关闭, on保存 }: Widget编辑DialogProps) {
+    const [editedWidget, set编辑edWidget] = useState<WidgetInfo | null>(widget);
 
     useEffect(() => {
-        setEditedWidget(widget);
+        set编辑edWidget(widget);
     }, [widget]);
 
     if (!editedWidget) return null;
@@ -28,27 +28,27 @@ export default function WidgetEditDialog({ open, widget, onClose, onSave }: Widg
     console.log(editedWidget)
 
     return (
-        <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent className="frosted text-foreground max-h-[90vh] overflow-y-auto">
+        <Dialog open={open} onOpenChange={on关闭}>
+            <DialogContent class名称="frosted text-foreground max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Edit Widget</DialogTitle>
+                    <DialogTitle>编辑 Widget</DialogTitle>
                 </DialogHeader>
 
-                <div className="space-y-4 py-4">
+                <div class名称="space-y-4 py-4">
                     {editedWidget.slug?.includes("weather") ? (
                         <LocationSelectFormComponent
                             value={{
-                                displayName: editedWidget.properties?.locationDisplayname ?? "",
+                                display名称: editedWidget.properties?.locationDisplayname ?? "",
                                 coordinates: editedWidget.properties?.locationCoordinates ?? "",
                             }}
                             onChange={(val) =>
-                                setEditedWidget((prev) =>
+                                set编辑edWidget((prev) =>
                                     prev
                                         ? {
                                             ...prev,
                                             properties: {
                                                 ...(prev.properties || {}),
-                                                locationDisplayname: val.displayName,
+                                                locationDisplayname: val.display名称,
                                                 locationCoordinates: val.coordinates,
                                             },
                                         }
@@ -60,13 +60,13 @@ export default function WidgetEditDialog({ open, widget, onClose, onSave }: Widg
                         <>
                             {editedWidget.properties &&
                                 Object.entries(editedWidget.properties).map(([key, value]) => (
-                                    <PropertyEditInput
+                                    <Property编辑Input
                                         key={key}
                                         propKey={key}
                                         value={value}
                                         placeholder={editedWidget.exampleProps?.[key]}
                                         onChange={(newVal) =>
-                                            setEditedWidget((prev) =>
+                                            set编辑edWidget((prev) =>
                                                 prev
                                                     ? {
                                                         ...prev,
@@ -85,24 +85,24 @@ export default function WidgetEditDialog({ open, widget, onClose, onSave }: Widg
                 </div>
 
                 <DialogFooter>
-                    <Button variant="outline" onClick={onClose}>
-                        Cancel
+                    <Button variant="outline" onClick={on关闭}>
+                        取消
                     </Button>
-                    <Button onClick={() => editedWidget && onSave(editedWidget)}>Save</Button>
+                    <Button onClick={() => editedWidget && on保存(editedWidget)}>保存</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
     );
 }
 
-interface PropertyEditInputProps {
+interface Property编辑InputProps {
     propKey: string;
     value: any;
     placeholder?: string;
     onChange: (newVal: any) => void;
 }
 
-function PropertyEditInput({ propKey, value, placeholder, onChange }: PropertyEditInputProps) {
+function Property编辑Input({ propKey, value, placeholder, onChange }: Property编辑InputProps) {
     const propertyType =
         typeof value === "string" && value.startsWith("as:") ? value.replace("as:", "") : typeof value;
 console.log(propKey, propertyType)
@@ -110,7 +110,7 @@ console.log(propKey, propertyType)
 
 
     return (
-        <div className="space-y-2">
+        <div class名称="space-y-2">
             <Label htmlFor={propKey}>{propKey}</Label>
 
             {propertyType.includes("bool") ? (

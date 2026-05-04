@@ -8,26 +8,26 @@ import {
 import { cn } from "@/lib/utils"
 import { buttonVariants, type Button } from "@/components/ui/button"
 
-function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
+function Pagination({ class名称, ...props }: React.ComponentProps<"nav">) {
   return (
     <nav
       role="navigation"
       aria-label="pagination"
       data-slot="pagination"
-      className={cn("mx-auto flex w-full justify-center", className)}
+      class名称={cn("mx-auto flex w-full justify-center", class名称)}
       {...props}
     />
   )
 }
 
 function PaginationContent({
-  className,
+  class名称,
   ...props
 }: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="pagination-content"
-      className={cn("flex flex-row items-center gap-1", className)}
+      class名称={cn("flex flex-row items-center gap-1", class名称)}
       {...props}
     />
   )
@@ -43,7 +43,7 @@ type PaginationLinkProps = {
   React.ComponentProps<"a">
 
 function PaginationLink({
-  className,
+  class名称,
   isActive,
   size = "icon",
   ...props
@@ -53,12 +53,12 @@ function PaginationLink({
       aria-current={isActive ? "page" : undefined}
       data-slot="pagination-link"
       data-active={isActive}
-      className={cn(
+      class名称={cn(
         buttonVariants({
           variant: isActive ? "outline" : "ghost",
           size,
         }),
-        className
+        class名称
       )}
       {...props}
     />
@@ -66,52 +66,52 @@ function PaginationLink({
 }
 
 function PaginationPrevious({
-  className,
+  class名称,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
   return (
     <PaginationLink
       aria-label="Go to previous page"
       size="default"
-      className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
+      class名称={cn("gap-1 px-2.5 sm:pl-2.5", class名称)}
       {...props}
     >
       <ChevronLeftIcon />
-      <span className="hidden sm:block">Previous</span>
+      <span class名称="hidden sm:block">Previous</span>
     </PaginationLink>
   )
 }
 
 function PaginationNext({
-  className,
+  class名称,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
   return (
     <PaginationLink
       aria-label="Go to next page"
       size="default"
-      className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
+      class名称={cn("gap-1 px-2.5 sm:pr-2.5", class名称)}
       {...props}
     >
-      <span className="hidden sm:block">Next</span>
+      <span class名称="hidden sm:block">Next</span>
       <ChevronRightIcon />
     </PaginationLink>
   )
 }
 
 function PaginationEllipsis({
-  className,
+  class名称,
   ...props
 }: React.ComponentProps<"span">) {
   return (
     <span
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn("flex size-9 items-center justify-center", className)}
+      class名称={cn("flex size-9 items-center justify-center", class名称)}
       {...props}
     >
-      <MoreHorizontalIcon className="size-4" />
-      <span className="sr-only">More pages</span>
+      <MoreHorizontalIcon class名称="size-4" />
+      <span class名称="sr-only">More pages</span>
     </span>
   )
 }

@@ -67,7 +67,7 @@ export default function UploadWallpaperDialog({
 
     const formData = new FormData();
     formData.append("image", file, file.name);
-    formData.append("fileName", file.name);
+    formData.append("file名称", file.name);
     formData.append("convertToWebp", convertToWebp ? "true" : "false");
     const headers: Record<string, string> = token
       ? { Authorization: `Bearer ${token}` }
@@ -98,7 +98,7 @@ export default function UploadWallpaperDialog({
 
       setMessage("Upload complete — wallpaper updated.");
 
-      // 3) Close dialog
+      // 3) 关闭 dialog
       onOpenChange(false);
     } catch (err: unknown) {
       console.error(err);
@@ -114,13 +114,13 @@ export default function UploadWallpaperDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="frosted text-foreground">
+      <DialogContent class名称="frosted text-foreground">
         <DialogHeader>
           <DialogTitle>Upload wallpaper</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4">
-          <div className="space-y-4">
+        <div class名称="space-y-4">
+          <div class名称="space-y-4">
             <Label htmlFor="wallpaper-file">Image file</Label>
             <Input
               id="wallpaper-file"
@@ -132,10 +132,10 @@ export default function UploadWallpaperDialog({
             />
           </div>
 
-          <div className="flex items-center justify-between gap-3">
+          <div class名称="flex items-center justify-between gap-3">
             <div>
               <Label htmlFor="convert-to-webp">Convert to WebP</Label>
-              <p className="text-xs text-muted-foreground">
+              <p class名称="text-xs text-muted-foreground">
                 Smaller file size, faster loading times.
               </p>
             </div>
@@ -147,19 +147,19 @@ export default function UploadWallpaperDialog({
           </div>
 
           {preview && (
-            <div className="relative w-full h-48 rounded-md overflow-hidden">
+            <div class名称="relative w-full h-48 rounded-md overflow-hidden">
               <Image
                 src={preview}
                 alt="preview"
                 fill
                 unoptimized
-                className="object-contain"
+                class名称="object-contain"
               />
             </div>
           )}
 
           {message && (
-            <div className="text-sm text-muted-foreground">{message}</div>
+            <div class名称="text-sm text-muted-foreground">{message}</div>
           )}
         </div>
 
@@ -167,14 +167,14 @@ export default function UploadWallpaperDialog({
           <Button
             variant="ghost"
             disabled={uploading}
-            className="cursor-pointer"
+            class名称="cursor-pointer"
             onClick={() => onOpenChange(false)}
           >
-            Cancel
+            取消
           </Button>
           <Button 
             disabled={uploading}
-            className="cursor-pointer"
+            class名称="cursor-pointer"
             onClick={handleUpload}
           >
             {uploading ? "Uploading…" : "Upload & Apply"}

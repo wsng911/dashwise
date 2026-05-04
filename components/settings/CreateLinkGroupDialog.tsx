@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertTitle, Alert描述 } from "@/components/ui/alert";
 import { useConfig } from "@/context/ConfigContext";
 import useAuth from "@/context/useAuth";
 import { postConfig } from "@/lib/apiClient";
@@ -17,13 +17,13 @@ import { postConfig } from "@/lib/apiClient";
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onCreated?: (newGroup: string) => void;
+  on创建d?: (newGroup: string) => void;
 };
 
-export default function CreateLinkGroupDialog({
+export default function 创建LinkGroupDialog({
   open,
   onOpenChange,
-  onCreated,
+  on创建d,
 }: Props) {
   const { config, refreshConfig } = useConfig();
 
@@ -34,7 +34,7 @@ export default function CreateLinkGroupDialog({
     variant?: "success" | "error";
   }>({ open: false, title: "", description: "", variant: "success" });
 
-  const onCreateNewLinkGroupSubmit = async (newGroup: string) => {
+  const on创建NewLinkGroup提交 = async (newGroup: string) => {
     try {
       const { token } = useAuth();
       if (!token) throw new Error("Not authenticated");
@@ -49,11 +49,11 @@ export default function CreateLinkGroupDialog({
       setAlert({
         open: true,
         title: "Link group created",
-        description: `Created group "${newGroup}".`,
+        description: `创建d group "${newGroup}".`,
         variant: "success",
       });
 
-      onCreated?.(newGroup);
+      on创建d?.(newGroup);
     } catch (err: unknown) {
       let message = "Unknown error";
 
@@ -74,58 +74,58 @@ export default function CreateLinkGroupDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="frosted text-white">
+      <DialogContent class名称="frosted text-white">
         <DialogHeader>
-          <DialogTitle>Create new link group</DialogTitle>
+          <DialogTitle>创建 new link group</DialogTitle>
         </DialogHeader>
 
         {alert.open && (
-          <Alert className="mb-4">
-            <div className="flex justify-between items-start">
+          <Alert class名称="mb-4">
+            <div class名称="flex justify-between items-start">
               <div>
                 <AlertTitle>{alert.title}</AlertTitle>
                 {alert.description && (
-                  <AlertDescription>{alert.description}</AlertDescription>
+                  <Alert描述>{alert.description}</Alert描述>
                 )}
               </div>
               <button
-                aria-label="Close alert"
+                aria-label="关闭 alert"
                 onClick={() => setAlert({ ...alert, open: false })}
-                className="ml-4 inline-flex items-center rounded px-2 py-1 text-sm hover:bg-muted"
+                class名称="ml-4 inline-flex items-center rounded px-2 py-1 text-sm hover:bg-muted"
               >
-                Close
+                关闭
               </button>
             </div>
           </Alert>
         )}
 
         <form
-          onSubmit={async (e) => {
+          on提交={async (e) => {
             e.preventDefault();
             const formData = new FormData(e.currentTarget);
-            const groupName = (formData.get("new-group-name") as string)?.trim();
-            if (!groupName) return;
-            await onCreateNewLinkGroupSubmit(groupName);
+            const group名称 = (formData.get("new-group-name") as string)?.trim();
+            if (!group名称) return;
+            await on创建NewLinkGroup提交(group名称);
             onOpenChange(false);
           }}
-          className="space-y-4"
+          class名称="space-y-4"
         >
-          <div className="flex flex-col gap-2">
+          <div class名称="flex flex-col gap-2">
             <Label htmlFor="new-group-name">Group name</Label>
             <input
               id="new-group-name"
               name="new-group-name"
               type="text"
-              className="rounded-md border p-2 text-black"
+              class名称="rounded-md border p-2 text-black"
               placeholder="Enter group name"
               required
             />
           </div>
-          <div className="flex justify-end gap-2">
+          <div class名称="flex justify-end gap-2">
             <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
-              Cancel
+              取消
             </Button>
-            <Button type="submit">Create</Button>
+            <Button type="submit">创建</Button>
           </div>
         </form>
       </DialogContent>

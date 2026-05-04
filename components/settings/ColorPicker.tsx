@@ -7,22 +7,22 @@ import { Button } from "@/components/ui/button";
 interface ColorPickerProps {
   value: string;
   onValueChange: (value: string) => void;
-  className?: string;
+  class名称?: string;
 }
 
-export function ColorPicker({ value, onValueChange, className }: ColorPickerProps) {
+export function ColorPicker({ value, onValueChange, class名称 }: ColorPickerProps) {
   return (
-    <div className={className}>
+    <div class名称={class名称}>
       {/* main picker */}
-      <HexColorPicker color={value} onChange={onValueChange} className="!w-full !h-40 rounded-md" />
+      <HexColorPicker color={value} onChange={onValueChange} class名称="!w-full !h-40 rounded-md" />
 
       {/* color input row */}
-      <div className="flex items-center gap-2 mt-2">
+      <div class名称="flex items-center gap-2 mt-2">
         <HexColorInput
           color={value}
           onChange={onValueChange}
           prefixed
-          className="flex-1 rounded-md border frosted px-2 py-1 text-sm"
+          class名称="flex-1 rounded-md border frosted px-2 py-1 text-sm"
         />
         <Button
           size="sm"

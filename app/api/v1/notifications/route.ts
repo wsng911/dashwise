@@ -85,7 +85,7 @@ export async function GET(req: NextRequest) {
         // build id->title map from earlier `topics`
         const topicMap = Object.fromEntries(topics.map(t => [t.id, t.title]));
 
-        // map items to result using the map as fallback for topicName
+        // map items to result using the map as fallback for topic名称
         const result = items.map(it => {
             const topicId = typeof it.topicId === "string" ? it.topicId : it.topicId?.id ?? null;
             return {
@@ -94,7 +94,7 @@ export async function GET(req: NextRequest) {
                 status: it.status,
                 created: it.created,
                 topicId,
-                topicName: topicMap[topicId] ?? null,
+                topic名称: topicMap[topicId] ?? null,
             };
         });
 

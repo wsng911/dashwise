@@ -1,7 +1,7 @@
 import https from "https"
 import axios from "axios"
-import { URLSearchParams } from "url"
-import { SearchItem } from "@/lib/jobs";
+import { URL搜索Params } from "url"
+import { 搜索Item } from "@/lib/jobs";
 
 //authenticate to beszel pocketbase backend
 async function createToken({
@@ -102,7 +102,7 @@ async function fetchSystemStatsForSystem(
         allowInsecureCerts?: boolean
     }
 ) {
-    const params = new URLSearchParams()
+    const params = new URL搜索Params()
     params.append('filter', `(system='${systemId}')`)
     params.append('sort', 'created') 
     params.append('perPage', '500') 
@@ -314,7 +314,7 @@ export async function getBeszelSystemHealth({
     return healthData;
 }
 
-export async function beszelSearchItems({
+export async function beszel搜索Items({
     url,
     pb_email,
     pb_password,
@@ -324,14 +324,14 @@ export async function beszelSearchItems({
     pb_email: string
     pb_password: string
     allowInsecureCerts?: boolean
-}): Promise<SearchItem[]> {
+}): Promise<搜索Item[]> {
     try {
         const { token } = await createToken({ url, pb_email, pb_password, allowInsecureCerts });
         const systems = await fetchSystems(url, token, allowInsecureCerts);
 
         const base = url.replace(/\/+$/, "");
 
-        const mapped: SearchItem[] = (systems || []).map((sys: any) => {
+        const mapped: 搜索Item[] = (systems || []).map((sys: any) => {
             const id = sys.id;
             const name = sys.name || sys.host || id || "unknown";
             const actionUrl = `${base}/system/${encodeURIComponent(id)}`;
@@ -344,12 +344,12 @@ export async function beszelSearchItems({
                 type: "beszelItem",
                 action: `url:${actionUrl}`,
                 tags: [sys.name, "beszel", "metrics", "monitoring"].filter((t): t is string => !!t),
-            } as SearchItem;
+            } as 搜索Item;
         });
 
         return mapped.sort((a, b) => a.name.localeCompare(b.name));
     } catch (err) {
-        console.error("[Beszel] beszelSearchItems failed:", err);
+        console.error("[Beszel] beszel搜索Items failed:", err);
         return [];
     }
 }

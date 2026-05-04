@@ -6,7 +6,7 @@ import { useConfig } from "@/context/ConfigContext";
 import { writeToConfig } from "@/lib/frontend/data/MUTATE/config/writeToConfig";
 import useAuth from "@/context/useAuth";
 
-export default function WallpaperBlurSliderComponent({ className }: { className?: string }) {
+export default function WallpaperBlurSliderComponent({ class名称 }: { class名称?: string }) {
   const { config, refreshConfig } = useConfig();
   const { token } = useAuth();
   
@@ -30,8 +30,8 @@ export default function WallpaperBlurSliderComponent({ className }: { className?
     document.body.style.backdropFilter = `blur(${pxValue}px) brightness(${config?.appearance?.wallpaperFilters?.brightness ? 0.01 * config?.appearance?.wallpaperFilters?.brightness : 85})`;
   }
 
-  // Save on release
-  async function handleSave(pxValue: number) {
+  // 保存 on release
+  async function handle保存(pxValue: number) {
     if (!token) return;
 
     setSaving(true);
@@ -60,18 +60,18 @@ export default function WallpaperBlurSliderComponent({ className }: { className?
 
   return (
     <div
-      className={
-        className ??
+      class名称={
+        class名称 ??
         "flex items-center justify-between col-span-full p-2 rounded-md gap-4 bg-(--surface-hover) border border-transparent"
       }
     >
       {/* Label + tooltip */}
-      <div className="flex items-center gap-1 min-w-[180px]">
-        <p className="font-medium text-foreground">Blur</p>
+      <div class名称="flex items-center gap-1 min-w-[180px]">
+        <p class名称="font-medium text-foreground">Blur</p>
       </div>
 
       {/* Slider */}
-      <div className="flex-1 flex items-center gap-3 max-w-76">
+      <div class名称="flex-1 flex items-center gap-3 max-w-76">
         <Slider
           value={[percent]}
           max={100}
@@ -85,12 +85,12 @@ export default function WallpaperBlurSliderComponent({ className }: { className?
 
           onValueCommit={([v]) => {
             const newValue = Math.round((v / 100) * (25 - 1) + 1);
-            handleSave(newValue);
+            handle保存(newValue);
           }}
-          className="flex-1"
+          class名称="flex-1"
         />
         {/* Percentage + px */}
-        <span className="min-w-[50px] text-right text-medium">
+        <span class名称="min-w-[50px] text-right text-medium">
           {blurPx}px
         </span>
       </div>

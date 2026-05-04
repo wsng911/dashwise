@@ -5,11 +5,11 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-    DialogClose
+    Dialog关闭
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { LinkType } from "./LinkView";
-import { postMonitoringStatus } from "@/lib/apiClient";
+import { post监控ing状态 } from "@/lib/apiClient";
 import useAuth from "@/context/useAuth";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,7 +30,7 @@ interface Props {
     onCheckTriggered?: () => Promise<void> | void;
 }
 
-export default function MonitoringDialogComponent({
+export default function 监控ingDialogComponent({
     open,
     onOpenChange,
     link,
@@ -43,17 +43,17 @@ export default function MonitoringDialogComponent({
     const [lastCheckInfo, setLastCheckInfo] = useState<{
         status?: string;
         endpoint?: string;
-        httpStatus?: number;
+        http状态?: number;
         checkedAt?: string;
     } | null>(null);
 
     const now = new Date();
-    const currentStatus = details?.status ?? "unhealthy";
+    const current状态 = details?.status ?? "unhealthy";
     const changeTime = details?.dateChanged ? new Date(details.dateChanged) : null;
     const changeDuration = details?.durationChanged ?? 0;
 
     // Determine current and previous states
-    const isCurrentlyUp = currentStatus === "healthy";
+    const isCurrentlyUp = current状态 === "healthy";
     const currentState = isCurrentlyUp ? "up" : "down";
 
     // Calculate timeline segments
@@ -106,12 +106,12 @@ export default function MonitoringDialogComponent({
             date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
-    // Status indicator
-    const statusText = currentStatus === "healthy" ? "Up" : "Down";
+    // 状态 indicator
+    const statusText = current状态 === "healthy" ? "Up" : "Down";
     const dotColor =
-        currentStatus === "healthy" ? "bg-green-400" : currentStatus === "disabled" ? "bg-gray-400" : "bg-red-400";
+        current状态 === "healthy" ? "bg-green-400" : current状态 === "disabled" ? "bg-gray-400" : "bg-red-400";
 
-    const siteName = link.name;
+    const site名称 = link.name;
     const monitoredEndpoint = lastCheckInfo?.endpoint || details?.endpoint || link.statusCheckEndpoint || link.url;
     const monitoredMethod = link.statusCheckMethod || "GET";
 
@@ -128,11 +128,11 @@ export default function MonitoringDialogComponent({
         setIsChecking(true);
         setCheckError(null);
         try {
-            const response = await postMonitoringStatus({ linkId: link.id }, { token });
+            const response = await post监控ing状态({ linkId: link.id }, { token });
             setLastCheckInfo({
                 status: response?.status,
                 endpoint: response?.endpoint,
-                httpStatus: response?.httpStatus,
+                http状态: response?.http状态,
                 checkedAt: response?.checkedAt,
             });
             if (onCheckTriggered) {
@@ -147,42 +147,42 @@ export default function MonitoringDialogComponent({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="w-[min(680px,96%)] frosted text-foreground [&>button]:hidden">
+            <DialogContent class名称="w-[min(680px,96%)] frosted text-foreground [&>button]:hidden">
                 <DialogHeader>
-                    <DialogTitle className="flex items-center justify-between">
-                        <span>Status for {siteName}</span>
-                        <div className="flex items-center justify-end gap-2">
+                    <DialogTitle class名称="flex items-center justify-between">
+                        <span>状态 for {site名称}</span>
+                        <div class名称="flex items-center justify-end gap-2">
                         {lastCheckInfo?.status && (
-                            <span className="text-xs text-gray-300">
+                            <span class名称="text-xs text-gray-300">
                                 Last on-demand: {lastCheckInfo.status}
-                                {lastCheckInfo.httpStatus ? ` (HTTP ${lastCheckInfo.httpStatus})` : ""}
+                                {lastCheckInfo.http状态 ? ` (HTTP ${lastCheckInfo.http状态})` : ""}
                             </span>
                         )}
                         <Button variant="secondary" size="sm" onClick={triggerCheck} disabled={isChecking}>
-                            <FontAwesomeIcon icon={faRefresh} className={`w-3 h-3 ${isChecking ? 'animate-spin' : ''}`} />
+                            <FontAwesomeIcon icon={faRefresh} class名称={`w-3 h-3 ${isChecking ? 'animate-spin' : ''}`} />
                         </Button>
                     </div>
                     </DialogTitle>
                 </DialogHeader>
 
                 {/* STATUS OVERVIEW */}
-                <div className="mt-4 space-y-4">
+                <div class名称="mt-4 space-y-4">
                     
 
                     {checkError && (
-                        <p className="text-sm text-red-400">{checkError}</p>
+                        <p class名称="text-sm text-red-400">{checkError}</p>
                     )}
 
-                    <div className="flex items-center gap-2 text-sm font-medium">
-                        <div className={`h-3 w-3 rounded-full ${dotColor}`} />
+                    <div class名称="flex items-center gap-2 text-sm font-medium">
+                        <div class名称={`h-3 w-3 rounded-full ${dotColor}`} />
                         {statusText} since {changeTime ? formatDate(changeTime) : "—"}
                     </div>
 
                     {/* Endpoint */}
                     {monitoredEndpoint && (
-                        <div className="flex items-center justify-between">
-                            <div className="font-medium text-sm">Monitored Endpoint (from server):</div>
-                            <code className="text-[11px] px-2 py-1 rounded-md bg-black/20 font-mono">
+                        <div class名称="flex items-center justify-between">
+                            <div class名称="font-medium text-sm">监控ed Endpoint (from server):</div>
+                            <code class名称="text-[11px] px-2 py-1 rounded-md bg-black/20 font-mono">
                                 {monitoredMethod} {monitoredEndpoint}
                             </code>
                         </div>
@@ -190,9 +190,9 @@ export default function MonitoringDialogComponent({
 
                     {/* TIMELINE */}
                     <div>
-                        <div className="text-sm font-semibold mb-2">Recent Activity</div>
+                        <div class名称="text-sm font-semibold mb-2">Recent Activity</div>
 
-                        <div className="flex items-stretch gap-1 h-8">
+                        <div class名称="flex items-stretch gap-1 h-8">
                             {segments.map((segment, i) => {
                                 if (segment.type === "state") {
                                     const bgColor = segment.status === "up"
@@ -203,7 +203,7 @@ export default function MonitoringDialogComponent({
                                     return (
                                         <div
                                             key={i}
-                                            className={`frosted ${bgColor} border border-white/20 rounded flex items-center justify-center text-sm font-medium`}
+                                            class名称={`frosted ${bgColor} border border-white/20 rounded flex items-center justify-center text-sm font-medium`}
                                             style={{ flex: segment.flex }}
                                         >
                                             {label}
@@ -215,11 +215,11 @@ export default function MonitoringDialogComponent({
                                     return (
                                         <div
                                             key={i}
-                                            className="frosted bg-white/10 border border-white/30 rounded flex items-center justify-center px-1 text-sm font-medium whitespace-nowrap overflow-visible"
+                                            class名称="frosted bg-white/10 border border-white/30 rounded flex items-center justify-center px-1 text-sm font-medium whitespace-nowrap overflow-visible"
                                             style={{ minWidth: '14px', maxWidth: '14px' }}
                                             title={segment.date.toLocaleString()}
                                         >
-                                            <span className="relative">
+                                            <span class名称="relative">
                                                 {formatDate(segment.date)}
                                             </span>
                                         </div>
@@ -230,7 +230,7 @@ export default function MonitoringDialogComponent({
                                     return (
                                         <div
                                             key={i}
-                                            className="frosted bg-blue-500/30 border border-blue-400/50 rounded flex items-center justify-end px-0.5 text-sm font-semibold"
+                                            class名称="frosted bg-blue-500/30 border border-blue-400/50 rounded flex items-center justify-end px-0.5 text-sm font-semibold"
                                             style={{ minWidth: '14px', maxWidth: '14px' }}
                                         >
                                             Now
@@ -243,13 +243,13 @@ export default function MonitoringDialogComponent({
                         </div>
                     </div>
 
-                    {/* Close */}
-                    <div className="flex justify-end pt-2">
-                        <DialogClose asChild>
+                    {/* 关闭 */}
+                    <div class名称="flex justify-end pt-2">
+                        <Dialog关闭 asChild>
                             <Button variant="secondary" size="sm">
-                                Close
+                                关闭
                             </Button>
-                        </DialogClose>
+                        </Dialog关闭>
                     </div>
                 </div>
             </DialogContent>

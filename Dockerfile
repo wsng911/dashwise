@@ -1,25 +1,31 @@
-# Build stage
 FROM node:20-alpine AS builder
+
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci
+RUN apk add --no-cache git && \
+    git config --global user.email "dev@example.com" && \
+    git config --global user.name "dev"
 
-# Build app
+COPY package*.json ./
+RUN npm install
+
 COPY . .
+
+RUN git init && git add -A && git commit -m "init" || true
+
 RUN npm run build
 
-# Production image
 FROM node:20-alpine
+
 WORKDIR /app
 
-# Copy only what we need
-COPY package*.json ./
-RUN npm ci --omit=dev
-
-COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
+
+ENV NODE_ENV=production
+ENV PORT=3000
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["node", "server.js"]

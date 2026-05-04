@@ -50,7 +50,7 @@ migrate((app) => {
         "id": "text3146948090",
         "max": 0,
         "min": 0,
-        "name": "instanceName",
+        "name": "instance名称",
         "pattern": "",
         "presentable": false,
         "primaryKey": false,
@@ -62,7 +62,7 @@ migrate((app) => {
         "hidden": false,
         "id": "autodate2990389176",
         "name": "created",
-        "onCreate": true,
+        "on创建": true,
         "onUpdate": false,
         "presentable": false,
         "system": false,
@@ -72,7 +72,7 @@ migrate((app) => {
         "hidden": false,
         "id": "autodate3332085495",
         "name": "updated",
-        "onCreate": true,
+        "on创建": true,
         "onUpdate": true,
         "presentable": false,
         "system": false,
@@ -91,7 +91,7 @@ migrate((app) => {
 
   return app.save(collection);
 }, (app) => {
-  const collection = app.findCollectionByNameOrId("pbc_3957763459");
+  const collection = app.findCollectionBy名称OrId("pbc_3957763459");
 
   return app.delete(collection);
 })

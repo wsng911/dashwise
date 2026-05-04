@@ -18,7 +18,7 @@ export async function GET(request: Request) {
       }
 
       
-      const searchItemRecord = await pb.collection('userSearchItems').getFirstListItem(
+      const searchItemRecord = await pb.collection('user搜索Items').getFirstListItem(
          `associatedUserId="${authModel.record.id}"`
       );
 

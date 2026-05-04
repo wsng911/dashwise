@@ -1,5 +1,5 @@
-import ScreensaverSettings from "@/components/settings/ScreensaverSettings";
+import Screensaver设置 from "@/components/settings/Screensaver设置";
 
 export default function ScreensaverPage() {
-  return <ScreensaverSettings />;
+  return <Screensaver设置 />;
 }

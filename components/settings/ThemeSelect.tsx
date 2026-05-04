@@ -49,7 +49,7 @@ function applyThemeClasses(themeMode: ThemeMode, frostedAppearance: ThemeMode = 
   root.classList.add(resolvedFrosted === "dark" ? "frosted-theme-dark" : "frosted-theme-light");
 }
 
-export default function ThemeSelectComponent({ className }: { className?: string }) {
+export default function ThemeSelectComponent({ class名称 }: { class名称?: string }) {
   const { config, patchConfig } = useConfig();
   const [accent, setAccent] = useState<string | undefined>(
     config?.appearance?.accentColor
@@ -138,31 +138,31 @@ export default function ThemeSelectComponent({ className }: { className?: string
   }
 
   return (
-    <div className={className ?? "border border-transparent col-span-full p-1.5 rounded-md space-y-6"}>
-      <div className="flex items-center gap-2">
+    <div class名称={class名称 ?? "border border-transparent col-span-full p-1.5 rounded-md space-y-6"}>
+      <div class名称="flex items-center gap-2">
         <FontAwesomeIcon icon={faPaintBrush} />
-        <p className="w-full">Accent Color</p>
+        <p class名称="w-full">Accent Color</p>
 
-        <div className="flex items-center gap-2">
+        <div class名称="flex items-center gap-2">
           {PRESET_COLORS.map((c) => (
             <button
               key={c}
               title={c}
               aria-label={`Choose ${c}`}
               onClick={() => updateAccentColor(c)}
-              className={`w-7 h-7 rounded-full border-2 transform transition-transform duration-150 active:scale-90 ${accent?.toLowerCase() === c.toLowerCase() ? "ring-1 ring-offset-1" : ""
+              class名称={`w-7 h-7 rounded-full border-2 transform transition-transform duration-150 active:scale-90 ${accent?.toLowerCase() === c.toLowerCase() ? "ring-1 ring-offset-1" : ""
                 }`}
               style={{ background: c, borderColor: "rgba(255,255,255,0.08)" }}
             />
           ))}
 
-          <span className="w-2 h-2 mx-2 rounded-full frosted"></span>
+          <span class名称="w-2 h-2 mx-2 rounded-full frosted"></span>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className={`frosted rounded-full w-8 h-8 outline-none shadow-none hover:ring-2 hover:ring-gray-300 hover:text-gray-300
+                class名称={`frosted rounded-full w-8 h-8 outline-none shadow-none hover:ring-2 hover:ring-gray-300 hover:text-gray-300
       transition-all duration-150 ${isCustomAccent ? "ring-2" : ""}`}
                 style={{ background: accent }}
               >
@@ -172,13 +172,13 @@ export default function ThemeSelectComponent({ className }: { className?: string
 
             <DropdownMenuContent
               align="end"
-              className="p-3 w-[320px] frosted text-foreground"
+              class名称="p-3 w-[320px] frosted text-foreground"
             >
-              <div className="w-72">
+              <div class名称="w-72">
                 <ColorPicker
                   value={accent ?? "#6b21a8"}
                   onValueChange={(v) => updateAccentColor(v)}
-                  className="space-y-2"
+                  class名称="space-y-2"
                 />
               </div>
             </DropdownMenuContent>
@@ -186,37 +186,37 @@ export default function ThemeSelectComponent({ className }: { className?: string
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div class名称="flex items-center gap-2">
         <FontAwesomeIcon icon={faCircleHalfStroke} />
-        <p className="w-full">Theme</p>
+        <p class名称="w-full">Theme</p>
         <RadioGroup
           value={themeMode}
           onValueChange={(v) => updateThemeMode(v as ThemeMode)}
-          className="flex items-center gap-2"
+          class名称="flex items-center gap-2"
         >
            <div>
-            <RadioGroupItem id="theme-light" value="light" className="peer sr-only" />
+            <RadioGroupItem id="theme-light" value="light" class名称="peer sr-only" />
             <Label
               htmlFor="theme-light"
-              className="cursor-pointer rounded-md px-3 py-1.5 frosted peer-data-[state=checked]:outline peer-data-[state=checked]:outline-(--primary)"
+              class名称="cursor-pointer rounded-md px-3 py-1.5 frosted peer-data-[state=checked]:outline peer-data-[state=checked]:outline-(--primary)"
             >
               Light
             </Label>
           </div>
           <div>
-            <RadioGroupItem id="theme-dark" value="dark" className="peer sr-only" />
+            <RadioGroupItem id="theme-dark" value="dark" class名称="peer sr-only" />
             <Label
               htmlFor="theme-dark"
-              className="cursor-pointer rounded-md px-3 py-1.5 frosted peer-data-[state=checked]:outline peer-data-[state=checked]:outline-(--primary)"
+              class名称="cursor-pointer rounded-md px-3 py-1.5 frosted peer-data-[state=checked]:outline peer-data-[state=checked]:outline-(--primary)"
             >
               Dark
             </Label>
           </div>
            <div>
-            <RadioGroupItem id="theme-system" value="system" className="peer sr-only" />
+            <RadioGroupItem id="theme-system" value="system" class名称="peer sr-only" />
             <Label
               htmlFor="theme-system"
-              className="cursor-pointer rounded-md px-3 py-1.5 frosted peer-data-[state=checked]:outline peer-data-[state=checked]:outline-(--primary)"
+              class名称="cursor-pointer rounded-md px-3 py-1.5 frosted peer-data-[state=checked]:outline peer-data-[state=checked]:outline-(--primary)"
             >
               System
             </Label>

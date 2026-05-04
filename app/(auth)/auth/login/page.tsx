@@ -6,7 +6,7 @@ export default function LoginPage() {
     return (
         <div
             style={{ backgroundImage: `url(${config.default_bg_url})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-            className="flex items-center justify-center min-h-screen"
+            class名称="flex items-center justify-center min-h-screen"
         >
             <LoginCard />
         </div>

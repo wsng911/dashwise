@@ -51,7 +51,7 @@ export default function RootLayout({
          <link rel="shortcut icon" href="/favicons/favicon.ico" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-dvh`}
+        class名称={`${geistSans.variable} ${geistMono.variable} antialiased h-dvh`}
       >
         
           {children}

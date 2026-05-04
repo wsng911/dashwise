@@ -13,8 +13,8 @@ type TabSwitcherProps = {
   onValueChange: (value: string) => void;
   items?: TabItem[];
   children?: ReactNode;
-  className?: string;
-  listClassName?: string;
+  class名称?: string;
+  listClass名称?: string;
 };
 
 /**
@@ -27,24 +27,24 @@ export default function TabSwitcher({
   onValueChange,
   items,
   children,
-  className = "",
-  listClassName = "",
+  class名称 = "",
+  listClass名称 = "",
 }: TabSwitcherProps) {
   return (
     <Tabs
       value={value}
       onValueChange={onValueChange}
-      className={`w-full flex items-center ${className}`}
+      class名称={`w-full flex items-center ${class名称}`}
     >
-      <TabsList className={`frosted rounded-full gap-2 text-white/20 ${listClassName}`}>
+      <TabsList class名称={`frosted rounded-full gap-2 text-white/20 ${listClass名称}`}>
         {items ? (
           items.map((item) => (
             <TabsTrigger
               key={item.value}
               value={item.value}
-              className="data-[state=active]:bg-white/20 rounded-full transition-all duration-300 ease-out"
+              class名称="data-[state=active]:bg-white/20 rounded-full transition-all duration-300 ease-out"
             >
-              <span className="text-foreground">{item.label}</span>
+              <span class名称="text-foreground">{item.label}</span>
             </TabsTrigger>
           ))
         ) : (

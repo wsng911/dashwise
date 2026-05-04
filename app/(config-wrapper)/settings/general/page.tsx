@@ -28,7 +28,7 @@ const DATE_FORMAT_OPTIONS = [
   "ddd DD-MM-YYYY",
 ] as const;
 
-export default function GeneralSettingsPage() {
+export default function General设置Page() {
   const [isRefreshingIcons, setIsRefreshingIcons] = useState(false);
 
   async function handleRefreshIcons() {
@@ -44,72 +44,72 @@ export default function GeneralSettingsPage() {
     }
   }
 
-  return <> <h1 className="text-3xl font-semibold mb-4">General</h1>
+  return <> <h1 class名称="text-3xl font-semibold mb-4">General</h1>
 
-    <div className="space-y-2">
-      <h2 className="text-xl font-semibold">App Info</h2>
-      <div className="content space-y-2 frosted rounded-md p-2 flex flex-col">
-        <div className="flex items-center justify-center gap-5"> <img src="/dashwise-icon.png" className="h-14" /> <span><span className="font-semibold text-center text-2xl">dashwise</span> <br /> Version {config.version}</span></div>
-        <ul className="col-span-full flex gap-2 justify-center my-2">
-          <li className="frosted rounded-md px-2 py-1 font-medium min-w-40 text-center"><a href="https://github.com/andreasmolnardev/dashwise-next" className="hover:text-(--primary)">GitHub Repo</a></li>
-          <li className="frosted rounded-md px-2 py-1 font-medium min-w-40 text-center"><a href="https://github.com/andreasmolnardev/dashwise-next/issues" className="hover:text-(--primary)">GitHub Issues</a></li>
+    <div class名称="space-y-2">
+      <h2 class名称="text-xl font-semibold">App Info</h2>
+      <div class名称="content space-y-2 frosted rounded-md p-2 flex flex-col">
+        <div class名称="flex items-center justify-center gap-5"> <img src="/dashwise-icon.png" class名称="h-14" /> <span><span class名称="font-semibold text-center text-2xl">dashwise</span> <br /> Version {config.version}</span></div>
+        <ul class名称="col-span-full flex gap-2 justify-center my-2">
+          <li class名称="frosted rounded-md px-2 py-1 font-medium min-w-40 text-center"><a href="https://github.com/andreasmolnardev/dashwise-next" class名称="hover:text-(--primary)">GitHub Repo</a></li>
+          <li class名称="frosted rounded-md px-2 py-1 font-medium min-w-40 text-center"><a href="https://github.com/andreasmolnardev/dashwise-next/issues" class名称="hover:text-(--primary)">GitHub Issues</a></li>
         </ul>
       </div>
-      <h2 className="text-xl font-semibold">External data</h2>
+      <h2 class名称="text-xl font-semibold">External data</h2>
       <div
-        className="content space-y-2 rounded-md p-2 flex items-center gap-2 group cursor-pointer"
+        class名称="content space-y-2 rounded-md p-2 flex items-center gap-2 group cursor-pointer"
         onClick={handleRefreshIcons}
       >
-        <FontAwesomeIcon icon={faRefresh} className="p-0 m-0 group-hover:text-(--primary)"/>
+        <FontAwesomeIcon icon={faRefresh} class名称="p-0 m-0 group-hover:text-(--primary)"/>
         {isRefreshingIcons ? "Refreshing icons..." : "Refresh icons"}
       </div>
-      <h2 className="text-xl font-semibold">Defaults</h2>
-      <h3 className="text-lg font-medium">Links</h3>
+      <h2 class名称="text-xl font-semibold">Defaults</h2>
+      <h3 class名称="text-lg font-medium">Links</h3>
       <div
-        className={
+        class名称={
           "flex border border-transparent items-center col-span-full p-1.5 rounded-md gap-2"
         }
       >
         <FontAwesomeIcon icon={faWindowRestore} />
-        <p className="w-full font-medium">Open Behaviour</p>
+        <p class名称="w-full font-medium">Open Behaviour</p>
 
-        <div className="flex items-center gap-2">
+        <div class名称="flex items-center gap-2">
           <LinkOpeningBehaviourSelect />
         </div>
       </div>
-      <h3 className="text-lg font-medium">Weather</h3>
+      <h3 class名称="text-lg font-medium">Weather</h3>
       <div
-        className={
+        class名称={
           "flex border border-transparent items-center col-span-full p-1.5 rounded-md gap-2"
         }
       >
         <FontAwesomeIcon icon={faTemperature0} />
-        <p className="w-full font-medium">Temperature Unit</p>
+        <p class名称="w-full font-medium">Temperature Unit</p>
 
-        <div className="flex items-center gap-2 px-12">
+        <div class名称="flex items-center gap-2 px-12">
           <WeatherUnitSelector />
         </div>
       </div>
       <div
-        className={
+        class名称={
           "flex border border-transparent items-center col-span-full p-1.5 rounded-md gap-2"
         }
       >
         <FontAwesomeIcon icon={faLocationDot} />
-        <p className="w-full font-medium">Location</p>
+        <p class名称="w-full font-medium">Location</p>
 
-        <div className="flex items-center gap-2 px-2">
+        <div class名称="flex items-center gap-2 px-2">
           <WeatherLocationSelector />
         </div>
       </div>
 
-      <h3 className="text-lg font-medium">Localization</h3>
-      <LocalizationSettings />
+      <h3 class名称="text-lg font-medium">Localization</h3>
+      <Localization设置 />
     </div>
   </>;
 }
 
-function LocalizationSettings() {
+function Localization设置() {
   const { config, patchConfig } = useConfig();
   const { token } = useAuth();
 
@@ -128,9 +128,9 @@ function LocalizationSettings() {
 
   return (
     <>
-      <div className="flex border border-transparent items-center col-span-full p-1.5 rounded-md gap-2">
+      <div class名称="flex border border-transparent items-center col-span-full p-1.5 rounded-md gap-2">
         <FontAwesomeIcon icon={faClock} />
-        <p className="w-full font-medium">Time format</p>
+        <p class名称="w-full font-medium">Time format</p>
 
         <Select
           value={timeFormat}
@@ -140,7 +140,7 @@ function LocalizationSettings() {
             updateGlobal({ timeFormat: next, "time-format": legacy });
           }}
         >
-          <SelectTrigger className="w-44 frosted">
+          <SelectTrigger class名称="w-44 frosted">
             <SelectValue placeholder="Select time format" />
           </SelectTrigger>
           <SelectContent>
@@ -150,15 +150,15 @@ function LocalizationSettings() {
         </Select>
       </div>
 
-      <div className="flex border border-transparent items-center col-span-full p-1.5 rounded-md gap-2">
+      <div class名称="flex border border-transparent items-center col-span-full p-1.5 rounded-md gap-2">
         <FontAwesomeIcon icon={faCalendar} />
-        <p className="w-full font-medium">Date format</p>
+        <p class名称="w-full font-medium">Date format</p>
 
         <Select
           value={dateFormat}
           onValueChange={(value) => updateGlobal({ dateFormat: value })}
         >
-          <SelectTrigger className="w-52 frosted">
+          <SelectTrigger class名称="w-52 frosted">
             <SelectValue placeholder="Select date format" />
           </SelectTrigger>
           <SelectContent>
@@ -193,10 +193,10 @@ function WeatherUnitSelector() {
   }
 
   return (
-    <div className="flex gap-2 frosted rounded-full text-(--text-on-frosted) px-2 py-1">
+    <div class名称="flex gap-2 frosted rounded-full text-(--text-on-frosted) px-2 py-1">
       <button
         onClick={() => handleChange("c")}
-        className={`
+        class名称={`
         rounded-full px-2 py-1
         ${value === "c" ? "bg-white/20" : ""}
       `}
@@ -206,7 +206,7 @@ function WeatherUnitSelector() {
 
       <button
         onClick={() => handleChange("f")}
-        className={`
+        class名称={`
         rounded-full px-2 py-1
         ${value === "f" ? "bg-white/20" : ""}
       `}
@@ -226,27 +226,27 @@ function WeatherLocationSelector() {
   // derive current global location (if any)
   const currentGlobal = useMemo(() => {
     const raw = config?.global?.weatherLocation;
-    if (!raw) return { displayName: "", coordinates: "" };
+    if (!raw) return { display名称: "", coordinates: "" };
     try {
       const parsed = JSON.parse(raw);
-      return { displayName: parsed.name ?? "", coordinates: `${parsed.lat}, ${parsed.lon}` };
+      return { display名称: parsed.name ?? "", coordinates: `${parsed.lat}, ${parsed.lon}` };
     } catch {
       // fallback if stored with single quotes or other oddities
       try {
         const parsed = JSON.parse(raw.replaceAll("'", '"'));
-        return { displayName: parsed.name ?? "", coordinates: `${parsed.lat}, ${parsed.lon}` };
+        return { display名称: parsed.name ?? "", coordinates: `${parsed.lat}, ${parsed.lon}` };
       } catch {
-        return { displayName: "", coordinates: "" };
+        return { display名称: "", coordinates: "" };
       }
     }
   }, [config?.global?.weatherLocation]);
 
-  const [value, setValue] = useState<{ displayName: string; coordinates: string }>(currentGlobal);
+  const [value, setValue] = useState<{ display名称: string; coordinates: string }>(currentGlobal);
 
   // keep local state in sync if global changes externally
   useEffect(() => setValue(currentGlobal), [currentGlobal]);
 
-  async function handleSave() {
+  async function handle保存() {
     // prepare a stable object to store in config.global.weatherLocation
     const coords = (value.coordinates || "").split(",").map((s) => s.trim());
     const lat = coords[0] ?? "";
@@ -255,7 +255,7 @@ function WeatherLocationSelector() {
     const updatedGlobal = {
       ...(config?.global || {}),
       // store as JSON string
-      weatherLocation: JSON.stringify({ name: value.displayName || "", lat, lon }),
+      weatherLocation: JSON.stringify({ name: value.display名称 || "", lat, lon }),
     };
 
     try {
@@ -275,22 +275,22 @@ function WeatherLocationSelector() {
 
       <Dialog open={open} onOpenChange={(v) => setOpen(Boolean(v))}>
         <DialogTrigger asChild>
-          <Button onClick={() => setOpen(true)} variant="outline" className="rounded-full">Edit weather location</Button>
+          <Button onClick={() => setOpen(true)} variant="outline" class名称="rounded-full">编辑 weather location</Button>
         </DialogTrigger>
-        <DialogContent className="max-h-[80vh] overflow-auto frosted text-foreground">
+        <DialogContent class名称="max-h-[80vh] overflow-auto frosted text-foreground">
           <DialogHeader>
             <DialogTitle>Set global weather location</DialogTitle>
           </DialogHeader>
 
-          <div className="py-4">
+          <div class名称="py-4">
             <LocationSelectFormComponent value={value} onChange={setValue} />
           </div>
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setOpen(false)}>
-              Cancel
+              取消
             </Button>
-            <Button onClick={handleSave}>Save</Button>
+            <Button onClick={handle保存}>保存</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -318,10 +318,10 @@ function LinkOpeningBehaviourSelect() {
   }
 
   return (
-    <div className="flex gap-2 frosted rounded-full text-(--text-on-frosted) px-2 py-1">
+    <div class名称="flex gap-2 frosted rounded-full text-(--text-on-frosted) px-2 py-1">
       <button
         onClick={() => handleChange("sametab")}
-        className={`
+        class名称={`
         rounded-full px-2 py-1 whitespace-nowrap
         ${value === "sametab" ? "bg-white/20" : ""}
       `}
@@ -331,7 +331,7 @@ function LinkOpeningBehaviourSelect() {
 
       <button
         onClick={() => handleChange("newtab")}
-        className={`
+        class名称={`
         rounded-full px-2 py-1 whitespace-nowrap
         ${value === "newtab" ? "bg-white/20" : ""}
       `}

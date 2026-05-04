@@ -52,7 +52,7 @@ function CircularHealthIndicator({
 
     return (
         <div
-            className="inline-flex items-center justify-center"
+            class名称="inline-flex items-center justify-center"
             style={{ width: size, height: size }}
             aria-label={`Health ${clamped} percent`}
         >
@@ -82,8 +82,8 @@ function CircularHealthIndicator({
             </svg>
 
             {/* centered label */}
-            <div className="absolute text-sm font-semibold select-none">
-                <span className="leading-none">{display}</span>
+            <div class名称="absolute text-sm font-semibold select-none">
+                <span class名称="leading-none">{display}</span>
             </div>
         </div>
     );
@@ -93,7 +93,7 @@ function CircularHealthIndicator({
 function SystemCard({ record }: { record: HealthRecord }) {
     return (
         <a
-            className="text-sm font-medium max-w-[160px] gap-1 group grid grid-cols-1 justify-items-center grid-rows-[auto auto] gap-1 p-1 w-full relative"
+            class名称="text-sm font-medium max-w-[160px] gap-1 group grid grid-cols-1 justify-items-center grid-rows-[auto auto] gap-1 p-1 w-full relative"
             title={record.system_name}
             href={record.action}
         >
@@ -101,14 +101,14 @@ function SystemCard({ record }: { record: HealthRecord }) {
                 !record.biggest_minus.toLowerCase().includes("no") && (
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <div className="absolute top-0 right-1 rounded-full w-6 h-6 flex items-center justify-center">
+                            <div class名称="absolute top-0 right-1 rounded-full w-6 h-6 flex items-center justify-center">
                                 {/* Transparent ring */}
-                                <div className="absolute inset-0 rounded-full border-2 border-transparent bg-[rgba(0,0,0,0)] pointer-events-none"></div>
+                                <div class名称="absolute inset-0 rounded-full border-2 border-transparent bg-[rgba(0,0,0,0)] pointer-events-none"></div>
 
                                 {/* Icon sits in the center */}
                                 <FontAwesomeIcon
                                     icon={faExclamationCircle}
-                                    className="relative z-10 text-(--text-on-frosted)"
+                                    class名称="relative z-10 text-(--text-on-frosted)"
                                 />
                             </div>
                         </TooltipTrigger>
@@ -118,13 +118,13 @@ function SystemCard({ record }: { record: HealthRecord }) {
             <CircularHealthIndicator value={record?.details?.status?.includes("down") ? 0 : record.health_score} />
 
 
-            <span className="group-hover:text-(--primary)">{record.system_name}</span>
+            <span class名称="group-hover:text-(--primary)">{record.system_name}</span>
         </a>
     );
 }
 
 // --- Main widget component ---
-export default function BeszelSystemHealthWidget({ className = "" }: WidgetItemProps) {
+export default function BeszelSystemHealthWidget({ class名称 = "" }: WidgetItemProps) {
     const [data, setData] = useState<HealthApiResponse | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -160,11 +160,11 @@ export default function BeszelSystemHealthWidget({ className = "" }: WidgetItemP
     const items = data ? Object.values(data) : [];
 
     return (
-        <WidgetColumnTemplate className={className} iconUrl="/icons/png/beszel-light.png" title="System health">
-            {loading && <div className="col-span-full text-center text-sm">Loading…</div>}
-            {error && <div className="col-span-full text-center text-sm text-red-400">{error}</div>}
+        <WidgetColumnTemplate class名称={class名称} iconUrl="/icons/png/beszel-light.png" title="System health">
+            {loading && <div class名称="col-span-full text-center text-sm">Loading…</div>}
+            {error && <div class名称="col-span-full text-center text-sm text-red-400">{error}</div>}
 
-            {!loading && items.length === 0 && <div className="col-span-full text-center text-sm">No systems found</div>}
+            {!loading && items.length === 0 && <div class名称="col-span-full text-center text-sm">No systems found</div>}
 
             {!loading && items.length > 0 && (
                 <PaginatedCarouselViewComponent minColWidth={32} maxRows={1}>

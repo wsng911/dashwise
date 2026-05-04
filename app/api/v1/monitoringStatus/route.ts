@@ -5,7 +5,7 @@ import axios from 'axios';
 import config from '@/lib/config';
 
 // Define the structure for the response object
-interface JobStatusResponse {
+interface Job状态Response {
     [jobId: string]: {
         status: string;
         dateChanged: string | null;
@@ -14,7 +14,7 @@ interface JobStatusResponse {
     };
 }
 
-type JobStatusSummary = {
+type Job状态Summary = {
     status: string;
     dateChanged: string | null;
     durationChanged: number | null;
@@ -41,29 +41,29 @@ async function authenticate(request: Request) {
     }
 }
 
-function normalizeStatus(rawStatus: unknown): string {
-    if (Array.isArray(rawStatus)) {
-        return String(rawStatus[0] || 'unhealthy');
+function normalize状态(raw状态: unknown): string {
+    if (Array.isArray(raw状态)) {
+        return String(raw状态[0] || 'unhealthy');
     }
-    return String(rawStatus || 'unhealthy');
+    return String(raw状态 || 'unhealthy');
 }
 
-async function getLatestJobStatus(pb: any, userId: string, job: any): Promise<JobStatusSummary> {
+async function getLatestJob状态(pb: any, userId: string, job: any): Promise<Job状态Summary> {
     const jobLogsResponse = await pb
-        .collection('monitoringJobStatusLogs')
+        .collection('monitoringJob状态Logs')
         .getList(1, 2, {
             filter: `job = "${job.id}" && job.userId = "${userId}"`,
             sort: '-created'
         });
 
     const jobLogs = jobLogsResponse.items;
-    let latestStatus = normalizeStatus(job.status);
+    let latest状态 = normalize状态(job.status);
     let dateChanged: string | null = null;
     let durationChanged: number | null = null;
 
     if (jobLogs && jobLogs.length > 0) {
         const latestLog = jobLogs[0];
-        latestStatus = normalizeStatus(latestLog.status);
+        latest状态 = normalize状态(latestLog.status);
         dateChanged = latestLog.created;
 
         if (jobLogs.length > 1) {
@@ -75,7 +75,7 @@ async function getLatestJobStatus(pb: any, userId: string, job: any): Promise<Jo
     }
 
     return {
-        status: latestStatus,
+        status: latest状态,
         dateChanged,
         durationChanged,
     };
@@ -117,12 +117,12 @@ export async function GET(request: Request) {
         }
 
         // --- Process Jobs and Fetch Logs Iteratively ---
-        const results: JobStatusResponse = {};
+        const results: Job状态Response = {};
 
         for (const job of monitoringJobs) {
-            const statusSummary = await getLatestJobStatus(pb, authModel.record.id, job);
+            const statusSummary = await getLatestJob状态(pb, authModel.record.id, job);
 
-            // Add the computed data to our result object
+            // 添加 the computed data to our result object
             results[job.source] = {
                 status: statusSummary.status,
                 dateChanged: statusSummary.dateChanged,
@@ -139,7 +139,7 @@ export async function GET(request: Request) {
         console.error('Error fetching monitoring job statuses:', error);
         try {
             // Log the full PocketBase error response if available
-            console.error('error.response:', JSON.stringify((error as any).response, Object.getOwnPropertyNames(error)));
+            console.error('error.response:', JSON.stringify((error as any).response, Object.getOwnProperty名称s(error)));
             console.error('error.response?.data:', JSON.stringify((error as any).response?.data));
         } catch (e) {
             console.error('failed to stringify pocketbase error details', e);
@@ -172,7 +172,7 @@ export async function POST(request: Request) {
 
         const existingJobs = await pb.collection('monitoringJobs').getFullList({ filter: targetFilter });
         if (!existingJobs || existingJobs.length === 0) {
-            return NextResponse.json({ error: 'Monitoring job not found for this user' }, { status: 404 });
+            return NextResponse.json({ error: '监控ing job not found for this user' }, { status: 404 });
         }
 
         const targetJob = existingJobs[0];
@@ -183,32 +183,32 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Jobs webhook is disabled' }, { status: 400 });
         }
 
-        const webhookUrl = `${config.jobs_url}/webhook/statusMonitoringRunner${sourceLinkId ? `?linkId=${encodeURIComponent(sourceLinkId)}` : ''}`;
+        const webhookUrl = `${config.jobs_url}/webhook/status监控ingRunner${sourceLinkId ? `?linkId=${encodeURIComponent(sourceLinkId)}` : ''}`;
         const webhookResponse = await axios.get(webhookUrl);
 
         const refreshedJobs = await pb.collection('monitoringJobs').getFullList({ filter: `id = "${targetJob.id}" && userId = "${authModel.record.id}"` });
         const refreshedJob = refreshedJobs[0] || targetJob;
-        const statusSummary = await getLatestJobStatus(pb, authModel.record.id, refreshedJob);
+        const statusSummary = await getLatestJob状态(pb, authModel.record.id, refreshedJob);
 
         const runnerDetails = webhookResponse?.data?.result?.details;
         const matchingRunnerDetail = Array.isArray(runnerDetails)
             ? runnerDetails.find((entry: any) => entry?.jobId === refreshedJob.id) || runnerDetails[0]
             : undefined;
 
-        const normalizedStatus = normalizeStatus(statusSummary.status);
-        const statusForUi = normalizedStatus === 'healthy' ? 'up' : normalizedStatus === 'disabled' ? 'disabled' : 'down';
+        const normalized状态 = normalize状态(statusSummary.status);
+        const statusForUi = normalized状态 === 'healthy' ? 'up' : normalized状态 === 'disabled' ? 'disabled' : 'down';
 
         return NextResponse.json({
             jobId: refreshedJob.id,
             linkId: sourceLinkId,
             source,
             status: statusForUi,
-            rawStatus: normalizedStatus,
+            raw状态: normalized状态,
             endpoint: refreshedJob.endpoint,
             checkedAt: new Date().toISOString(),
             dateChanged: statusSummary.dateChanged,
             durationChanged: statusSummary.durationChanged,
-            httpStatus: matchingRunnerDetail?.httpStatus,
+            http状态: matchingRunnerDetail?.http状态,
             method: matchingRunnerDetail?.method,
             result: matchingRunnerDetail,
             webhookResult: webhookResponse?.data,

@@ -7,13 +7,13 @@ export async function DELETE(request: Request) {
     const { email, password, totp } = await request.json();
 
     if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
+      return NextResponse.json({ error: '邮箱 and password are required' }, { status: 400 });
     }
 
     const pb = getServerPB();
 
     // Re-authenticate the user
-    const authData = await pb.collection('users').authWithPassword(email, password);
+    const authData = await pb.collection('users').authWith密码(email, password);
     const user = authData.record;
 
     // If 2FA is enabled on the user, require and verify the TOTP code
@@ -44,11 +44,11 @@ export async function DELETE(request: Request) {
     return new NextResponse(null, { status: 204 });
 
   } catch (err) {
-    console.error('Delete account error:', err);
+    console.error('删除 account error:', err);
 
     // If PocketBase returns a permission error, surface that specifically
     const message = (err && (err as any).status === 403)
-      ? 'Not allowed to delete this account (check collection Delete rule / permissions)'
+      ? 'Not allowed to delete this account (check collection 删除 rule / permissions)'
       : 'Unable to delete account';
 
     return NextResponse.json({ error: message }, { status: (err && (err as any).status) || 500 });

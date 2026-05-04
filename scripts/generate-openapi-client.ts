@@ -6,7 +6,7 @@ const OPENAPI = fs.existsSync(path.resolve(process.cwd(), 'openapi.json'))
   : path.resolve(process.cwd(), 'public/openapi.json');
 const OUT = path.resolve(process.cwd(), 'lib/generatedApiClient.ts');
 
-function toFnName(method: string, route: string) {
+function toFn名称(method: string, route: string) {
   const parts = route.split('/').filter(Boolean).map(p => p.replace(/[^a-zA-Z0-9{}]/g, ''));
   const name = parts.map(p => p.startsWith('{') ? 'By' + p.replace(/[{}]/g, '').replace(/(^.|-.)/g, s=>s.replace(/-/,'').toUpperCase()) : p.replace(/(^.|-.)/g, s=>s.replace(/-/,'').toUpperCase())).join('');
   return method.toLowerCase() + (name ? name[0].toUpperCase()+name.slice(1) : 'Root');
@@ -21,7 +21,7 @@ function render() {
 
   for (const [route, methods] of Object.entries<any>(json.paths || {})) {
     for (const [method, op] of Object.entries<any>(methods)) {
-      const fn = toFnName(method, route as string);
+      const fn = toFn名称(method, route as string);
 
       const hasBody = ['post','put','patch'].includes(method.toLowerCase());
       const pathParams = Array.from((route as string).matchAll(/\{([^}]+)\}/g), (m: any) => m[1]);

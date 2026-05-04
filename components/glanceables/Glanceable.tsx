@@ -7,7 +7,7 @@ import { getWeather } from "@/lib/apiClient";
 export type GlanceableProps = {
   type: string;
   params?: Record<string, any>;
-  className?: string;
+  class名称?: string;
 };
 
 type WeatherLocation = {
@@ -16,21 +16,21 @@ type WeatherLocation = {
   name: string;
 };
 
-export default function GlanceableComponent({ type, params, className }: GlanceableProps) {
+export default function GlanceableComponent({ type, params, class名称 }: GlanceableProps) {
   switch (type) {
     case "date":
-      return <GlanceableDate params={params} className={className} />;
+      return <GlanceableDate params={params} class名称={class名称} />;
     case "greeting":
-      return <GlanceableGreeting className={className} />;
+      return <GlanceableGreeting class名称={class名称} />;
     case "local-timezone":
-      return <GlanceableLocalTimezone className={className} />; 
+      return <GlanceableLocalTimezone class名称={class名称} />; 
     case "weather":
-      return <GlanceableWeather params={params} className={className} />;
+      return <GlanceableWeather params={params} class名称={class名称} />;
     case "world-clock":
-      return <GlanceableWorldClock params={params} className={className} />;
+      return <GlanceableWorldClock params={params} class名称={class名称} />;
     default:
       return (
-        <div className={`glanceable-default ${className || ""}`}>
+        <div class名称={`glanceable-default ${class名称 || ""}`}>
           Go to settings to configure
         </div>
       );
@@ -39,43 +39,43 @@ export default function GlanceableComponent({ type, params, className }: Glancea
 
 function GlanceableDate({
   params,
-  className,
+  class名称,
 }: {
   params?: Record<string, any>;
-  className?: string;
+  class名称?: string;
 }) {
   const { formatDate } = useLocalization();
   const formattedDate = formatDate(new Date(), params?.format);
 
-  return <div className={`glanceable-date ${className || ""}`}>{formattedDate}</div>;
+  return <div class名称={`glanceable-date ${class名称 || ""}`}>{formattedDate}</div>;
 }
 
-function GlanceableGreeting({ className }: { className?: string }) {
+function GlanceableGreeting({ class名称 }: { class名称?: string }) {
   return (
-    <div className={`glanceable-greeting ${className || ""}`}>
+    <div class名称={`glanceable-greeting ${class名称 || ""}`}>
       Hello
     </div>
   );
 }
 
-function GlanceableLocalTimezone({ className }: { className?: string }) {
+function GlanceableLocalTimezone({ class名称 }: { class名称?: string }) {
   // Get the user's local timezone abbreviation (like PST, EST)
-  const timezoneName = Intl.DateTimeFormat(undefined, { timeZoneName: 'short' })
+  const timezone名称 = Intl.DateTimeFormat(undefined, { timeZone名称: 'short' })
     .formatToParts(new Date())
-    .find(part => part.type === 'timeZoneName')?.value || '';
+    .find(part => part.type === 'timeZone名称')?.value || '';
 
   // Alternatively, get GMT offset like GMT+2
   const offset = -new Date().getTimezoneOffset() / 60;
   const gmtOffset = `GMT${offset >= 0 ? '+' : ''}${offset}`;
 
   return (
-    <div className={`glanceable-local-timezone flex items-center justify-center ${className || ""}`}>
-      {timezoneName || gmtOffset}
+    <div class名称={`glanceable-local-timezone flex items-center justify-center ${class名称 || ""}`}>
+      {timezone名称 || gmtOffset}
     </div>
   );
 }
 
-function GlanceableWeather({ params, className }: { params?: Record<string, any>, className?: string }) {
+function GlanceableWeather({ params, class名称 }: { params?: Record<string, any>, class名称?: string }) {
   const { config } = useConfig();
   const { weatherUnit } = useLocalization();
 
@@ -120,7 +120,7 @@ function GlanceableWeather({ params, className }: { params?: Record<string, any>
 
     if (match) {
       return {
-        name: params.location.displayName,
+        name: params.location.display名称,
         lat: Number(match[1]),
         lon:  Number(match[2])
       };
@@ -153,12 +153,12 @@ function GlanceableWeather({ params, className }: { params?: Record<string, any>
   }, [weatherLocation, unit]);
 
   if (!weather) {
-    return <div className={`glanceable-weather ${className || ""}`}>Loading…</div>;
+    return <div class名称={`glanceable-weather ${class名称 || ""}`}>Loading…</div>;
   }
 
   return (
-    <div className={`glanceable-weather flex items-center ${className || ""}`}>
-      <span className="mr-2">
+    <div class名称={`glanceable-weather flex items-center ${class名称 || ""}`}>
+      <span class名称="mr-2">
         {getWeatherIcon({
           description: weather.description,
           weatherCode: weather.weatherCode,
@@ -168,7 +168,7 @@ function GlanceableWeather({ params, className }: { params?: Record<string, any>
         })}
       </span>
 
-      <div className="text-wrap text-center">
+      <div class名称="text-wrap text-center">
         {weather.temperature}{weather.unit}
         {params?.showLocation === true ? ` in ${weather.name.split(',')[0]}` : ""}
       </div>
@@ -176,7 +176,7 @@ function GlanceableWeather({ params, className }: { params?: Record<string, any>
   );
 }
 
-function GlanceableWorldClock({ params, className }: { params?: Record<string, any>, className?: string }) {
+function GlanceableWorldClock({ params, class名称 }: { params?: Record<string, any>, class名称?: string }) {
   const { formatTime } = useLocalization();
   const [time, setTime] = useState("");
 
@@ -193,7 +193,7 @@ function GlanceableWorldClock({ params, className }: { params?: Record<string, a
   }, [params?.timezone, formatTime]);
 
   return (
-    <div className={`glanceable-worldclock ${className || ""}`}>
+    <div class名称={`glanceable-worldclock ${class名称 || ""}`}>
       {time} in {params?.location}
     </div>
   );

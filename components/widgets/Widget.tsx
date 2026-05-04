@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export type WidgetProps = {
     type: string;
     params?: Record<string, any>;
-    className?: string;
+    class名称?: string;
 };
 
 /**
@@ -11,12 +11,12 @@ export type WidgetProps = {
  * These all share the same shape for strict consistency.
  */
 export type WidgetItemProps = {
-    className?: string;
+    class名称?: string;
     params?: Record<string, any>;
 };
 
 
-export default function WidgetComponent({ type, className, params }: WidgetProps) {
+export default function WidgetComponent({ type, class名称, params }: WidgetProps) {
     const [Component, setComponent] = useState<React.FC<WidgetItemProps> | null>(null);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function WidgetComponent({ type, className, params }: WidgetProps
                         imported = { default: (await import("./dashboard/Weather"))?.default };
                         break;
                     case "weather-overview":
-                        imported = { default: (await import("./dashboard/Weather"))?.WeatherOverviewWidget };
+                        imported = { default: (await import("./dashboard/Weather"))?.Weather概览Widget };
                         break;
                     case "latest-karakeep-bookmarks":
                         imported = await import("./dashboard/Karakeep");
@@ -73,8 +73,8 @@ export default function WidgetComponent({ type, className, params }: WidgetProps
     }, [type]);
 
     if (!Component) {
-        return <div className={`widget-default frosted ${className || ""}`}>Go to settings to configure</div>;
+        return <div class名称={`widget-default frosted ${class名称 || ""}`}>Go to settings to configure</div>;
     }
 
-    return <Component className={`frosted rounded-lg flex items-center ${className || ""}`} params={params} />;
+    return <Component class名称={`frosted rounded-lg flex items-center ${class名称 || ""}`} params={params} />;
 }

@@ -7,8 +7,8 @@ import { config } from "./config/env";
 import { getSuperuserPB } from "./lib/pb";
 import { runJob } from "./lib/job-logger";
 
-import indexStatusMonitoringJobs from "./monitoring/indexer";
-import { runStatusMonitoringJobs, runStatusMonitoringJobsWithOptions } from "./monitoring/runner";
+import index状态监控ingJobs from "./monitoring/indexer";
+import { run状态监控ingJobs, run状态监控ingJobsWithOptions } from "./monitoring/runner";
 import { runVersionComparisonRunner } from "./updates/comparison-runner";
 import { newsFeedBuilder } from "./news/feed-builder";
 import { processQueuedNotifications } from "./notifications/forwarder";
@@ -32,38 +32,38 @@ getSuperuserPB().then(pb => {
 
 
 // search items
-async function triggerSearchItemIndexing() {
+async function trigger搜索ItemIndexing() {
   try {
     const response = await axios.get(`${config.DASHWISE_URL}/api/v1/jobs/searchItems`, {
       headers: jobsAuthHeader,
     });
-    console.log("Search items job triggered successfully:", response.status);
+    console.log("搜索 items job triggered successfully:", response.status);
   } catch (error) {
     console.error("Error triggering search items indexing:", error);
   }
 }
 
-const runSearchItemsJob = (triggerSource: string) =>
-  runJob("searchItemsIndexer", triggerSearchItemIndexing, {
+const run搜索ItemsJob = (triggerSource: string) =>
+  runJob("searchItemsIndexer", trigger搜索ItemIndexing, {
     startMessage: `Triggered by ${triggerSource}`,
-    successMessage: "Search items indexing completed",
-    errorMessage: "Search items indexing failed",
+    successMessage: "搜索 items indexing completed",
+    errorMessage: "搜索 items indexing failed",
   });
 
 cron.schedule(config.SEARCHITEMS_SCHEDULE, () => {
-  void runSearchItemsJob("cron schedule").catch((error) =>
-    console.error("Search items cron job failed:", error)
+  void run搜索ItemsJob("cron schedule").catch((error) =>
+    console.error("搜索 items cron job failed:", error)
   );
 });
 
 fastify.get("/webhook/searchItemIndexer", async (request, reply) => {
   console.log("Webhook received");
   try {
-    await runSearchItemsJob("webhook");
-    reply.send({ message: "Search item indexing triggered" });
+    await run搜索ItemsJob("webhook");
+    reply.send({ message: "搜索 item indexing triggered" });
   } catch (error) {
     reply.status(500).send({
-      message: "Search item indexing failed",
+      message: "搜索 item indexing failed",
       error: error instanceof Error ? error.message : String(error),
     });
   }
@@ -110,52 +110,52 @@ fastify.get("/webhook/pullIcons", async (request, reply) => {
 });
 
 //link monitoring: indexer
-const runMonitoringIndexerJob = (triggerSource: string) =>
-  runJob("statusMonitoringIndexer", indexStatusMonitoringJobs, {
+const run监控ingIndexerJob = (triggerSource: string) =>
+  runJob("status监控ingIndexer", index状态监控ingJobs, {
     startMessage: `Triggered by ${triggerSource}`,
-    successMessage: "Status monitoring indexer completed",
-    errorMessage: "Status monitoring indexer failed",
+    successMessage: "状态 monitoring indexer completed",
+    errorMessage: "状态 monitoring indexer failed",
   });
 
 cron.schedule(config.MONITORING_INDEXER_SCHEDULE, () => {
-  void runMonitoringIndexerJob("cron schedule").catch((error) =>
-    console.error("Monitoring indexer cron job failed:", error)
+  void run监控ingIndexerJob("cron schedule").catch((error) =>
+    console.error("监控ing indexer cron job failed:", error)
   );
 });
 
-fastify.get("/webhook/statusMonitoringIndexer", async (request, reply) => {
+fastify.get("/webhook/status监控ingIndexer", async (request, reply) => {
   console.log("Webhook received");
   try {
-    const result = await runMonitoringIndexerJob("webhook");
+    const result = await run监控ingIndexerJob("webhook");
     reply.send({ message: "status monitoring indexer triggered", result });
   } catch (error) {
     reply.status(500).send({
-      message: "Status monitoring indexer failed",
+      message: "状态 monitoring indexer failed",
       error: error instanceof Error ? error.message : String(error),
     });
   }
 });
 
 //link monitoring: runner
-const runMonitoringRunnerJob = (triggerSource: string, options?: { source?: string; linkId?: string }) =>
-  runJob("statusMonitoringRunner", () => {
+const run监控ingRunnerJob = (triggerSource: string, options?: { source?: string; linkId?: string }) =>
+  runJob("status监控ingRunner", () => {
     if (options?.source || options?.linkId) {
-      return runStatusMonitoringJobsWithOptions(options);
+      return run状态监控ingJobsWithOptions(options);
     }
-    return runStatusMonitoringJobs();
+    return run状态监控ingJobs();
   }, {
     startMessage: `Triggered by ${triggerSource}${options?.linkId ? ` for link ${options.linkId}` : options?.source ? ` for source ${options.source}` : ""}`,
-    successMessage: "Status monitoring runner completed",
-    errorMessage: "Status monitoring runner failed",
+    successMessage: "状态 monitoring runner completed",
+    errorMessage: "状态 monitoring runner failed",
   });
 
 cron.schedule(config.MONITORING_RUNNER_SCHEDULE, () => {
-  void runMonitoringRunnerJob("cron schedule").catch((error) =>
-    console.error("Monitoring runner cron job failed:", error)
+  void run监控ingRunnerJob("cron schedule").catch((error) =>
+    console.error("监控ing runner cron job failed:", error)
   );
 });
 
-fastify.get("/webhook/statusMonitoringRunner", async (request, reply) => {
+fastify.get("/webhook/status监控ingRunner", async (request, reply) => {
   console.log("Webhook received");
   try {
     const { source, linkId } = request.query as { source?: string; linkId?: string };
@@ -167,11 +167,11 @@ fastify.get("/webhook/statusMonitoringRunner", async (request, reply) => {
       options.linkId = linkId;
     }
 
-    const result = await runMonitoringRunnerJob("webhook", options);
+    const result = await run监控ingRunnerJob("webhook", options);
     reply.send({ message: "status monitoring runner triggered", result });
   } catch (error) {
     reply.status(500).send({
-      message: "Status monitoring runner failed",
+      message: "状态 monitoring runner failed",
       error: error instanceof Error ? error.message : String(error),
     });
   }

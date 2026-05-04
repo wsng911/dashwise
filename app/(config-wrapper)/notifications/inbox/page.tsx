@@ -22,7 +22,7 @@ export type NotificationItem = {
   status: string;
   created: string;
   topicId: string;
-  topicName: string;
+  topic名称: string;
   title?: string;
   description?: string;
 };
@@ -75,9 +75,9 @@ export default function NotificationsInboxPage() {
 
   if (!notifications.length) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
-        <h2 className="text-xl font-semibold mb-2">No notifications</h2>
-        <p className="text-center">You're all caught up!</p>
+      <div class名称="flex flex-col items-center justify-center h-64 text-muted-foreground">
+        <h2 class名称="text-xl font-semibold mb-2">No notifications</h2>
+        <p class名称="text-center">You're all caught up!</p>
       </div>
     );
   }
@@ -99,8 +99,8 @@ export default function NotificationsInboxPage() {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-3xl font-semibold">Inbox</h1>
+      <div class名称="flex items-center justify-between mb-4">
+        <h1 class名称="text-3xl font-semibold">Inbox</h1>
         <Button
           variant="ghost"
           size="sm"
@@ -110,19 +110,19 @@ export default function NotificationsInboxPage() {
           }}
           disabled={!hasUnread}
           aria-label="Mark all notifications as read"
-          className="ml-2"
+          class名称="ml-2"
         >
           Mark all as read
         </Button>
       </div>
-      <div className="space-y-4">
+      <div class名称="space-y-4">
         {/* --- Topic Chips (including “All”) --- */}
-        <div className="flex gap-2 overflow-x-auto mb-4">
+        <div class名称="flex gap-2 overflow-x-auto mb-4">
           {/* All notifications chip */}
           <button
             key="all"
             onClick={() => setActiveTopic(null)}
-            className={cn(
+            class名称={cn(
               "px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap",
               activeTopic === null
                 ? "bg-white/20 backdrop-blur-md text-white border border-(--primary)"
@@ -137,7 +137,7 @@ export default function NotificationsInboxPage() {
             <button
               key={topic.id}
               onClick={() => setActiveTopic(topic.id)}
-              className={cn(
+              class名称={cn(
                 "px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap",
                 activeTopic === topic.id
                   ? "bg-white/20 backdrop-blur-md text-white border border-(--primary)"
@@ -184,7 +184,7 @@ export default function NotificationsInboxPage() {
               if (lines.length === 1) return lines[0];
 
               return (
-                <div className="flex flex-col gap-1">
+                <div class名称="flex flex-col gap-1">
                   {lines.map((line, i) => {
                     const idx = line.indexOf(":");
                     if (idx > 0) {
@@ -192,7 +192,7 @@ export default function NotificationsInboxPage() {
                       const val = line.slice(idx + 1).trim();
                       return (
                         <div key={i}>
-                          <span className="font-medium">{key}:</span> {val}
+                          <span class名称="font-medium">{key}:</span> {val}
                         </div>
                       );
                     }
@@ -206,41 +206,41 @@ export default function NotificationsInboxPage() {
             <div
               key={notif.id}
               onClick={() => markAsRead(notif.id)}
-              className="frosted p-4 rounded-xl border border-white/20 backdrop-blur-md flex justify-between items-start shadow-lg group"
+              class名称="frosted p-4 rounded-xl border border-white/20 backdrop-blur-md flex justify-between items-start shadow-lg group"
             >
-              <div className="flex flex-col gap-1 w-full">
-                <div className="notification-header flex justify-between w-full">
-                  <div className="text-sm font-semibold">{notif.topicName}</div>
-                  <div className="text-xs text-muted-foreground mt-1">
+              <div class名称="flex flex-col gap-1 w-full">
+                <div class名称="notification-header flex justify-between w-full">
+                  <div class名称="text-sm font-semibold">{notif.topic名称}</div>
+                  <div class名称="text-xs text-muted-foreground mt-1">
                     {createdDate}
                   </div>
                 </div>
                 {contentTitle && (
                   <div
-                    className={cn(
+                    class名称={cn(
                       "text-base",
                       notif.status !== "read" ? "font-bold" : "font-semibold",
                       "group-hover:text-(--primary)"
                     )}
                   >
-                    {notif.status !== "read" && <span className="inline-block w-2 h-2 bg-primary rounded-full mr-2"></span>}
+                    {notif.status !== "read" && <span class名称="inline-block w-2 h-2 bg-primary rounded-full mr-2"></span>}
                     {contentTitle}
                   </div>
 
                 )}
                 {contentDesc && (
-                  <div className="text-sm text-foreground">{contentDesc}</div>
+                  <div class名称="text-sm text-foreground">{contentDesc}</div>
                 )}
               </div>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="p-2">
+                  <Button variant="ghost" size="sm" class名称="p-2">
                     <MoreHorizontal />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="frosted text-foreground">
-                  <DropdownMenuLabel className="font-semibold">Actions</DropdownMenuLabel>
+                <DropdownMenuContent align="end" class名称="frosted text-foreground">
+                  <DropdownMenuLabel class名称="font-semibold">操作</DropdownMenuLabel>
                   <DropdownMenuItem
                     onClick={() => navigator.clipboard.writeText(notif.id)}
                   >

@@ -2,7 +2,7 @@
 
 /**
  * ============================================================================
- * EditItemsForm - Composable List Management Component
+ * 编辑ItemsForm - Composable List Management Component
  * ============================================================================
  *
  * A type-safe, composable component system for building flexible list
@@ -12,29 +12,29 @@
  * ## Architecture
  *
  * ```
- * EditItemsForm (Context Provider + State Management)
+ * 编辑ItemsForm (Context Provider + State Management)
  * │
  * ├── ListHeader (Controls Area)
- * │   ├── Modes (Select Dropdown - Edit/Move)
+ * │   ├── Modes (Select Dropdown - 编辑/Move)
  * │   └── Tabs (Group Filtering with Dropdown Menu)
  * │       ├── Tab (Individual group tab with rename/delete actions)
- * │       └── CreateGroupAction (Plus icon to add new group)
+ * │       └── 创建GroupAction (Plus icon to add new group)
  * │
  * ├── ListContent (Items Display Container)
  * │   └── ListItemPrototype (Item Row - Repeats for each item)
  * │       ├── Mode Icon (Left: Move/Select icon based on mode)
  * │       ├── Custom Item Content (Passed as children)
- * │       └── IndividualActions (Right: Edit/Delete/Move buttons)
+ * │       └── Individual操作 (Right: 编辑/删除/Move buttons)
  * │
- * └── BulkActionsFooter (Bottom sticky bar when items selected)
- *     └── BulkItemsSelectedActions (Delete/Move/Create subgroup buttons)
+ * └── Bulk操作Footer (Bottom sticky bar when items selected)
+ *     └── BulkItemsSelected操作 (删除/Move/创建 subgroup buttons)
  * ```
  *
  * ## Data Flow
  *
  * 1. Parent provides items array and groupBy field name
- * 2. EditItemsForm computes groups and creates context
- * 3. Child components use useEditItemsForm() hook to access state
+ * 2. 编辑ItemsForm computes groups and creates context
+ * 3. Child components use use编辑ItemsForm() hook to access state
  * 4. User interactions update context (mode, selected, currentGroup)
  * 5. Components re-render based on context changes
  * 6. Parent provided onUpdate callback receives changed items
@@ -43,7 +43,7 @@
  *
  * - **Type-safe**: Generic type support for any item structure (T extends Record<string, any>)
  * - **Composable**: Build UIs by composing small, focused components
- * - **No prop drilling**: All child components access context via useEditItemsForm()
+ * - **No prop drilling**: All child components access context via use编辑ItemsForm()
  * - **Two modes**: "edit" mode for selection/actions, "move" mode for drag-and-drop
  * - **Grouping**: Filter items by group, optional subgroup support
  * - **Bulk operations**: Select multiple items, perform bulk actions (delete, move, etc)
@@ -53,25 +53,25 @@
  *
  * ```tsx
  * import {
- *   EditItemsForm,
+ *   编辑ItemsForm,
  *   ListHeader,
  *   Modes,
  *   Tabs,
  *   Tab,
  *   ListContent,
  *   ListItemPrototype,
- *   IndividualActions,
+ *   Individual操作,
  *   Action,
- *   BulkActionsFooter,
- *   BulkItemsSelectedActions,
- *   useEditItemsForm,
- * } from "@/components/EditItemsForm";
+ *   Bulk操作Footer,
+ *   BulkItemsSelected操作,
+ *   use编辑ItemsForm,
+ * } from "@/components/编辑ItemsForm";
  *
  * export default function ManageFeeds() {
  *   const [feeds, setFeeds] = useState<NewsFeed[]>([]);
  *
  *   return (
- *     <EditItemsForm<NewsFeed>
+ *     <编辑ItemsForm<NewsFeed>
  *       items={feeds}
  *       groupBy="category"
  *       itemKey="feedUrl"
@@ -80,7 +80,7 @@
  *       }}
  *     >
  *       <ListHeader>
- *         <Modes editLabel="Edit" moveLabel="Move" />
+ *         <Modes editLabel="编辑" moveLabel="Move" />
  *         <Tabs>
  *           {categories.map(cat => (
  *             <Tab key={cat} name={cat} onRename={handleRename} />
@@ -92,16 +92,16 @@
  *         <FeedsListContent feeds={feeds} />
  *       </ListContent>
  *
- *       <BulkActionsFooter>
- *         <BulkItemsSelectedActions />
- *       </BulkActionsFooter>
- *     </EditItemsForm>
+ *       <Bulk操作Footer>
+ *         <BulkItemsSelected操作 />
+ *       </Bulk操作Footer>
+ *     </编辑ItemsForm>
  *   );
  * }
  *
  * // Helper component inside ManageFeeds that uses the hook
  * function FeedsListContent({ feeds }: { feeds: NewsFeed[] }) {
- *   const { currentGroup, groupBy, mode } = useEditItemsForm<NewsFeed>();
+ *   const { currentGroup, groupBy, mode } = use编辑ItemsForm<NewsFeed>();
  *
  *   const filtered = feeds.filter(
  *     f => (f[groupBy] ?? "Uncategorized") === currentGroup
@@ -111,15 +111,15 @@
  *     <>
  *       {filtered.map(feed => (
  *         <ListItemPrototype key={feed.feedUrl} item={feed}>
- *           <div className="flex-1">
+ *           <div class名称="flex-1">
  *             <div>{feed.name}</div>
  *             <div>{feed.feedUrl}</div>
  *           </div>
  *           {mode === "edit" && (
- *             <IndividualActions>
+ *             <Individual操作>
  *               <Action type="edit" onClick={() => edit(feed)} />
  *               <Action type="delete" onClick={() => delete(feed)} />
- *             </IndividualActions>
+ *             </Individual操作>
  *           )}
  *         </ListItemPrototype>
  *       ))}
@@ -151,7 +151,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
-  faEdit,
+  fa编辑,
   faArrowRight,
   faTrash,
   faCaretDown,
@@ -166,14 +166,14 @@ import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 export type SingleActionType = "edit" | "delete" | "moveOrder" | "move";
 export type BulkActionType = "delete" | "move" | "createSubgroup";
-export type EditMode = "edit" | "move";
+export type 编辑Mode = "edit" | "move";
 
-export interface EditItemsFormContextType<T extends Record<string, any>> {
+export interface 编辑ItemsFormContextType<T extends Record<string, any>> {
   // Data
   items: T[];
   groups: string[];
   currentGroup: string | null;
-  mode: EditMode;
+  mode: 编辑Mode;
   selected: Record<string, boolean>;
   editingKey: string | null;
   expandedSubgroups: Record<string, boolean>;
@@ -187,18 +187,18 @@ export interface EditItemsFormContextType<T extends Record<string, any>> {
   itemKey: keyof T;
   enableSubgroup: boolean;
   moveItems: "always" | "onMoveMode" | boolean;
-  singleActions: SingleActionType[];
-  bulkActions: BulkActionType[];
+  single操作: SingleActionType[];
+  bulk操作: BulkActionType[];
   iconRounded: boolean;
   enableMoveMode: boolean;
 
-  // Actions
-  setMode: (mode: EditMode) => void;
+  // 操作
+  setMode: (mode: 编辑Mode) => void;
   setCurrentGroup: (group: string | null) => void;
   toggleSelect: (key: string) => void;
   toggleSelectAll: () => void;
   clearSelected: () => void;
-  setEditingKey: (key: string | null) => void;
+  set编辑ingKey: (key: string | null) => void;
   toggleExpandSubgroup: (subgroup: string) => void;
 
   // Item operations
@@ -212,15 +212,15 @@ export interface EditItemsFormContextType<T extends Record<string, any>> {
   handleDrop: (key: string, e: React.DragEvent<HTMLDivElement>) => void;
 
   // Callbacks
-  onEditItem?: (item: T) => void;
-  onDeleteItem?: (key: string) => void;
+  on编辑Item?: (item: T) => void;
+  on删除Item?: (key: string) => void;
   onMoveItemToGroup?: (item: T) => void;
-  onBulkDelete?: () => void;
+  onBulk删除?: () => void;
   onBulkMove?: () => void;
-  onBulkCreateSubgroup?: () => void;
+  onBulk创建Subgroup?: () => void;
 }
 
-export interface EditItemsFormProps<T extends Record<string, any>> {
+export interface 编辑ItemsFormProps<T extends Record<string, any>> {
   items: T[];
   groups?: string[];
   groupBy: keyof T;
@@ -231,25 +231,25 @@ export interface EditItemsFormProps<T extends Record<string, any>> {
   enableSubgroup?: boolean;
   enableMoveMode?: boolean;
   switchBetweenModes?: boolean;
-  defaultMode?: EditMode;
-  singleActions?: SingleActionType[];
-  bulkActions?: BulkActionType[];
+  defaultMode?: 编辑Mode;
+  single操作?: SingleActionType[];
+  bulk操作?: BulkActionType[];
   moveItems?: "always" | "onMoveMode" | boolean;
   iconRounded?: boolean;
-  requireConfirmation?: boolean;
+  require确认ation?: boolean;
   initialGroup?: string;
 
   // Callbacks
   onUpdate?: (items: T[], groups?: string[]) => Promise<void> | void;
-  onCreateGroup?: (name: string) => Promise<void> | void;
-  onGroupAction?: (action: "rename" | "delete", groupName: string, payload?: any) => Promise<void> | void;
-  onEditItem?: (item: T, updated?: Partial<T>) => Promise<void> | void;
-  onAddItem?: (groupName: string) => Promise<T> | T;
+  on创建Group?: (name: string) => Promise<void> | void;
+  onGroupAction?: (action: "rename" | "delete", group名称: string, payload?: any) => Promise<void> | void;
+  on编辑Item?: (item: T, updated?: Partial<T>) => Promise<void> | void;
+  on添加Item?: (group名称: string) => Promise<T> | T;
 
   // Render props
-  renderRow?: (item: T, isSelected: boolean, mode: EditMode) => React.ReactNode;
-  renderAddItem?: (groupName: string, onAdded: (item: T) => void, onCancel: () => void) => React.ReactNode;
-  renderEditItem?: (item: T, onSaved: (updated: T) => void, onCancel: () => void) => React.ReactNode;
+  renderRow?: (item: T, isSelected: boolean, mode: 编辑Mode) => React.ReactNode;
+  render添加Item?: (group名称: string, on添加ed: (item: T) => void, on取消: () => void) => React.ReactNode;
+  render编辑Item?: (item: T, on保存d: (updated: T) => void, on取消: () => void) => React.ReactNode;
 
   children?: React.ReactNode;
 }
@@ -258,18 +258,18 @@ export interface EditItemsFormProps<T extends Record<string, any>> {
 // CONTEXT & HOOK
 // ============================================================================
 
-const EditItemsFormContext = createContext<EditItemsFormContextType<any> | null>(null);
+const 编辑ItemsFormContext = createContext<编辑ItemsFormContextType<any> | null>(null);
 
 /**
- * Hook to access EditItemsForm context from child components
- * Must be used within an EditItemsForm provider
+ * Hook to access 编辑ItemsForm context from child components
+ * Must be used within an 编辑ItemsForm provider
  */
-export const useEditItemsForm = <T extends Record<string, any>>(): EditItemsFormContextType<T> => {
-  const context = useContext(EditItemsFormContext);
+export const use编辑ItemsForm = <T extends Record<string, any>>(): 编辑ItemsFormContextType<T> => {
+  const context = useContext(编辑ItemsFormContext);
   if (!context) {
-    throw new Error("useEditItemsForm must be used within EditItemsForm component");
+    throw new Error("use编辑ItemsForm must be used within 编辑ItemsForm component");
   }
-  return context as EditItemsFormContextType<T>;
+  return context as 编辑ItemsFormContextType<T>;
 };
 
 // ============================================================================
@@ -277,37 +277,37 @@ export const useEditItemsForm = <T extends Record<string, any>>(): EditItemsForm
 // ============================================================================
 
 /**
- * EditItemsForm - Main container and context provider
+ * 编辑ItemsForm - Main container and context provider
  * Manages state: selected items, mode, current group, etc.
  */
-export function EditItemsForm<T extends Record<string, any>>({
+export function 编辑ItemsForm<T extends Record<string, any>>({
   items,
   groups,
   groupBy,
   subgroupBy,
   itemKey = "id" as any,
-  title = "Edit items",
+  title = "编辑 items",
   createNewGroup = false,
   enableSubgroup = false,
   enableMoveMode = true,
   switchBetweenModes = true,
   defaultMode = "edit",
-  singleActions = ["edit", "delete", "moveOrder", "move"],
-  bulkActions = ["delete"],
+  single操作 = ["edit", "delete", "moveOrder", "move"],
+  bulk操作 = ["delete"],
   moveItems = "onMoveMode",
   iconRounded = true,
-  requireConfirmation = false,
+  require确认ation = false,
   initialGroup,
   onUpdate,
-  onCreateGroup,
+  on创建Group,
   onGroupAction,
-  onEditItem,
-  onAddItem,
+  on编辑Item,
+  on添加Item,
   renderRow,
-  renderAddItem,
-  renderEditItem,
+  render添加Item,
+  render编辑Item,
   children,
-}: EditItemsFormProps<T>) {
+}: 编辑ItemsFormProps<T>) {
   // Compute groups if not provided
   const computedGroups = useMemo(() => {
     if (groups) return groups;
@@ -323,9 +323,9 @@ export function EditItemsForm<T extends Record<string, any>>({
   const [currentGroup, setCurrentGroup] = useState<string | null>(
     () => initialGroup && computedGroups.includes(initialGroup) ? initialGroup : computedGroups[0] ?? null
   );
-  const [mode, setMode] = useState<EditMode>(defaultMode);
+  const [mode, setMode] = useState<编辑Mode>(defaultMode);
   const [selected, setSelected] = useState<Record<string, boolean>>({});
-  const [editingKey, setEditingKey] = useState<string | null>(null);
+  const [editingKey, set编辑ingKey] = useState<string | null>(null);
   const [expandedSubgroups, setExpandedSubgroups] = useState<Record<string, boolean>>({});
   const [workingItems, setWorkingItems] = useState<T[]>(items);
   const [workingGroups, setWorkingGroups] = useState<string[]>(computedGroups);
@@ -464,7 +464,7 @@ export function EditItemsForm<T extends Record<string, any>>({
         newIndex = targetIndex;
       }
 
-      // Create new items array with reordered items
+      // 创建 new items array with reordered items
       const newItems = [...workingItems];
       const draggedItem = itemsInGroup[draggedIndex];
       const otherItems = itemsInGroup.filter((_, i) => i !== draggedIndex);
@@ -494,7 +494,7 @@ export function EditItemsForm<T extends Record<string, any>>({
     [draggedItemKey, workingItems, workingGroups, currentGroup, groupBy, getKeyFor, onUpdate]
   );
 
-  const context: EditItemsFormContextType<T> = {
+  const context: 编辑ItemsFormContextType<T> = {
     // Data
     items: workingItems,
     groups: workingGroups,
@@ -513,18 +513,18 @@ export function EditItemsForm<T extends Record<string, any>>({
     itemKey,
     enableSubgroup,
     moveItems,
-    singleActions,
-    bulkActions,
+    single操作,
+    bulk操作,
     iconRounded,
     enableMoveMode,
 
-    // Actions
+    // 操作
     setMode,
     setCurrentGroup,
     toggleSelect,
     toggleSelectAll,
     clearSelected,
-    setEditingKey,
+    set编辑ingKey,
     toggleExpandSubgroup,
 
     // Item operations
@@ -538,20 +538,20 @@ export function EditItemsForm<T extends Record<string, any>>({
     handleDrop,
 
     // Callbacks
-    onEditItem,
-    onDeleteItem: undefined,
+    on编辑Item,
+    on删除Item: undefined,
     onMoveItemToGroup: undefined,
-    onBulkDelete: undefined,
+    onBulk删除: undefined,
     onBulkMove: undefined,
-    onBulkCreateSubgroup: undefined,
+    onBulk创建Subgroup: undefined,
   };
 
   return (
-    <EditItemsFormContext.Provider value={context}>
-      <div className="edit-items-form space-y-4 relative">
+    <编辑ItemsFormContext.Provider value={context}>
+      <div class名称="edit-items-form space-y-4 relative">
         {children}
       </div>
-    </EditItemsFormContext.Provider>
+    </编辑ItemsFormContext.Provider>
   );
 }
 
@@ -590,7 +590,7 @@ export function ListHeader({ children }: { children: React.ReactNode }) {
         slots.modesChild = child;
       } else if (child.type === Tabs && !slots.tabsChild) {
         slots.tabsChild = child;
-      } else if (child.type === Actions && !slots.actionsChild) {
+      } else if (child.type === 操作 && !slots.actionsChild) {
         slots.actionsChild = child;
       } else {
         slots.otherChildren.push(child);
@@ -638,23 +638,23 @@ export function ListHeader({ children }: { children: React.ReactNode }) {
 
   if (stackTabs) {
     return (
-      <div ref={containerRef} className="space-y-3">
-        <div className="flex items-center gap-4 min-w-0">
+      <div ref={containerRef} class名称="space-y-3">
+        <div class名称="flex items-center gap-4 min-w-0">
           {modesChild && (
-            <div ref={modesRef} className="shrink-0">
+            <div ref={modesRef} class名称="shrink-0">
               {modesChild}
             </div>
           )}
 
           {actionsChild && (
-            <div ref={actionsRef} className="ml-auto shrink-0">
+            <div ref={actionsRef} class名称="ml-auto shrink-0">
               {actionsChild}
             </div>
           )}
         </div>
 
         {tabsChild && (
-          <div ref={tabsRef} className="min-w-0 w-full">
+          <div ref={tabsRef} class名称="min-w-0 w-full">
             {tabsChild}
           </div>
         )}
@@ -665,21 +665,21 @@ export function ListHeader({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div ref={containerRef} className="flex items-center gap-4 min-w-0">
+    <div ref={containerRef} class名称="flex items-center gap-4 min-w-0">
       {modesChild && (
-        <div ref={modesRef} className="shrink-0">
+        <div ref={modesRef} class名称="shrink-0">
           {modesChild}
         </div>
       )}
 
       {tabsChild && (
-        <div ref={tabsRef} className="flex-1 min-w-0">
+        <div ref={tabsRef} class名称="flex-1 min-w-0">
           {tabsChild}
         </div>
       )}
 
       {actionsChild && (
-        <div ref={actionsRef} className="ml-auto shrink-0">
+        <div ref={actionsRef} class名称="ml-auto shrink-0">
           {actionsChild}
         </div>
       )}
@@ -689,15 +689,15 @@ export function ListHeader({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** Mode toggle dropdown (Edit / Move) */
-export function Modes({ editLabel = "Edit", moveLabel = "Move" }: { editLabel?: string; moveLabel?: string }) {
-  const { mode, setMode, enableMoveMode } = useEditItemsForm();
+/** Mode toggle dropdown (编辑 / Move) */
+export function Modes({ editLabel = "编辑", moveLabel = "Move" }: { editLabel?: string; moveLabel?: string }) {
+  const { mode, setMode, enableMoveMode } = use编辑ItemsForm();
 
   if (!enableMoveMode) return null;
 
   return (
     <Select value={mode} onValueChange={(value) => setMode(value as "edit" | "move")}>
-      <SelectTrigger className="w-20">
+      <SelectTrigger class名称="w-20">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -711,7 +711,7 @@ export function Modes({ editLabel = "Edit", moveLabel = "Move" }: { editLabel?: 
 /** Container for group tabs */
 export function Tabs({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex gap-2 p-1 overflow-x-auto frosted rounded-full text-white/20 items-center justify-center">
+    <div class名称="flex gap-2 p-1 overflow-x-auto frosted rounded-full text-white/20 items-center justify-center">
       {children}
     </div>
   );
@@ -724,21 +724,21 @@ export function Tabs({ children }: { children: React.ReactNode }) {
 export function Tab({
   name,
   onRename,
-  onDelete,
+  on删除,
 }: {
   name: string;
   onRename?: () => void;
-  onDelete?: () => void;
+  on删除?: () => void;
 }) {
-  const { currentGroup, setCurrentGroup } = useEditItemsForm();
+  const { currentGroup, setCurrentGroup } = use编辑ItemsForm();
   const isActive = currentGroup === name;
 
   return (
-    <div className="flex items-center">
+    <div class名称="flex items-center">
       {/* Main tab button - clicking changes group */}
       <button
         onClick={() => setCurrentGroup(name)}
-        className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition font-medium ${
+        class名称={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition font-medium ${
           isActive
             ? "bg-white/20 text-foreground"
             : "text-white/70 hover:text-white/80"
@@ -748,18 +748,18 @@ export function Tab({
       </button>
 
       {/* Dropdown trigger for actions - only if actions available */}
-      {(onRename || onDelete) && (
+      {(onRename || on删除) && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="px-1 opacity-70 hover:opacity-100 transition">
-              <FontAwesomeIcon icon={faCaretDown} className="text-xs" />
+            <button class名称="px-1 opacity-70 hover:opacity-100 transition">
+              <FontAwesomeIcon icon={faCaretDown} class名称="text-xs" />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
             {onRename && <DropdownMenuItem onClick={onRename}>Rename</DropdownMenuItem>}
-            {onDelete && (
-              <DropdownMenuItem onClick={onDelete} className="text-red-400">
-                Delete
+            {on删除 && (
+              <DropdownMenuItem onClick={on删除} class名称="text-red-400">
+                删除
               </DropdownMenuItem>
             )}
           </DropdownMenuContent>
@@ -770,29 +770,29 @@ export function Tab({
 }
 
 /** Button to create a new group */
-export function CreateGroupAction({ onCreateGroup }: { onCreateGroup: () => void }) {
+export function 创建GroupAction({ on创建Group }: { on创建Group: () => void }) {
   return (
     <Button
       variant="ghost"
       size="sm"
-      onClick={onCreateGroup}
-      className="text-foreground hover:bg-(--surface-2)"
+      onClick={on创建Group}
+      class名称="text-foreground hover:bg-(--surface-2)"
     >
-      <FontAwesomeIcon icon={faPlus} className="text-sm" />
+      <FontAwesomeIcon icon={faPlus} class名称="text-sm" />
     </Button>
   );
 }
 
 /** Optional container for additional actions */
-export function Actions({
+export function 操作({
   children,
-  className = "",
+  class名称 = "",
 }: {
   children: React.ReactNode;
-  className?: string;
+  class名称?: string;
 }) {
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div class名称={`flex items-center gap-2 ${class名称}`}>
       {children}
     </div>
   );
@@ -808,14 +808,14 @@ export function ListContent({ children }: { children: React.ReactNode }) {
 
   if (!hasChildren) {
     return (
-      <div className="h-20 flex items-center justify-center flex-col font-medium">
-        <p className="text-lg">Nothing here</p>
-        <p>Add an item to get started</p>
+      <div class名称="h-20 flex items-center justify-center flex-col font-medium">
+        <p class名称="text-lg">Nothing here</p>
+        <p>添加 an item to get started</p>
       </div>
     );
   }
 
-  return <div className="space-y-3">{children}</div>;
+  return <div class名称="space-y-3">{children}</div>;
 }
 
 /**
@@ -825,7 +825,7 @@ export function ListContent({ children }: { children: React.ReactNode }) {
  * In "move" mode: Shows drag-and-drop icon on left, makes row draggable
  * 
  * Children are rendered in the center with flex-1 space
- * IndividualActions should be passed as last child
+ * Individual操作 should be passed as last child
  */
 export function ListItemPrototype({
   item,
@@ -838,7 +838,7 @@ export function ListItemPrototype({
   onDragStart?: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragEnd?: (e: React.DragEvent<HTMLDivElement>) => void;
 }) {
-  const { mode, selected, toggleSelect, handleDragStart: contextDragStart, handleDragOver, handleDragLeave, handleDrop, draggedItemKey, draggedOverItemKey, insertPosition } = useEditItemsForm();
+  const { mode, selected, toggleSelect, handleDragStart: contextDragStart, handleDragOver, handleDragLeave, handleDrop, draggedItemKey, draggedOverItemKey, insertPosition } = use编辑ItemsForm();
   const itemKey = item.id || JSON.stringify(item);
   const isSelected = selected[itemKey];
   const isDragged = draggedItemKey === itemKey;
@@ -857,7 +857,7 @@ export function ListItemPrototype({
     <>
       {/* Insertion line above */}
       {isDraggedOver && insertPosition === "before" && (
-        <div className="h-0.5 bg-blue-500 rounded mb-2" />
+        <div class名称="h-0.5 bg-blue-500 rounded mb-2" />
       )}
       <div
         draggable={mode === "move"}
@@ -866,14 +866,14 @@ export function ListItemPrototype({
         onDragOver={(e) => handleDragOver(itemKey, e)}
         onDragLeave={handleDragLeave}
         onDrop={(e) => handleDrop(itemKey, e)}
-        className={`flex items-center gap-3 p-3 rounded-md border border-transparent hover:bg-(--surface-2) transition group cursor-default relative ${
+        class名称={`flex items-center gap-3 p-3 rounded-md border border-transparent hover:bg-(--surface-2) transition group cursor-default relative ${
           isDragged ? "opacity-50" : ""
         } ${isDraggedOver ? "bg-(--surface-1)" : ""}`}
       >
         {/* Move or Select Icon - Left side */}
         {mode === "move" && (
-          <div className="flex-shrink-0 cursor-grab active:cursor-grabbing opacity-50 group-hover:opacity-100 transition">
-            <FontAwesomeIcon icon={faArrowsUpDown} className="text-white/40" />
+          <div class名称="flex-shrink-0 cursor-grab active:cursor-grabbing opacity-50 group-hover:opacity-100 transition">
+            <FontAwesomeIcon icon={faArrowsUpDown} class名称="text-white/40" />
           </div>
         )}
 
@@ -881,34 +881,34 @@ export function ListItemPrototype({
           <Checkbox
             checked={isSelected}
             onCheckedChange={() => toggleSelect(itemKey)}
-            className="flex-shrink-0"
+            class名称="flex-shrink-0"
           />
         )}
 
         {/* Content wrapper */}
-        <div className="flex-1 min-w-0 flex items-center gap-3">
+        <div class名称="flex-1 min-w-0 flex items-center gap-3">
           {children}
         </div>
       </div>
       {/* Insertion line below */}
       {isDraggedOver && insertPosition === "after" && (
-        <div className="h-0.5 bg-blue-500 rounded mt-2" />
+        <div class名称="h-0.5 bg-blue-500 rounded mt-2" />
       )}
     </>
   );
 }
 
 /** Container for action buttons on the right of list items (only shown in edit mode) */
-export function IndividualActions({ children }: { children: React.ReactNode }) {
-  const { mode } = useEditItemsForm();
+export function Individual操作({ children }: { children: React.ReactNode }) {
+  const { mode } = use编辑ItemsForm();
 
   if (mode !== "edit") return null;
 
-  return <div className="flex-shrink-0 flex gap-1 ml-auto">{children}</div>;
+  return <div class名称="flex-shrink-0 flex gap-1 ml-auto">{children}</div>;
 }
 
 /**
- * Single action button for use inside IndividualActions
+ * Single action button for use inside Individual操作
  * 
  * @param type - "edit", "delete", "move", etc. - determines icon
  * @param label - Tooltip text
@@ -927,7 +927,7 @@ export function Action({
   icon?: IconDefinition;
 }) {
   const iconMap: Record<string, IconDefinition> = {
-    edit: faEdit,
+    edit: fa编辑,
     move: faArrowRight,
     delete: faTrash,
     create: faPlus,
@@ -941,10 +941,10 @@ export function Action({
       variant="ghost"
       size="sm"
       onClick={onClick}
-      className="text-foreground hover:bg-(--surface-2) px-2 h-8 transition-colors"
+      class名称="text-foreground hover:bg-(--surface-2) px-2 h-8 transition-colors"
       title={label}
     >
-      {selectedIcon && <FontAwesomeIcon icon={selectedIcon} className="text-sm" />}
+      {selectedIcon && <FontAwesomeIcon icon={selectedIcon} class名称="text-sm" />}
     </Button>
   );
 }
@@ -954,45 +954,45 @@ export function Action({
 // ============================================================================
 
 /** Sticky footer bar that appears when items are selected */
-export function BulkActionsFooter({ children }: { children: React.ReactNode }) {
-  const { selected } = useEditItemsForm();
+export function Bulk操作Footer({ children }: { children: React.ReactNode }) {
+  const { selected } = use编辑ItemsForm();
   const selectedCount = Object.values(selected).filter(Boolean).length;
 
   if (selectedCount === 0) return null;
 
   return (
-    <div className="sticky bottom-0 left-0 right-0 frosted backdrop-blur-lg bg-(--surface-1) border-t border-(--border-color) p-2 flex items-center justify-between gap-4 rounded-full mx-25">
-      <div className="text-sm">
-        <span className="font-semibold">{selectedCount}</span>
-        <span className="text-white/70 ml-2">items selected</span>
+    <div class名称="sticky bottom-0 left-0 right-0 frosted backdrop-blur-lg bg-(--surface-1) border-t border-(--border-color) p-2 flex items-center justify-between gap-4 rounded-full mx-25">
+      <div class名称="text-sm">
+        <span class名称="font-semibold">{selectedCount}</span>
+        <span class名称="text-white/70 ml-2">items selected</span>
       </div>
 
-      <div className="flex gap-2">{children}</div>
+      <div class名称="flex gap-2">{children}</div>
     </div>
   );
 }
 
 /**
  * Preset bulk action buttons (delete, move, create subgroup)
- * Place inside BulkActionsFooter
+ * Place inside Bulk操作Footer
  */
-export function BulkItemsSelectedActions({
-  onDelete,
+export function BulkItemsSelected操作({
+  on删除,
   onMove,
-  onCreateSubgroup,
+  on创建Subgroup,
 }: {
-  onDelete?: () => void;
+  on删除?: () => void;
   onMove?: () => void;
-  onCreateSubgroup?: () => void;
+  on创建Subgroup?: () => void;
 }) {
-  const { enableSubgroup } = useEditItemsForm();
+  const { enableSubgroup } = use编辑ItemsForm();
 
   return (
     <>
-      {onDelete && <Action type="delete" label="Delete" onClick={onDelete} />}
+      {on删除 && <Action type="delete" label="删除" onClick={on删除} />}
       {onMove && <Action type="move" label="Move" onClick={onMove} />}
-      {onCreateSubgroup && enableSubgroup && (
-        <Action type="create-folder" label="Create Folder" onClick={onCreateSubgroup} />
+      {on创建Subgroup && enableSubgroup && (
+        <Action type="create-folder" label="创建 Folder" onClick={on创建Subgroup} />
       )}
     </>
   );
@@ -1000,29 +1000,29 @@ export function BulkItemsSelectedActions({
 
 /** Dropdown for tab actions (rarely used directly - Tab component handles this) */
 export function TabDropdown({
-  groupName,
+  group名称,
   onRename,
-  onDelete,
+  on删除,
 }: {
-  groupName: string;
+  group名称: string;
   onRename?: () => void;
-  onDelete?: () => void;
+  on删除?: () => void;
 }) {
   return (
-    <div className="group relative">
-      <button className="text-sm opacity-0 group-hover:opacity-100">⋮</button>
-      <div className="absolute right-0 top-full bg-white dark:bg-(--surface-2) rounded shadow-lg hidden group-hover:block z-50">
+    <div class名称="group relative">
+      <button class名称="text-sm opacity-0 group-hover:opacity-100">⋮</button>
+      <div class名称="absolute right-0 top-full bg-white dark:bg-(--surface-2) rounded shadow-lg hidden group-hover:block z-50">
         {onRename && (
-          <button onClick={onRename} className="block w-full text-left px-4 py-2 text-sm hover:bg-(--surface-3)">
+          <button onClick={onRename} class名称="block w-full text-left px-4 py-2 text-sm hover:bg-(--surface-3)">
             Rename
           </button>
         )}
-        {onDelete && (
+        {on删除 && (
           <button
-            onClick={onDelete}
-            className="block w-full text-left px-4 py-2 text-sm hover:bg-(--surface-3) text-red-500"
+            onClick={on删除}
+            class名称="block w-full text-left px-4 py-2 text-sm hover:bg-(--surface-3) text-red-500"
           >
-            Delete
+            删除
           </button>
         )}
       </div>

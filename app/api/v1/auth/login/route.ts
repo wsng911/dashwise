@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const { email, password, totp } = await request.json();
 
     if (!email || !password) {
-      return new NextResponse(JSON.stringify({ error: 'Email and password are required' }), {
+      return new NextResponse(JSON.stringify({ error: '邮箱 and password are required' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     const pb = getServerPB();
 
     // Authenticate user with email and password
-    const authData = await pb.collection('users').authWithPassword(email, password);
+    const authData = await pb.collection('users').authWith密码(email, password);
     const user = authData.record;
 
     // Check if user has 2FA enabled

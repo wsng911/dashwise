@@ -21,11 +21,11 @@ type ParserItem = Parser.Item & FeedItem & {
 export async function getFeedItems({
     feedUrl,
     maxItems = 100,
-    feedName,
+    feed名称,
 }: {
     feedUrl: string;
     maxItems?: number;
-    feedName?: string | undefined;
+    feed名称?: string | undefined;
 }): Promise<FeedItem[]> {
     const parser = new Parser<any, FeedItem>({
         customFields: {
@@ -51,7 +51,7 @@ export async function getFeedItems({
             .map((item: ParserItem) => {
                 const dateString = item.isoDate || item.pubDate;
                 const thumbnailUrl = getThumbnail(item, feed?.image?.url);
-                const descriptionText = getDescription(item);
+                const descriptionText = get描述(item);
 
                 return {
                     title: getTextContent(item.title) || 'No Title',
@@ -61,7 +61,7 @@ export async function getFeedItems({
                     pubDate: dateString ? new Date(dateString) : new Date(),
                     thumbnailUrl: thumbnailUrl || undefined,
                     author: item.author || item.creator || undefined,
-                    source: feedName
+                    source: feed名称
                 } as FeedItem;
             })
             .filter((item: FeedItem) => item.pubDate instanceof Date && !isNaN(item.pubDate.getTime()));
@@ -77,22 +77,22 @@ export async function getFeedItems({
 // get HTML content string from various fields ---
 function getHtmlContent(item: ParserItem, priotizeEncode?: boolean) {
     // rss-parser sometimes provides content as string, sometimes as object { _ : 'html' } for XML
-    let contentDescription;
+    let content描述;
 
     if (priotizeEncode === true) {
-        contentDescription = (item['content:encoded'] ?? item.content ?? item.description ?? item.summary);
+        content描述 = (item['content:encoded'] ?? item.content ?? item.description ?? item.summary);
     } else {
-        contentDescription = item.content ?? (item['content:encoded'] ?? item.description ?? item.summary);
+        content描述 = item.content ?? (item['content:encoded'] ?? item.description ?? item.summary);
     }
 
-    if (!contentDescription) return undefined;
+    if (!content描述) return undefined;
 
-    if (typeof contentDescription === 'string') return contentDescription;
+    if (typeof content描述 === 'string') return content描述;
     // object with _ property
-    if ((contentDescription as any)._ && typeof (contentDescription as any)._ === 'string') {
-        return (contentDescription as any)._;
+    if ((content描述 as any)._ && typeof (content描述 as any)._ === 'string') {
+        return (content描述 as any)._;
     }
-    return String(contentDescription);
+    return String(content描述);
 }
 
 function filteredText(text: string) {
@@ -177,7 +177,7 @@ export function getThumbnail(item: any, fallbackUrl?: any): string | undefined {
     return fallbackUrl;
 }
 
-export function getDescription(item: any): string | undefined {
+export function get描述(item: any): string | undefined {
     const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
 
     // 1. Try media:group → media:description (YouTube)

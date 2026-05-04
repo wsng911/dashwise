@@ -21,7 +21,7 @@ export async function postAuthChangepassword<T = any>(body?: any, opts?: { qs?: 
   return post<T>(path, body, opts);
 }
 
-export async function deleteAuthDeleteaccount<T = any>(opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
+export async function deleteAuth删除account<T = any>(opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
   let path = `/auth/delete-account`;
   return del<T>(path, opts);
 }
@@ -71,7 +71,7 @@ export async function putConfig<T = any>(body?: any, opts?: { qs?: Record<string
   return put<T>(path, body, opts);
 }
 
-export async function postConfigDeleteunusedlinkgroups<T = any>(body?: any, opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
+export async function postConfig删除unusedlinkgroups<T = any>(body?: any, opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
   let path = `/config/delete-unused-linkgroups`;
   return post<T>(path, body, opts);
 }
@@ -101,7 +101,7 @@ export async function getIntegrationsKarakeep<T = any>(opts?: { qs?: Record<stri
   return get<T>(path, opts);
 }
 
-export async function getJobsSearchItems<T = any>(opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
+export async function getJobs搜索Items<T = any>(opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
   let path = `/jobs/searchItems`;
   return get<T>(path, opts);
 }
@@ -116,13 +116,13 @@ export async function getLocations<T = any>(opts?: { qs?: Record<string, any>; t
   return get<T>(path, opts);
 }
 
-export async function getMonitoringStatus<T = any>(opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
-  let path = `/monitoringStatus`;
+export async function get监控ing状态<T = any>(opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
+  let path = `/monitoring状态`;
   return get<T>(path, opts);
 }
 
-export async function postMonitoringStatus<T = any>(body?: any, opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
-  let path = `/monitoringStatus`;
+export async function post监控ing状态<T = any>(body?: any, opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
+  let path = `/monitoring状态`;
   return post<T>(path, body, opts);
 }
 
@@ -228,7 +228,7 @@ export async function deleteNotificationsTopicTokens<T = any>(opts?: { qs?: Reco
   return del<T>(path, opts);
 }
 
-export async function getSearchItems<T = any>(opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
+export async function get搜索Items<T = any>(opts?: { qs?: Record<string, any>; token?: string | null; signal?: AbortSignal }): Promise<T> {
   let path = `/searchItems`;
   return get<T>(path, opts);
 }

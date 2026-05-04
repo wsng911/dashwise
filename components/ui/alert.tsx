@@ -20,7 +20,7 @@ const alertVariants = cva(
 )
 
 function Alert({
-  className,
+  class名称,
   variant,
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
@@ -28,39 +28,39 @@ function Alert({
     <div
       data-slot="alert"
       role="alert"
-      className={cn(alertVariants({ variant }), className)}
+      class名称={cn(alertVariants({ variant }), class名称)}
       {...props}
     />
   )
 }
 
-function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
+function AlertTitle({ class名称, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-title"
-      className={cn(
+      class名称={cn(
         "col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight",
-        className
+        class名称
       )}
       {...props}
     />
   )
 }
 
-function AlertDescription({
-  className,
+function Alert描述({
+  class名称,
   ...props
 }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-description"
-      className={cn(
+      class名称={cn(
         "text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed",
-        className
+        class名称
       )}
       {...props}
     />
   )
 }
 
-export { Alert, AlertTitle, AlertDescription }
+export { Alert, AlertTitle, Alert描述 }

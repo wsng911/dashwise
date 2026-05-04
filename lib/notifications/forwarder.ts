@@ -2,7 +2,7 @@ import { getSuperuserPB } from "@/lib/pb";
 
 /**
  * Queue a notification for forwarding via jobs container
- * Sets forwardStatus to "queued" on the notification item
+ * Sets forward状态 to "queued" on the notification item
  * @param itemId - The notification item ID
  * @param topicId - The notification topic ID
  */
@@ -12,7 +12,7 @@ export async function queueNotificationForForwarding(itemId: string, topicId: st
         
         // Update the notification item to mark it as queued for forwarding
         await pb.collection("notificationItems").update(itemId, {
-            forwardStatus: "queued",
+            forward状态: "queued",
         });
 
         console.log(`[Notification] Queued item ${itemId} for forwarding`);

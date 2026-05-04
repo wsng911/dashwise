@@ -6,90 +6,90 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { getLocations } from "@/lib/apiClient";
 
-interface SearchResult {
+interface 搜索Result {
     display_name: string;
     lat: string;
     lon: string;
 }
 
 interface LocationSelectFormProps {
-    value: { displayName: string; coordinates: string };
-    onChange: (val: { displayName: string; coordinates: string }) => void;
+    value: { display名称: string; coordinates: string };
+    onChange: (val: { display名称: string; coordinates: string }) => void;
 }
 
 export default function LocationSelectFormComponent({
     value,
     onChange,
 }: LocationSelectFormProps) {
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-    const [hasSearched, setHasSearched] = useState(false);
+    const [searchQuery, set搜索Query] = useState("");
+    const [searchResults, set搜索Results] = useState<搜索Result[]>([]);
+    const [has搜索ed, setHas搜索ed] = useState(false);
     const [animateResults, setAnimateResults] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    async function runNominatimSearch(q: string) {
+    async function runNominatim搜索(q: string) {
         if (!q) {
-            setSearchResults([]);
-            setHasSearched(false);
+            set搜索Results([]);
+            setHas搜索ed(false);
             setAnimateResults(false);
             return;
         }
 
-        setHasSearched(true);
+        setHas搜索ed(true);
         setLoading(true);
 
         try {
             const json = await getLocations({ qs: { q } });
-            setSearchResults(json || []);
+            set搜索Results(json || []);
             setAnimateResults(true);
         } catch (err) {
             console.error(err);
-            setSearchResults([]);
+            set搜索Results([]);
             setAnimateResults(false);
         }
 
         setLoading(false);
     }
 
-    function selectSearchResult(r: SearchResult) {
+    function select搜索Result(r: 搜索Result) {
         onChange({
-            displayName: r.display_name,
+            display名称: r.display_name,
             coordinates: `${parseFloat(r.lat).toFixed(6)}, ${parseFloat(r.lon).toFixed(6)}`,
         });
 
-        setSearchResults([]);
-        setSearchQuery("");
-        setHasSearched(false);
+        set搜索Results([]);
+        set搜索Query("");
+        setHas搜索ed(false);
         setAnimateResults(false);
     }
 
     return (
-        <div className="space-y-3">
-            <Label htmlFor="osm-search">Search location</Label>
+        <div class名称="space-y-3">
+            <Label htmlFor="osm-search">搜索 location</Label>
 
-            <div className="flex gap-2">
+            <div class名称="flex gap-2">
                 <Input
                     id="osm-search"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && runNominatimSearch(searchQuery)}
+                    onChange={(e) => set搜索Query(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && runNominatim搜索(searchQuery)}
                     placeholder="City, address, place..."
                 />
-                <Button disabled={loading} onClick={() => runNominatimSearch(searchQuery)}>
-                    {loading ? "Loading..." : "Search"}
+                <Button disabled={loading} onClick={() => runNominatim搜索(searchQuery)}>
+                    {loading ? "加载中..." : "搜索"}
                 </Button>
             </div>
 
-            {hasSearched ? (
+            {has搜索ed ? (
                 loading ? (
-                    <div className="text-center text-sm border rounded p-2 frosted">Loading…</div>
+                    <div class名称="text-center text-sm border rounded p-2 frosted">Loading…</div>
                 ) : searchResults.length > 0 ? (
-                    <div className="max-h-48 overflow-auto rounded border p-2 frosted">
+                    <div class名称="max-h-48 overflow-auto rounded border p-2 frosted">
                         {searchResults.map((r, idx) => (
                             <button
                                 key={idx}
-                                onClick={() => selectSearchResult(r)}
-                                className={`w-full text-left py-1 transition-all duration-300 transform hover:text-(--primary) ${
+                                onClick={() => select搜索Result(r)}
+                                class名称={`w-full text-left py-1 transition-all duration-300 transform hover:text-(--primary) ${
                                     animateResults
                                         ? "opacity-100 translate-y-0"
                                         : "opacity-0 -translate-y-2"
@@ -97,19 +97,19 @@ export default function LocationSelectFormComponent({
                                 style={{ transitionDelay: `${idx * 50}ms` }}
                             >
                                 {r.display_name}
-                                <div className="text-xs opacity-60">
+                                <div class名称="text-xs opacity-60">
                                     {Number(r.lat).toFixed(5)}, {Number(r.lon).toFixed(5)}
                                 </div>
                             </button>
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center text-sm border rounded p-2">Nothing found</div>
+                    <div class名称="text-center text-sm border rounded p-2">Nothing found</div>
                 )
             ) : null}
 
-            <div className="text-sm text-foreground">
-                Selected: <strong>{value.displayName || "none"}</strong>
+            <div class名称="text-sm text-foreground">
+                Selected: <strong>{value.display名称 || "none"}</strong>
                 {value.coordinates ? <span> ({value.coordinates})</span> : null}
             </div>
         </div>

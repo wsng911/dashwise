@@ -21,14 +21,14 @@ type NewTokenDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   topics: Topic[];
-  onTokenCreated?: (newItem: TokenItem) => void;
+  onToken创建d?: (newItem: TokenItem) => void;
 };
 
-export default function CreateTopicTokenDialogComponent({
+export default function 创建TopicTokenDialogComponent({
   open,
   onOpenChange,
   topics,
-  onTokenCreated,
+  onToken创建d,
 }: NewTokenDialogProps) {
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const [creating, setCreating] = useState(false);
@@ -53,7 +53,7 @@ export default function CreateTopicTokenDialogComponent({
 
   const { token } = useAuth();
 
-  const handleCreate = async () => {
+  const handle创建 = async () => {
     if (!selectedTopic) return;
     setCreating(true);
 
@@ -81,7 +81,7 @@ export default function CreateTopicTokenDialogComponent({
       setOnDate(d.toISOString().split("T")[0]);
       onOpenChange(false);
 
-      onTokenCreated?.(json.item);
+      onToken创建d?.(json.item);
 
     } catch (err) {
       console.error(err);
@@ -93,14 +93,14 @@ export default function CreateTopicTokenDialogComponent({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="frosted text-foreground">
+      <DialogContent class名称="frosted text-foreground">
         <DialogHeader>
           <DialogTitle>New Token</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Topic</label>
+        <div class名称="space-y-4">
+          <div class名称="space-y-2">
+            <label class名称="text-sm font-medium">Topic</label>
             <TopicCombobox
               topics={topics}
               value={selectedTopic}
@@ -108,10 +108,10 @@ export default function CreateTopicTokenDialogComponent({
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Expiry</label>
-            <div className="flex gap-4 mb-2">
-              <label className="inline-flex items-center gap-2">
+          <div class名称="space-y-2">
+            <label class名称="text-sm font-medium">Expiry</label>
+            <div class名称="flex gap-4 mb-2">
+              <label class名称="inline-flex items-center gap-2">
                 <input
                   type="radio"
                   name="expiry"
@@ -122,7 +122,7 @@ export default function CreateTopicTokenDialogComponent({
                 <span>Never</span>
               </label>
 
-              <label className="inline-flex items-center gap-2">
+              <label class名称="inline-flex items-center gap-2">
                 <input
                   type="radio"
                   name="expiry"
@@ -133,7 +133,7 @@ export default function CreateTopicTokenDialogComponent({
                 <span>In x amount of days</span>
               </label>
 
-              <label className="inline-flex items-center gap-2">
+              <label class名称="inline-flex items-center gap-2">
                 <input
                   type="radio"
                   name="expiry"
@@ -146,16 +146,16 @@ export default function CreateTopicTokenDialogComponent({
             </div>
 
             {expiryMode === "inDays" && (
-              <div className="flex items-center gap-2">
+              <div class名称="flex items-center gap-2">
                 <input
                   type="number"
                   min={1}
-                  className="w-20 rounded px-2 py-1 bg-transparent border border-white/10"
+                  class名称="w-20 rounded px-2 py-1 bg-transparent border border-white/10"
                   value={inDays}
                   onChange={(e) => setInDays(Number(e.target.value || 0))}
                 />
                 <span>day{inDays === 1 ? "" : "s"}</span>
-                <span className="text-xs text-muted-foreground">({expiryLabel()})</span>
+                <span class名称="text-xs text-muted-foreground">({expiryLabel()})</span>
               </div>
             )}
 
@@ -166,7 +166,7 @@ export default function CreateTopicTokenDialogComponent({
                     {onDate ? format(new Date(onDate), "yyyy-MM-dd") : "Select date"}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
+                <PopoverContent class名称="w-auto p-0">
                   <Calendar
                     mode="single"
                     selected={onDate ? new Date(onDate) : undefined}
@@ -178,9 +178,9 @@ export default function CreateTopicTokenDialogComponent({
           </div>
         </div>
 
-        <DialogFooter className="mt-4 flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button disabled={!selectedTopic || creating} onClick={handleCreate}>Create</Button>
+        <DialogFooter class名称="mt-4 flex justify-end gap-2">
+          <Button variant="ghost" onClick={() => onOpenChange(false)}>取消</Button>
+          <Button disabled={!selectedTopic || creating} onClick={handle创建}>创建</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

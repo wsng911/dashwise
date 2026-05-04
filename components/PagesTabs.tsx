@@ -13,14 +13,14 @@ export default function PagesTabs() {
   if (!config?.pages || config?.pages.length < 2) return <div></div>;
 
   return (
-    <nav className="flex gap-2 items-center justify-center">
+    <nav class名称="flex gap-2 items-center justify-center">
       {config.pages.map((page) => (
         <button
           key={page}
           onClick={() => {
             router.push(`/${page}`);
           }}
-          className={`py-1 px-2 rounded-full ${
+          class名称={`py-1 px-2 rounded-full ${
             selectedPage === page ? "frosted" : "bg-transparent"
           }`}
         >

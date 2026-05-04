@@ -1,5 +1,5 @@
 
-type SearchEngine = {
+type 搜索Engine = {
     icon?: string;
     name: string;
     slug: string;

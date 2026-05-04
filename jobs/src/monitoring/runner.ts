@@ -1,43 +1,43 @@
 import { config } from "../config/env";
 import { getSuperuserPB } from "../lib/pb";
-import { monitorHelper, MonitoringRequestAuth } from "./helper";
+import { monitorHelper, 监控ingRequestAuth } from "./helper";
 
-type StatusCheckMethod = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
+type 状态CheckMethod = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
 
 type LinkCheckConfig = {
     id?: string;
     url?: string;
     statusCheck?: boolean;
     statusCheckEndpoint?: string;
-    statusCheckMethod?: StatusCheckMethod;
+    statusCheckMethod?: 状态CheckMethod;
     statusCheckAuth?: unknown;
     statusCheckShowAsUp?: number[];
 };
 
-export async function runStatusMonitoringJobs(): Promise<{
+export async function run状态监控ingJobs(): Promise<{
     processed: number;
     skipped: number;
     updated: number;
-    logsCreated: number;
+    logs创建d: number;
     errors: number;
     details: Array<any>;
 }> {
-    return runStatusMonitoringJobsWithOptions();
+    return run状态监控ingJobsWithOptions();
 }
 
-export async function runStatusMonitoringJobsWithOptions(options?: {
+export async function run状态监控ingJobsWithOptions(options?: {
     source?: string;
     linkId?: string;
 }): Promise<{
     processed: number;
     skipped: number;
     updated: number;
-    logsCreated: number;
+    logs创建d: number;
     errors: number;
     details: Array<any>;
 }> {
     const adminPb = await getSuperuserPB();
-    const result = { processed: 0, skipped: 0, updated: 0, logsCreated: 0, errors: 0, details: [] as any[] };
+    const result = { processed: 0, skipped: 0, updated: 0, logs创建d: 0, errors: 0, details: [] as any[] };
     const userLinkConfigCache = new Map<string, Map<string, LinkCheckConfig>>();
 
     console.log("running status monitoring jobs");
@@ -63,12 +63,12 @@ export async function runStatusMonitoringJobsWithOptions(options?: {
         }
 
         const method = normalizeMethod(linkConfig?.statusCheckMethod);
-        const acceptedUpStatusCodes = resolveAcceptedUpCodes(job.acceptedUpStatusCodes, linkConfig?.statusCheckShowAsUp);
+        const acceptedUp状态Codes = resolveAcceptedUpCodes(job.acceptedUp状态Codes, linkConfig?.statusCheckShowAsUp);
         const auth = resolveEndpointAuth(job.endpointAuth, linkConfig?.statusCheckAuth);
-        const currentStatus = normalizeStatus(job.status);
+        const current状态 = normalize状态(job.status);
 
         // optionally skip truly disabled jobs
-        if (currentStatus === 'disabled') {
+        if (current状态 === 'disabled') {
             result.skipped++;
             result.details.push({ jobId: job.id, action: 'skipped', reason: 'disabled' });
             continue;
@@ -88,25 +88,25 @@ export async function runStatusMonitoringJobsWithOptions(options?: {
             }
 
             const code = await monitorHelper(monitorInput);
-            const newStatus = acceptedUpStatusCodes.has(code) ? 'healthy' : 'unhealthy';
+            const new状态 = acceptedUp状态Codes.has(code) ? 'healthy' : 'unhealthy';
 
-            if (newStatus !== currentStatus) {
+            if (new状态 !== current状态) {
                 // update job
-                await adminPb.collection('monitoringJobs').update(job.id, { status: newStatus });
+                await adminPb.collection('monitoringJobs').update(job.id, { status: new状态 });
 
                 // create log — relation field expects array of related ids in PocketBase
-                await adminPb.collection('monitoringJobStatusLogs').create({
+                await adminPb.collection('monitoringJob状态Logs').create({
                     job: [job.id],
-                    status: newStatus,
+                    status: new状态,
                 });
 
                 result.updated++;
-                result.logsCreated++;
+                result.logs创建d++;
                 result.details.push({
                     jobId: job.id,
-                    oldStatus: currentStatus,
-                    newStatus,
-                    httpStatus: code,
+                    old状态: current状态,
+                    new状态,
+                    http状态: code,
                     endpoint,
                     method,
                 });
@@ -114,8 +114,8 @@ export async function runStatusMonitoringJobsWithOptions(options?: {
                 result.details.push({
                     jobId: job.id,
                     action: 'no_change',
-                    status: currentStatus,
-                    httpStatus: code,
+                    status: current状态,
+                    http状态: code,
                     endpoint,
                     method,
                 });
@@ -126,15 +126,15 @@ export async function runStatusMonitoringJobsWithOptions(options?: {
             result.details.push({ jobId: job.id, action: 'fetch_error', error: err?.message || String(err) });
 
             try {
-                if (currentStatus !== 'unhealthy') {
+                if (current状态 !== 'unhealthy') {
                     await adminPb.collection('monitoringJobs').update(job.id, { status: 'unhealthy' });
-                    await adminPb.collection('monitoringJobStatusLogs').create({
+                    await adminPb.collection('monitoringJob状态Logs').create({
                         job: [job.id],
                         status: 'unhealthy',
                     });
                     result.updated++;
-                    result.logsCreated++;
-                    result.details.push({ jobId: job.id, oldStatus: currentStatus, newStatus: 'unhealthy', note: 'network/fetch error' });
+                    result.logs创建d++;
+                    result.details.push({ jobId: job.id, old状态: current状态, new状态: 'unhealthy', note: 'network/fetch error' });
                 }
             } catch (uerr: any) {
                 result.errors++;
@@ -186,18 +186,18 @@ function parseConfigObject(rawConfig: any): any {
     return rawConfig;
 }
 
-function normalizeStatus(raw: any): string {
+function normalize状态(raw: any): string {
     if (Array.isArray(raw)) {
         return String(raw[0] || 'initiated');
     }
     return String(raw || 'initiated');
 }
 
-function normalizeMethod(rawMethod?: string): StatusCheckMethod {
+function normalizeMethod(rawMethod?: string): 状态CheckMethod {
     const method = String(rawMethod || 'GET').toUpperCase();
-    const allowed: StatusCheckMethod[] = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
-    if (allowed.includes(method as StatusCheckMethod)) {
-        return method as StatusCheckMethod;
+    const allowed: 状态CheckMethod[] = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
+    if (allowed.includes(method as 状态CheckMethod)) {
+        return method as 状态CheckMethod;
     }
     return 'GET';
 }
@@ -256,13 +256,13 @@ function parseAcceptedCodeList(raw: unknown): number[] {
         .filter((code) => Number.isInteger(code) && code >= 100 && code <= 599);
 }
 
-function resolveEndpointAuth(rawJobAuth: unknown, fallbackAuth?: unknown): MonitoringRequestAuth | undefined {
-    const fromJob = parseMonitoringAuth(rawJobAuth);
+function resolveEndpointAuth(rawJobAuth: unknown, fallbackAuth?: unknown): 监控ingRequestAuth | undefined {
+    const fromJob = parse监控ingAuth(rawJobAuth);
     if (fromJob) return fromJob;
-    return parseMonitoringAuth(fallbackAuth);
+    return parse监控ingAuth(fallbackAuth);
 }
 
-function parseMonitoringAuth(raw: unknown): MonitoringRequestAuth | undefined {
+function parse监控ingAuth(raw: unknown): 监控ingRequestAuth | undefined {
     if (!raw) return undefined;
 
     let parsed: any = raw;

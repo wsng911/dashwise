@@ -63,28 +63,28 @@ export default function BottomNavbar({
   const activeScreensaverConfig = localScreensaverConfig || config.appearance?.screensaver;
 
   return (
-    <div className="grid grid-cols-[1fr_auto_1fr] items-center px-3 md:px-0" id="page-footer">
-      <div id="app-details" className="flex items-center gap-2">
-        <Link href="/home" className="flex items-center gap-2">
-            <img src="/dashwise-icon.png" alt="" className="h-[36px]" />
-            <span className="font-semibold">dashwise</span>
+    <div class名称="grid grid-cols-[1fr_auto_1fr] items-center px-3 md:px-0" id="page-footer">
+      <div id="app-details" class名称="flex items-center gap-2">
+        <Link href="/home" class名称="flex items-center gap-2">
+            <img src="/dashwise-icon.png" alt="" class名称="h-[36px]" />
+            <span class名称="font-semibold">dashwise</span>
         </Link>
-        <Link href="https://github.com/andreasmolnardev/dashwise-next" className="frosted rounded-full p-1 transition-colors duration-200 group">
-          <img src="/icons/png/github-light.png" alt="GitHub" className="h-5 w-5 opacity-85 group-hover:opacity-100 transition-opacity duration-200" />
+        <Link href="https://github.com/andreasmolnardev/dashwise-next" class名称="frosted rounded-full p-1 transition-colors duration-200 group">
+          <img src="/icons/png/github-light.png" alt="GitHub" class名称="h-5 w-5 opacity-85 group-hover:opacity-100 transition-opacity duration-200" />
         </Link>
 
-        <div className="aspect-square rounded-full frosted w-2 h-2"></div>
+        <div class名称="aspect-square rounded-full frosted w-2 h-2"></div>
 
         <UpdateDetailsDialogComponent />
       </div>
 
-      <div className="flex justify-center">
+      <div class名称="flex justify-center">
         {showPages && <PagesTabs />}
 
         {/* Mobile dot indicator, only in home page */}
         {showPages && isHomePage && (
-            <div className="md:hidden fixed left-0 right-0 bottom-6 flex justify-center z-50 pointer-events-none">
-            <div className="pointer-events-auto bg-transparent px-2 py-1 rounded-full">
+            <div class名称="md:hidden fixed left-0 right-0 bottom-6 flex justify-center z-50 pointer-events-none">
+            <div class名称="pointer-events-auto bg-transparent px-2 py-1 rounded-full">
                 <DotIndicator
                 showThreeDots={Boolean(config?.widgets?.[0]?.length && config?.widgets?.[2]?.length)}
                 active={activePanel}
@@ -94,16 +94,16 @@ export default function BottomNavbar({
         )}
       </div>
 
-      <ul className="grid grid-flow-col auto-cols-max items-center justify-end gap-3">
+      <ul class名称="grid grid-flow-col auto-cols-max items-center justify-end gap-3">
         {activeScreensaverConfig?.showButton && setScreensaverActive && (
           <li>
             <div
               onClick={() => setScreensaverActive(true)}
-              className="frosted px-2 py-1.5 rounded-full group transition-colors duration-200 cursor-pointer"
+              class名称="frosted px-2 py-1.5 rounded-full group transition-colors duration-200 cursor-pointer"
             >
               <FontAwesomeIcon
                 icon={faMoon}
-                className="text-foreground group-hover:text-(--primary) transition-colors duration-200 h-1.5"
+                class名称="text-foreground group-hover:text-(--primary) transition-colors duration-200 h-1.5"
               />
             </div>
           </li>
@@ -114,18 +114,18 @@ export default function BottomNavbar({
           Object.keys(config?.integrations)
             .map((i: string) => i.toLowerCase())
             .includes("notifications")) && (
-          <li className="relative">
+          <li class名称="relative">
             <Link
               href="/notifications"
-              className="frosted p-2 rounded-full group transition-colors duration-200 aspect-square flex items-center justify-center"
+              class名称="frosted p-2 rounded-full group transition-colors duration-200 aspect-square flex items-center justify-center"
             >
               <FontAwesomeIcon
                 icon={faBell}
-                className="text-foreground group-hover:text-(--primary) transition-colors duration-200"
+                class名称="text-foreground group-hover:text-(--primary) transition-colors duration-200"
               />
             </Link>
             {unreadCount > 0 && (
-              <span className="absolute -top-3 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-(--primary) text-[10px] font-bold text-white pointer-events-none">
+              <span class名称="absolute -top-3 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-(--primary) text-[10px] font-bold text-white pointer-events-none">
                 {unreadCount > 9 ? "9+" : unreadCount}
               </span>
             )}
@@ -136,11 +136,11 @@ export default function BottomNavbar({
           <Link
             href="/settings/appearance"
             prefetch={false}
-            className="frosted p-2 rounded-full group transition-colors duration-200 aspect-square flex items-center justify-center"
+            class名称="frosted p-2 rounded-full group transition-colors duration-200 aspect-square flex items-center justify-center"
           >
             <FontAwesomeIcon
               icon={faGear}
-              className="text-foreground group-hover:text-(--primary) transition-colors duration-200"
+              class名称="text-foreground group-hover:text-(--primary) transition-colors duration-200"
             />
           </Link>
         </li>
@@ -156,9 +156,9 @@ function DotIndicator({ showThreeDots, active }: { showThreeDots: boolean; activ
 
   if (!showThreeDots) {
     return (
-      <div className="flex items-center gap-2">
+      <div class名称="flex items-center gap-2">
         <span
-          className={`${dotBase} ${active === 1 ? activeClasses : inactiveClasses} bg-white`}
+          class名称={`${dotBase} ${active === 1 ? activeClasses : inactiveClasses} bg-white`}
           aria-hidden
         />
       </div>
@@ -166,12 +166,12 @@ function DotIndicator({ showThreeDots, active }: { showThreeDots: boolean; activ
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div class名称="flex items-center gap-2">
       {[0, 1, 2].map((i) => (
         <span
           key={i}
           aria-hidden
-          className={`${dotBase} ${active === i ? activeClasses : inactiveClasses} bg-white`}
+          class名称={`${dotBase} ${active === i ? activeClasses : inactiveClasses} bg-white`}
         />
       ))}
     </div>

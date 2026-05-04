@@ -75,13 +75,13 @@ export async function newsFeedBuilder(feedId?: string): Promise<{
       if (!sub.feedUrl || !sub.category) {
         return {
           action: 'skip_subscription',
-          subName: sub.name,
+          sub名称: sub.name,
           reason: 'missing feedUrl or category',
         };
       }
 
       try {
-        const feedItems = await getFeedItems({ feedUrl: sub.feedUrl, maxItems: maxItemsPerFeed, feedName: sub.name }) as FeedItem[];
+        const feedItems = await getFeedItems({ feedUrl: sub.feedUrl, maxItems: maxItemsPerFeed, feed名称: sub.name }) as FeedItem[];
         return {
           action: 'success',
           feedUrl: sub.feedUrl,
@@ -90,7 +90,7 @@ export async function newsFeedBuilder(feedId?: string): Promise<{
       } catch (err: any) {
         return {
           action: 'feed_fetch_error',
-          subName: sub.name,
+          sub名称: sub.name,
           feedUrl: sub.feedUrl,
           error: err?.message || String(err),
         };

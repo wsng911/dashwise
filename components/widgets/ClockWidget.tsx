@@ -10,7 +10,7 @@ type ClockWidgetProps = {
   font?: string;
   weight?: string;
   color?: string;
-  className?: string;
+  class名称?: string;
   style?: React.CSSProperties;
 };
 
@@ -19,7 +19,7 @@ type FontEntry = {
   path: string;
 };
 
-export default function ClockWidget({ format, font: propFont, weight, color, className, style }: ClockWidgetProps) {
+export default function ClockWidget({ format, font: propFont, weight, color, class名称, style }: ClockWidgetProps) {
   const [time, setTime] = useState("");
   const { config } = useConfig();
   const { formatTime, timeFormat } = useLocalization();
@@ -37,8 +37,8 @@ export default function ClockWidget({ format, font: propFont, weight, color, cla
         const fixed = data.map((f: FontEntry) => ({ name: f.name, path: f.path }));
         setFonts([{ name: "Default", path: "" }, ...fixed]);
         
-        const fontNameToUse = propFont || config?.appearance?.clock?.defaultFont;
-        const foundFont = fixed.find(item => (item.name === fontNameToUse));
+        const font名称ToUse = propFont || config?.appearance?.clock?.defaultFont;
+        const foundFont = fixed.find(item => (item.name === font名称ToUse));
         
         if (foundFont) {
           loadFont(foundFont.name, foundFont.path);
@@ -69,10 +69,10 @@ export default function ClockWidget({ format, font: propFont, weight, color, cla
 
   return (
     <div
-      className={cn(
+      class名称={cn(
         "text-6xl text-center p-4",
         internalFont?.name === "Default" ? "font-semibold" : "font-medium",
-        className
+        class名称
       )}
       style={{
         fontFamily: internalFont?.name !== "Default" ? `"${internalFont?.name}", system-ui` : undefined,

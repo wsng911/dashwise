@@ -35,22 +35,22 @@ export default function UpdateDetailsDialogComponent() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="frosted aspect-square rounded-full p-1 group flex items-center justify-center cursor-pointer">
+        <div class名称="frosted aspect-square rounded-full p-1 group flex items-center justify-center cursor-pointer">
           <FontAwesomeIcon
             icon={faArrowRotateRight}
-            className="text-sm group-hover:text-(--primary) transition-colors duration-200"
+            class名称="text-sm group-hover:text-(--primary) transition-colors duration-200"
           />
         </div>
       </DialogTrigger>
 
-      <DialogContent className="frosted text-foreground">
+      <DialogContent class名称="frosted text-foreground">
         <DialogTitle>Update Available</DialogTitle>
-        <div className="space-y-2 mt-2">
+        <div class名称="space-y-2 mt-2">
           <p>Current version: <strong>{currentVersion}</strong></p>
           <p>New version: <strong>{newVersion}</strong></p>
           <Button
             asChild
-            className="mt-3"
+            class名称="mt-3"
           >
             <a
               href="https://github.com/andreasmolnardev/dashwise-next/releases"

@@ -4,20 +4,20 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { get, post } from "@/lib/apiClient";
 import { useRouter } from "next/navigation"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, Card描述, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, Alert描述, AlertTitle } from "@/components/ui/alert"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons"
 import { setTimeout } from "timers"
 
 export default function SignupCard() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [name, set名称] = useState("");
+  const [email, set邮箱] = useState("")
+  const [password, set密码] = useState("")
+  const [confirm密码, set确认密码] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -44,28 +44,28 @@ export default function SignupCard() {
     validateAuth();
   }, [router]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handle提交 = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
 
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password || !confirm密码) {
       setError("All fields are required")
       return
     }
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match")
+    if (password !== confirm密码) {
+      setError("密码s do not match")
       return
     }
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters")
+      setError("密码 must be at least 8 characters")
       return
     }
 
     setLoading(true)
     try {
-      const data = await post("/auth/signup", { _name: name, email, password, passwordConfirm: confirmPassword });
+      const data = await post("/auth/signup", { _name: name, email, password, password确认: confirm密码 });
       if (data?.error) {
         setError(data.error || "Signup failed");
       } else {
@@ -73,10 +73,10 @@ export default function SignupCard() {
 
         setTimeout(() => {
           // Clear the form fields
-          setName("")
-          setEmail("")
-          setPassword("")
-          setConfirmPassword("")
+          set名称("")
+          set邮箱("")
+          set密码("")
+          set确认密码("")
 
           router.push("/auth/login")
         }, 2000)
@@ -91,20 +91,20 @@ export default function SignupCard() {
 
 
   return (
-    <Card className="w-full max-w-sm frosted text-foreground backdrop-saturate-90 backdrop-brightness-90">
+    <Card class名称="w-full max-w-sm frosted text-foreground backdrop-saturate-90 backdrop-brightness-90">
       <CardHeader>
         <CardTitle>Welcome to Dashwise!</CardTitle>
-        <CardDescription>
+        <Card描述>
           Let's get started by creating an account.
-        </CardDescription>
+        </Card描述>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form on提交={handle提交} class名称="flex flex-col gap-6">
           {error && (
             <Alert variant="destructive">
               <FontAwesomeIcon icon={faExclamationTriangle}></FontAwesomeIcon>
               <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
+              <Alert描述>{error}</Alert描述>
             </Alert>
           )}
 
@@ -112,61 +112,61 @@ export default function SignupCard() {
             <Alert>
               <FontAwesomeIcon icon={faCircleCheck}></FontAwesomeIcon>
               <AlertTitle>Success!</AlertTitle>
-              <AlertDescription>{success}</AlertDescription>
+              <Alert描述>{success}</Alert描述>
             </Alert>
           )}
 
-          <div className="grid gap-2">
-            <Label htmlFor="name">Name</Label>
+          <div class名称="grid gap-2">
+            <Label htmlFor="name">名称</Label>
             <Input
               id="name"
               type="text"
               placeholder="John Doe"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => set名称(e.target.value)}
             />
           </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+          <div class名称="grid gap-2">
+            <Label htmlFor="email">邮箱</Label>
             <Input
               id="email"
               type="email"
               placeholder="me@example.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => set邮箱(e.target.value)}
               required
             />
           </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
+          <div class名称="grid gap-2">
+            <Label htmlFor="password">密码</Label>
             <Input
               id="password"
               type="password"
               placeholder="*********"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => set密码(e.target.value)}
               required
             />
           </div>
-          <div className="grid gap-2">
-            <Label htmlFor="confirm-password">Confirm Password</Label>
+          <div class名称="grid gap-2">
+            <Label htmlFor="confirm-password">确认 密码</Label>
             <Input
               id="confirm-password"
               type="password"
               placeholder="Re-enter your password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirm密码}
+              onChange={(e) => set确认密码(e.target.value)}
               required
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Creating account..." : "Create Account"}
+          <Button type="submit" class名称="w-full" disabled={loading}>
+            {loading ? "Creating account..." : "创建 Account"}
           </Button>
         </form>
       </CardContent>
-      <CardFooter className="flex-col gap-2">
-        <Button variant="outline" className="w-full">
+      <CardFooter class名称="flex-col gap-2">
+        <Button variant="outline" class名称="w-full">
           <Link href="/auth/login">Login instead</Link>
         </Button>
       </CardFooter>

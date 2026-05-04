@@ -3,11 +3,11 @@
 import { useConfig } from "@/context/ConfigContext";
 import { useEffect, useState } from "react";
 import useAuth from "@/context/useAuth";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, use搜索Params } from "next/navigation";
 import { get, post } from "@/lib/apiClient";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faCaretDown, faEllipsisVertical, faPlus, faEdit, faTrash, faXmark, faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faCaretDown, faEllipsisVertical, faPlus, fa编辑, faTrash, faXmark, faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../ui/button";
 import TabSwitcher from "../common/TabSwitcher";
 import {
@@ -31,7 +31,7 @@ interface Subscription {
 }
 
 
-export default function NewsDashboardComponent(
+export default function News仪表盘Component(
     children: React.PropsWithChildren<{}> = {}
 ) {
     const { config } = useConfig();
@@ -42,10 +42,10 @@ export default function NewsDashboardComponent(
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [selectedSource, setSelectedSource] = useState<string | null>(null);
-    const [addOpen, setAddOpen] = useState(false);
-    const [editingFeed, setEditingFeed] = useState<Subscription | null>(null);
+    const [addOpen, set添加Open] = useState(false);
+    const [editingFeed, set编辑ingFeed] = useState<Subscription | null>(null);
     const [isRefreshing, setIsRefreshing] = useState(false);
-    const [refreshStatus, setRefreshStatus] = useState<string | null>(null);
+    const [refresh状态, setRefresh状态] = useState<string | null>(null);
 
     const itemsPerPage = 15;
     const { token } = useAuth();
@@ -112,16 +112,16 @@ export default function NewsDashboardComponent(
     const refreshFeeds = async (targetLabel: string = "all feeds") => {
         if (!token) return;
         setIsRefreshing(true);
-        setRefreshStatus(`Refreshing ${targetLabel}…`);
+        setRefresh状态(`Refreshing ${targetLabel}…`);
         try {
                     await post(`/news/feed-refresh`, undefined, { token });
-                    setRefreshStatus("Fetching latest articles…");
+                    setRefresh状态("Fetching latest articles…");
                     await loadFeed();
         } catch (err) {
             console.error("Refresh failed:", err);
         } finally {
             setIsRefreshing(false);
-            setRefreshStatus(null);
+            setRefresh状态(null);
         }
     };
 
@@ -199,14 +199,14 @@ export default function NewsDashboardComponent(
     );
 
     return (
-        <div className="grid grid-rows-[auto_auto_1fr_auto] min-h-0 h-dvh pt-5 md:p-3.5 p-0 overflow-hidden text-(--surface-foreground) bg-(--surface)">
+        <div class名称="grid grid-rows-[auto_auto_1fr_auto] min-h-0 h-dvh pt-5 md:p-3.5 p-0 overflow-hidden text-(--surface-foreground) bg-(--surface)">
             {/* HEADER */}
-            <header className="flex gap-2 items-center justify-between px-3 md:px-6 h-[40px]">
-                <h1 className="font-semibold text-2xl">News</h1>
+            <header class名称="flex gap-2 items-center justify-between px-3 md:px-6 h-[40px]">
+                <h1 class名称="font-semibold text-2xl">News</h1>
                 <button
                     onClick={() => refreshFeeds()}
                     disabled={isRefreshing}
-                    className={`
+                    class名称={`
                         flex items-center justify-center h-9 rounded-full frosted px-3 gap-2
                         transition-all duration-300 hover:bg-white/10
                         ${isRefreshing ? "opacity-50" : "opacity-80 hover:opacity-100"}
@@ -215,13 +215,13 @@ export default function NewsDashboardComponent(
                 >
                     <FontAwesomeIcon
                         icon={faArrowsRotate}
-                        className={`${isRefreshing ? "animate-spin" : ""}`}
+                        class名称={`${isRefreshing ? "animate-spin" : ""}`}
                     />
                 </button>
             </header>
 
             {/* TABS */}
-            <div className="px-3 md:px-6 py-4 overflow-x-auto scrollbar-hide h-14">
+            <div class名称="px-3 md:px-6 py-4 overflow-x-auto scrollbar-hide h-14">
                 <TabSwitcher
                     value={selectedCategory}
                     onValueChange={setSelectedCategory}
@@ -232,35 +232,35 @@ export default function NewsDashboardComponent(
             {/* MAIN */}
             <main
                 id="page-content-container"
-                className="
+                class名称="
             flex flex-col md:flex-row gap-2 min-h-0 rounded-2xl w-full min-w-0
             px-3 md:px-6
         "
             >
                 {/* SOURCE SELECT PANEL */}
                 {currentCategorySources.length >= 0 && (
-                    <aside className="
+                    <aside class名称="
                     flex md:flex-col items-center
                     gap-4 px-5 md:px-0 py-5 md:py-6 
                     overflow-x-scroll md:overflow-y-scroll overflow-y-hidden
                     min-w-0 md:min-w-22 frosted rounded-full h-fit max-h-full max-w-full">
                         {currentCategorySources.map((sub) => (
-                            <div key={sub.name} className="relative group">
+                            <div key={sub.name} class名称="relative group">
                                 <button
                                     onClick={() => {
                                         setSelectedSource(selectedSource === sub.name ? null : sub.name);
                                         setCurrentPage(1);
                                     }}
                                     title={sub.name}
-                                    className={`
+                                    class名称={`
                                         flex justify-center items-center rounded-full gap-3 min-h-12 aspect-square transition-all duration-200
                                         ${selectedSource === sub.name ? "bg-white/15 text-white ring-1 ring-(--accent-color)" : "opacity-50 hover:opacity-100 hover:bg-white/5"}
                                     `}
                                 >
                                     {sub.icon ? (
-                                        <img src={sub.icon} alt={sub.name} className="object-contain pointer-events-none max-w-8 aspect-square" />
+                                        <img src={sub.icon} alt={sub.name} class名称="object-contain pointer-events-none max-w-8 aspect-square" />
                                     ) : (
-                                        <span className="text-xs font-bold uppercase">{sub.name.slice(0, 2)}</span>
+                                        <span class名称="text-xs font-bold uppercase">{sub.name.slice(0, 2)}</span>
                                     )}
                                 </button>
 
@@ -272,7 +272,7 @@ export default function NewsDashboardComponent(
                                             unsubscribeFeed(sub);
                                         }
                                     }}
-                                    className="absolute -top-1 -right-1 hidden group-hover:flex items-center justify-center w-6 h-6 rounded-full frosted text-white text-[10px] shadow-lg hover:scale-110 transition-transform"
+                                    class名称="absolute -top-1 -right-1 hidden group-hover:flex items-center justify-center w-6 h-6 rounded-full frosted text-white text-[10px] shadow-lg hover:scale-110 transition-transform"
                                     title="Unsubscribe"
                                 >
                                     <FontAwesomeIcon icon={faXmark} />
@@ -280,25 +280,25 @@ export default function NewsDashboardComponent(
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        setEditingFeed(sub);
-                                        setAddOpen(true);
+                                        set编辑ingFeed(sub);
+                                        set添加Open(true);
                                     }}
-                                    className="absolute -top-1 -left-1 hidden group-hover:flex items-center justify-center w-6 h-6 rounded-full frosted text-white text-[10px] shadow-lg hover:scale-110 transition-transform"
-                                    title="Edit feed"
+                                    class名称="absolute -top-1 -left-1 hidden group-hover:flex items-center justify-center w-6 h-6 rounded-full frosted text-white text-[10px] shadow-lg hover:scale-110 transition-transform"
+                                    title="编辑 feed"
                                 >
-                                    <FontAwesomeIcon icon={faEdit} />
+                                    <FontAwesomeIcon icon={fa编辑} />
                                 </button>
                             </div>
                         ))}
 
-                        {/* Add feed button */}
+                        {/* 添加 feed button */}
                         <button
                             onClick={() => {
-                                setEditingFeed(null);
-                                setAddOpen(true);
+                                set编辑ingFeed(null);
+                                set添加Open(true);
                             }}
-                            className="flex justify-center items-center rounded-full min-h-12 aspect-square border-2 border-dashed border-white/30 text-white/50 hover:text-white hover:border-white/60 transition-all duration-200"
-                            title="Add feed"
+                            class名称="flex justify-center items-center rounded-full min-h-12 aspect-square border-2 border-dashed border-white/30 text-white/50 hover:text-white hover:border-white/60 transition-all duration-200"
+                            title="添加 feed"
                         >
                             <FontAwesomeIcon icon={faPlus} />
                         </button>
@@ -308,14 +308,14 @@ export default function NewsDashboardComponent(
                 {/* NEWS PANEL */}
                 <div
                     id="news-scroll-container"
-                    className="
+                    class名称="
                 w-full md:w-auto flex-grow
                 space-y-3.5 overflow-y-auto min-w-0
             "
                 >
-                    <section className="space-y-3.5 pb-10">
+                    <section class名称="space-y-3.5 pb-10">
                         {!feed && (
-                            <div className="opacity-60">Loading news…</div>
+                            <div class名称="opacity-60">Loading news…</div>
                         )}
 
                         {feed && paginatedArticles.map((item, idx) => (
@@ -328,7 +328,7 @@ export default function NewsDashboardComponent(
 
                         {/* Pagination */}
                         {feed && totalPages > 1 && (
-                            <div className="py-8">
+                            <div class名称="py-8">
                                 <Pagination>
                                     <PaginationContent>
                                         <PaginationItem>
@@ -338,7 +338,7 @@ export default function NewsDashboardComponent(
                                                     e.preventDefault();
                                                     if (currentPage > 1) setCurrentPage(currentPage - 1);
                                                 }}
-                                                className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                                class名称={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
                                             />
                                         </PaginationItem>
 
@@ -358,7 +358,7 @@ export default function NewsDashboardComponent(
                                                                 setCurrentPage(page);
                                                             }}
                                                             isActive={currentPage === page}
-                                                            className="cursor-pointer"
+                                                            class名称="cursor-pointer"
                                                         >
                                                             {page}
                                                         </PaginationLink>
@@ -384,7 +384,7 @@ export default function NewsDashboardComponent(
                                                     e.preventDefault();
                                                     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
                                                 }}
-                                                className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                                class名称={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
                                             />
                                         </PaginationItem>
                                     </PaginationContent>
@@ -397,7 +397,7 @@ export default function NewsDashboardComponent(
                 {/* RIGHT PANEL (optional, swipe-enabled on mobile)
                     <div
                         id="right-news-panel"
-                        className="
+                        class名称="
                             w-screen md:w-auto flex-grow snap-start
                             space-y-3.5 overflow-y-auto min-w-0
                         "
@@ -416,32 +416,32 @@ export default function NewsDashboardComponent(
 
             {/* Subscription Details Dialog */}
             <Dialog open={addOpen} onOpenChange={(v) => {
-                setAddOpen(v);
-                if (!v) setEditingFeed(null);
+                set添加Open(v);
+                if (!v) set编辑ingFeed(null);
             }}>
-                <DialogContent className="frosted text-foreground">
+                <DialogContent class名称="frosted text-foreground">
                     <DialogHeader>
                         <DialogTitle>
-                            {editingFeed ? "Edit Feed Subscription" : "Subscribe to Feed"}
+                            {editingFeed ? "编辑 Feed Subscription" : "Subscribe to Feed"}
                         </DialogTitle>
                     </DialogHeader>
 
                     <SubscriptionDetailsForm
                         feed={editingFeed || undefined}
                         categories={categories}
-                        onClose={() => {
-                            setAddOpen(false);
-                            setEditingFeed(null);
+                        on关闭={() => {
+                            set添加Open(false);
+                            set编辑ingFeed(null);
                         }}
-                        onSave={async (feed: any) => {
+                        on保存={async (feed: any) => {
                             try {
                                 if (editingFeed) {
                                     await updateFeed(editingFeed.feedUrl, feed);
                                 } else {
                                     await subscribeFeed(feed);
                                 }
-                                setAddOpen(false);
-                                setEditingFeed(null);
+                                set添加Open(false);
+                                set编辑ingFeed(null);
                             } catch (err) {
                                 console.error("Failed to save feed:", err);
                             }
@@ -455,22 +455,22 @@ export default function NewsDashboardComponent(
 
 function NewsArticle({ item, iconUrl }: { item: any; iconUrl?: string }) {
     return (
-        <div className="p-3 rounded-xl bg-(--surface-2) w-full">
-            <div className="grid gap-3 grid-cols-1 md:grid-cols-[1fr_3fr]">
+        <div class名称="p-3 rounded-xl bg-(--surface-2) w-full">
+            <div class名称="grid gap-3 grid-cols-1 md:grid-cols-[1fr_3fr]">
                 {item.thumbnailUrl ? (
                     <img
                         src={item.thumbnailUrl}
-                        className="w-full aspect-[1.5/1] object-cover rounded-xl"
+                        class名称="w-full aspect-[1.5/1] object-cover rounded-xl"
                     />
                 ) : (
-                    <div className="w-full aspect-[1.5/1] frosted rounded-xl" />
+                    <div class名称="w-full aspect-[1.5/1] frosted rounded-xl" />
                 )}
 
-                <div className="min-w-0">
+                <div class名称="min-w-0">
                     <a
                         href={item.link}
                         target="_blank"
-                        className="
+                        class名称="
                 font-semibold
                 line-clamp-2
                 text-base md:text-lg
@@ -480,27 +480,27 @@ function NewsArticle({ item, iconUrl }: { item: any; iconUrl?: string }) {
                         {item.title}
                     </a>
 
-                    <div className="flex flex-wrap justify-between text-xs mt-1 opacity-80 gap-y-1">
-                        <div className="flex items-center gap-1 flex-wrap">
+                    <div class名称="flex flex-wrap justify-between text-xs mt-1 opacity-80 gap-y-1">
+                        <div class名称="flex items-center gap-1 flex-wrap">
                             {item.source && (
-                                <span className="flex items-center gap-1">
+                                <span class名称="flex items-center gap-1">
                                     {iconUrl && (
                                         <img
                                             src={iconUrl}
                                             alt={item.source}
-                                            className="h-4"
+                                            class名称="h-4"
                                         />
                                     )}
                                     {item.source}
                                 </span>
                             )}
                             {item.category && (
-                                <span className="before:content-['•'] before:mx-1 opacity-60">
+                                <span class名称="before:content-['•'] before:mx-1 opacity-60">
                                     {item.category}
                                 </span>
                             )}
                             {item.author && (
-                                <span className="before:content-['•'] before:mx-1 opacity-60">
+                                <span class名称="before:content-['•'] before:mx-1 opacity-60">
                                     {item.author}
                                 </span>
                             )}
@@ -509,7 +509,7 @@ function NewsArticle({ item, iconUrl }: { item: any; iconUrl?: string }) {
                     </div>
 
                     {item.description && (
-                        <p className="text-sm md:text-[0.95rem] opacity-80 line-clamp-2 mt-1">
+                        <p class名称="text-sm md:text-[0.95rem] opacity-80 line-clamp-2 mt-1">
                             {item.description}
                         </p>
                     )}

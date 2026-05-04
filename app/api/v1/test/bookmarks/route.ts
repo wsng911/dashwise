@@ -1,4 +1,4 @@
-import { getBookmarks, KarakeepSearchItems } from '@/lib/clients/karakeep/client';
+import { getBookmarks, Karakeep搜索Items } from '@/lib/clients/karakeep/client';
 import { getServerPB } from '@/lib/pb';
 import { NextResponse } from 'next/server';
 import { ClientResponseError } from 'pocketbase';
@@ -35,7 +35,7 @@ export async function GET(request: Request) {
 
         if (!token || !serverUrl) return;
 
-        const bookmarks = await KarakeepSearchItems({ serverUrl, token: kk_token, allowInsecureCerts: true});
+        const bookmarks = await Karakeep搜索Items({ serverUrl, token: kk_token, allowInsecureCerts: true});
 
 
         return NextResponse.json(bookmarks);

@@ -36,18 +36,18 @@ export async function POST(request: Request) {
         const convertToWebpField = formData.get('convertToWebp');
         const convertToWebp =
             convertToWebpField === 'true' || convertToWebpField === '1';
-        const fileNameField = (formData.get('fileName') as string) || (incomingFile && (incomingFile as any).name);
+        const file名称Field = (formData.get('file名称') as string) || (incomingFile && (incomingFile as any).name);
 
-        if (!incomingFile || !fileNameField) {
+        if (!incomingFile || !file名称Field) {
             return NextResponse.json(
-                { error: 'Missing form fields: image and fileName are required' },
+                { error: 'Missing form fields: image and file名称 are required' },
                 { status: 400 }
             );
         }
 
-        const originalFileName = (incomingFile as any).name || fileNameField;
-        const baseName = originalFileName.replace(/\.[^.]+$/, '') || 'wallpaper';
-        const targetFileName = convertToWebp ? `${baseName}.webp` : originalFileName;
+        const originalFile名称 = (incomingFile as any).name || file名称Field;
+        const base名称 = originalFile名称.replace(/\.[^.]+$/, '') || 'wallpaper';
+        const targetFile名称 = convertToWebp ? `${base名称}.webp` : originalFile名称;
 
         // 3) read file into buffer
         const arrayBuffer = await incomingFile.arrayBuffer();
@@ -76,8 +76,8 @@ export async function POST(request: Request) {
         // 5) build a FormData for PocketBase create
         // Use Web FormData + Blob (Next.js server runtime supports these)
         const uploadForm = new FormData();
-        uploadForm.append('fileName', targetFileName);
-        uploadForm.append('image', new Blob([buffer]), targetFileName);
+        uploadForm.append('file名称', targetFile名称);
+        uploadForm.append('image', new Blob([buffer]), targetFile名称);
 
         //include userId
         uploadForm.append('userId', userId);
@@ -95,11 +95,11 @@ export async function POST(request: Request) {
         // 8) delete old wallpaper
         if (old_wallpaper) {
             const res = await pb.collection('wallpaperStore').delete(old_wallpaper.id);
-            console.log(`Delete result: ${res}`);
+            console.log(`删除 result: ${res}`);
         }
 
         // 9) build the URL for your own GET endpoint
-        const getUrl = `/api/v1/wallpapers?fileName=${encodeURIComponent(targetFileName)}`;
+        const getUrl = `/api/v1/wallpapers?file名称=${encodeURIComponent(targetFile名称)}`;
 
         return NextResponse.json({
             success: true,
@@ -119,17 +119,17 @@ export async function GET(request: Request) {
         if ((auth as any).error) return (auth as any).error;
         const { pb, token } = auth as { pb: any; token: string };
 
-        // 2) get fileName param
+        // 2) get file名称 param
         const url = new URL(request.url);
-        const fileName = url.searchParams.get('fileName');
-        if (!fileName) {
-            return NextResponse.json({ error: 'Missing query parameter: fileName' }, { status: 400 });
+        const file名称 = url.searchParams.get('file名称');
+        if (!file名称) {
+            return NextResponse.json({ error: 'Missing query parameter: file名称' }, { status: 400 });
         }
 
-        // 3) find record in PB by fileName
+        // 3) find record in PB by file名称
         let record;
         try {
-            record = await pb.collection('wallpaperStore').getFirstListItem(`fileName="${fileName}"`);
+            record = await pb.collection('wallpaperStore').getFirstListItem(`file名称="${file名称}"`);
         } catch {
             return NextResponse.json({ error: 'Not found' }, { status: 404 });
         }

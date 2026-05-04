@@ -38,7 +38,7 @@ export default function UrlWallpaperDialogComponent({
   const [saving, setSaving] = useState(false);
 
 
-  async function handleSave() {
+  async function handle保存() {
     if (!url) {
       setMessage("Please enter a valid image URL.");
       return;
@@ -75,12 +75,12 @@ export default function UrlWallpaperDialogComponent({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="frosted text-foreground">
+      <DialogContent class名称="frosted text-foreground">
         <DialogHeader>
           <DialogTitle>Set wallpaper from URL</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4">
+        <div class名称="space-y-4">
           <div>
             <Label htmlFor="wallpaper-url">Image URL</Label>
             <Input
@@ -93,17 +93,17 @@ export default function UrlWallpaperDialogComponent({
           </div>
 
           {url && (
-            <div className="rounded-md overflow-hidden relative w-full flex justify-center">
+            <div class名称="rounded-md overflow-hidden relative w-full flex justify-center">
               <img
                 src={url}
                 alt="preview"
                 style={{ objectFit: "contain" }}
-                className="h-52 rounded-md"
+                class名称="h-52 rounded-md"
               />
             </div>
           )}
 
-          {message && <div className="text-sm text-muted-foreground">{message}</div>}
+          {message && <div class名称="text-sm text-muted-foreground">{message}</div>}
         </div>
 
         <DialogFooter>
@@ -112,9 +112,9 @@ export default function UrlWallpaperDialogComponent({
             onClick={() => onOpenChange(false)}
             variant="ghost"
           >
-            Cancel
+            取消
           </Button>
-          <Button disabled={saving} onClick={handleSave}>
+          <Button disabled={saving} onClick={handle保存}>
             {saving ? "Saving…" : "Apply"}
           </Button>
         </DialogFooter>

@@ -19,7 +19,7 @@ migrate((app) => {
         "type": "text"
       },
       {
-        "cascadeDelete": false,
+        "cascade删除": false,
         "collectionId": "pbc_2988754750",
         "hidden": false,
         "id": "relation4225294584",
@@ -51,7 +51,7 @@ migrate((app) => {
         "hidden": false,
         "id": "autodate2990389176",
         "name": "created",
-        "onCreate": true,
+        "on创建": true,
         "onUpdate": false,
         "presentable": false,
         "system": false,
@@ -61,7 +61,7 @@ migrate((app) => {
         "hidden": false,
         "id": "autodate3332085495",
         "name": "updated",
-        "onCreate": true,
+        "on创建": true,
         "onUpdate": true,
         "presentable": false,
         "system": false,
@@ -71,7 +71,7 @@ migrate((app) => {
     "id": "pbc_1853463350",
     "indexes": [],
     "listRule": null,
-    "name": "monitoringJobStatusLogs",
+    "name": "monitoringJob状态Logs",
     "system": false,
     "type": "base",
     "updateRule": null,
@@ -80,7 +80,7 @@ migrate((app) => {
 
   return app.save(collection);
 }, (app) => {
-  const collection = app.findCollectionByNameOrId("pbc_1853463350");
+  const collection = app.findCollectionBy名称OrId("pbc_1853463350");
 
   return app.delete(collection);
 })

@@ -23,18 +23,18 @@ export interface NewsFeed {
 interface SubscriptionDetailsFormProps {
   feed?: NewsFeed;
   categories: string[];
-  onClose?: () => void | Promise<void>;
-  onSave?: (feed: NewsFeed) => Promise<void> | void;
+  on关闭?: () => void | Promise<void>;
+  on保存?: (feed: NewsFeed) => Promise<void> | void;
 }
 
 export default function SubscriptionDetailsForm({
   feed,
   categories,
-  onClose,
-  onSave,
+  on关闭,
+  on保存,
 }: SubscriptionDetailsFormProps) {
   const [feedUrl, setFeedUrl] = useState(() => feed?.feedUrl || "");
-  const [name, setName] = useState(() => feed?.name || "");
+  const [name, set名称] = useState(() => feed?.name || "");
   const [icon, setIcon] = useState(() => feed?.icon || "");
   const [category, setCategory] = useState(() => feed?.category || categories[0] || "Uncategorized");
   const [customCategory, setCustomCategory] = useState("");
@@ -42,9 +42,9 @@ export default function SubscriptionDetailsForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const isEditing = Boolean(feed?.feedUrl && feed?.name);
+  const is编辑ing = Boolean(feed?.feedUrl && feed?.name);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handle提交 = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -69,11 +69,11 @@ export default function SubscriptionDetailsForm({
         payload.id = feed.id;
       }
 
-      if (onSave) {
-        await onSave(payload);
+      if (on保存) {
+        await on保存(payload);
       }
 
-      if (onClose) await onClose();
+      if (on关闭) await on关闭();
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -86,27 +86,27 @@ export default function SubscriptionDetailsForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form on提交={handle提交} class名称="space-y-4">
       <div>
         <Label htmlFor="feed-url">Feed URL *</Label>
         <Input
           id="feed-url"
-          className="frosted mt-1"
+          class名称="frosted mt-1"
           placeholder="https://example.com/feed.xml"
           value={feedUrl}
           onChange={(e) => setFeedUrl(e.target.value)}
-          disabled={loading || isEditing}
+          disabled={loading || is编辑ing}
         />
       </div>
 
       <div>
-        <Label htmlFor="feed-name">Feed Name</Label>
+        <Label htmlFor="feed-name">Feed 名称</Label>
         <Input
           id="feed-name"
-          className="frosted mt-1"
+          class名称="frosted mt-1"
           placeholder="My Feed"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => set名称(e.target.value)}
           disabled={loading}
         />
       </div>
@@ -115,13 +115,13 @@ export default function SubscriptionDetailsForm({
         <Label htmlFor="feed-icon">Icon URL</Label>
         <Input
           id="feed-icon"
-          className="frosted mt-1"
+          class名称="frosted mt-1"
           placeholder="https://example.com/icon.png"
           value={icon}
           onChange={(e) => setIcon(e.target.value)}
           disabled={loading}
         />
-        <p className="text-xs text-white/60 mt-1">
+        <p class名称="text-xs text-white/60 mt-1">
           Leave empty to let the backend choose a default icon
         </p>
       </div>
@@ -140,10 +140,10 @@ export default function SubscriptionDetailsForm({
           }}
           disabled={loading}
         >
-          <SelectTrigger className="frosted mt-1">
+          <SelectTrigger class名称="frosted mt-1">
             <SelectValue placeholder="Select category" />
           </SelectTrigger>
-          <SelectContent className="frosted text-foreground">
+          <SelectContent class名称="frosted text-foreground">
             {categories.length === 0 && (
               <SelectItem value="Uncategorized">Uncategorized</SelectItem>
             )}
@@ -162,36 +162,36 @@ export default function SubscriptionDetailsForm({
             placeholder="Enter custom category"
             value={customCategory}
             onChange={(e) => setCustomCategory(e.target.value)}
-            className="frosted mt-2"
+            class名称="frosted mt-2"
             disabled={loading}
           />
         )}
       </div>
 
-      <div className="pt-2">
-        <div className="flex gap-3 justify-end">
+      <div class名称="pt-2">
+        <div class名称="flex gap-3 justify-end">
           <Button
             type="button"
             variant="outline"
-            onClick={onClose}
+            onClick={on关闭}
             disabled={loading}
           >
-            Cancel
+            取消
           </Button>
           <Button type="submit" disabled={loading}>
             {loading
-              ? isEditing
+              ? is编辑ing
                 ? "Saving..."
                 : "Subscribing..."
-              : isEditing
-                ? "Save"
+              : is编辑ing
+                ? "保存"
                 : "Subscribe"}
           </Button>
 
         </div>
       </div>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p class名称="text-red-500 text-sm">{error}</p>}
     </form>
   );
 }

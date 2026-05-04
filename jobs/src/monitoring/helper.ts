@@ -2,20 +2,20 @@ import axios from 'axios';
 import { AxiosRequestConfig } from 'axios';
 import https from 'https';
 
-export type MonitoringRequestAuth =
+export type 监控ingRequestAuth =
     | { type: 'bearer'; token: string }
     | { type: 'basic'; username: string; password: string }
     | { type: 'header'; name: string; value: string };
 
-export interface MonitoringRequestOptions {
+export interface 监控ingRequestOptions {
     url: string;
     allowSSL: boolean;
     method?: string;
-    auth?: MonitoringRequestAuth;
+    auth?: 监控ingRequestAuth;
 }
 
 /**
- * Monitor a single endpoint.
+ * 监控 a single endpoint.
  * @param url URL to check
  * @param allowSSL Whether to ignore invalid SSL certificates
  * @returns status code of the response
@@ -25,7 +25,7 @@ export async function monitorHelper({
     allowSSL,
     method = 'GET',
     auth,
-}: MonitoringRequestOptions): Promise<number> {
+}: 监控ingRequestOptions): Promise<number> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10_000);
 
@@ -49,7 +49,7 @@ export async function monitorHelper({
             timeout: 10_000,
             httpsAgent: agent,
             headers,
-            validateStatus: () => true, // don't throw on non-200 responses
+            validate状态: () => true, // don't throw on non-200 responses
         };
 
         if (auth?.type === 'basic') {

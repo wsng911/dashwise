@@ -28,7 +28,7 @@ import { faEllipsisV, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Icon {
-  Name: string;
+  名称: string;
   Reference: string;
   SVG: "Yes" | "No";
   PNG: "Yes" | "No";
@@ -37,9 +37,9 @@ interface Icon {
   Category: string;
 }
 
-type StatusCheckMethod = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
+type 状态CheckMethod = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
 
-type StatusCheckAuth =
+type 状态CheckAuth =
   | { type: "bearer"; token: string }
   | { type: "basic"; username: string; password: string }
   | { type: "header"; name: string; value: string };
@@ -53,48 +53,48 @@ export interface LinkObject {
   url?: string;
   statusCheck?: boolean;
   statusCheckEndpoint?: string;
-  statusCheckMethod?: StatusCheckMethod;
-  statusCheckAuth?: StatusCheckAuth;
+  statusCheckMethod?: 状态CheckMethod;
+  statusCheckAuth?: 状态CheckAuth;
   statusCheckShowAsUp?: number[];
 }
 
 interface LinkDetailsFormProps {
   link?: LinkObject;
-  onClose?: () => void | Promise<void>;
+  on关闭?: () => void | Promise<void>;
   preselectOpenedGroup?: string;
 }
 
-export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }: LinkDetailsFormProps) {
+export default function LinkDetailsForm({ link, on关闭, preselectOpenedGroup }: LinkDetailsFormProps) {
   const { config } = useConfig();
   const { token } = useAuth();
 
   const linkGroups = useMemo(() => config?.linkGroups || [], [config?.linkGroups]);
   const links = config?.links || [];
 
-  const [name, setName] = useState("");
+  const [name, set名称] = useState("");
   const [linkId, setLinkId] = useState(() => link?.id || generateRandomId());
   const [url, setUrl] = useState("");
   const [icon, setIcon] = useState<IconResult | null>(null);
   const [linkGroup, setLinkGroup] = useState(() => preselectOpenedGroup || link?.linkGroup || "");
   const [folder, setFolder] = useState(() => link?.folder || "");
-  const [statusCheck, setStatusCheck] = useState(false);
-  const [statusCheckEndpoint, setStatusCheckEndpoint] = useState("");
-  const [statusCheckMethod, setStatusCheckMethod] = useState<StatusCheckMethod>("GET");
-  const [statusCheckAuthType, setStatusCheckAuthType] = useState<"none" | "bearer" | "basic" | "header">("none");
+  const [statusCheck, set状态Check] = useState(false);
+  const [statusCheckEndpoint, set状态CheckEndpoint] = useState("");
+  const [statusCheckMethod, set状态CheckMethod] = useState<状态CheckMethod>("GET");
+  const [statusCheckAuthType, set状态CheckAuthType] = useState<"none" | "bearer" | "basic" | "header">("none");
   const [bearerToken, setBearerToken] = useState("");
-  const [basicUsername, setBasicUsername] = useState("");
-  const [basicPassword, setBasicPassword] = useState("");
-  const [customHeaderName, setCustomHeaderName] = useState("");
+  const [basic用户名, setBasic用户名] = useState("");
+  const [basic密码, setBasic密码] = useState("");
+  const [customHeader名称, setCustomHeader名称] = useState("");
   const [customHeaderValue, setCustomHeaderValue] = useState("");
-  const [statusCheckShowAsUpRaw, setStatusCheckShowAsUpRaw] = useState("200,201,202,204,301,302,304");
+  const [statusCheckShowAsUpRaw, set状态CheckShowAsUpRaw] = useState("200,201,202,204,301,302,304");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [iconEdited, setIconEdited] = useState(false);
+  const [icon编辑ed, setIcon编辑ed] = useState(false);
   const [icons, setIcons] = useState<Icon[]>([]);
   const [open, setOpen] = useState(false);
 
-  const isEditing = Boolean(link?.url && link?.name && link?.icon);
+  const is编辑ing = Boolean(link?.url && link?.name && link?.icon);
 
   // Load icons
   useEffect(() => {
@@ -113,21 +113,21 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
       setFolder((link as any).folder);
     }
     if ((link as any)?.statusCheck) {
-      setStatusCheck(Boolean((link as any).statusCheck));
+      set状态Check(Boolean((link as any).statusCheck));
     }
     const statusCheckEndpointFromLink = (link as any)?.statusCheckEndpoint;
     if (typeof statusCheckEndpointFromLink === "string") {
-      setStatusCheckEndpoint(statusCheckEndpointFromLink);
+      set状态CheckEndpoint(statusCheckEndpointFromLink);
     }
 
     const statusCheckMethodFromLink = (link as any)?.statusCheckMethod;
     if (typeof statusCheckMethodFromLink === "string") {
-      setStatusCheckMethod(statusCheckMethodFromLink as StatusCheckMethod);
+      set状态CheckMethod(statusCheckMethodFromLink as 状态CheckMethod);
     }
 
     const statusCheckShowAsUpFromLink = (link as any)?.statusCheckShowAsUp;
     if (Array.isArray(statusCheckShowAsUpFromLink) && statusCheckShowAsUpFromLink.length > 0) {
-      setStatusCheckShowAsUpRaw(
+      set状态CheckShowAsUpRaw(
         statusCheckShowAsUpFromLink
           .map((code: unknown) => Number(code))
           .filter((code: number) => Number.isInteger(code) && code > 0)
@@ -135,25 +135,25 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
       );
     }
 
-    const statusCheckAuth = parseStatusCheckAuth((link as any)?.statusCheckAuth);
+    const statusCheckAuth = parse状态CheckAuth((link as any)?.statusCheckAuth);
     if (statusCheckAuth?.type === "bearer") {
-      setStatusCheckAuthType("bearer");
+      set状态CheckAuthType("bearer");
       setBearerToken(statusCheckAuth.token ?? "");
     } else if (statusCheckAuth?.type === "basic") {
-      setStatusCheckAuthType("basic");
-      setBasicUsername(statusCheckAuth.username ?? "");
-      setBasicPassword(statusCheckAuth.password ?? "");
+      set状态CheckAuthType("basic");
+      setBasic用户名(statusCheckAuth.username ?? "");
+      setBasic密码(statusCheckAuth.password ?? "");
     } else if (statusCheckAuth?.type === "header") {
-      setStatusCheckAuthType("header");
-      setCustomHeaderName(statusCheckAuth.name ?? "");
+      set状态CheckAuthType("header");
+      setCustomHeader名称(statusCheckAuth.name ?? "");
       setCustomHeaderValue(statusCheckAuth.value ?? "");
     }
   }, [link]);
 
   const iconRequestId = useRef(0);
 
-  const handleNameBlur = async () => {
-    if (iconEdited) return;
+  const handle名称Blur = async () => {
+    if (icon编辑ed) return;
 
     const nameSnapshot = name;
     const urlSnapshot = url;
@@ -172,7 +172,7 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
   };
 
   const handleUrlBlur = async () => {
-    if (iconEdited) return;
+    if (icon编辑ed) return;
 
     const nameSnapshot = name;
     const urlSnapshot = url;
@@ -193,10 +193,10 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
   useEffect(() => {
     if (linkGroups.length === 0) return;
     if (link?.name && link?.url && link?.icon) {
-      setName(link.name);
+      set名称(link.name);
       setUrl(link.url);
       setIcon({ url: link.icon, iconSet: link.icon.includes("-light") ? "mono" : "custom" });
-      setIconEdited(true);
+      setIcon编辑ed(true);
     }
   }, [link, linkGroups]);
 
@@ -219,31 +219,31 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
 
       payload.statusCheckMethod = statusCheckMethod;
 
-      const parsedCodes = parseStatusCodeList(statusCheckShowAsUpRaw);
+      const parsedCodes = parse状态CodeList(statusCheckShowAsUpRaw);
       payload.statusCheckShowAsUp = parsedCodes.length > 0 ? parsedCodes : [200, 201, 202, 204, 301, 302, 304];
 
       if (statusCheckAuthType === "bearer" && bearerToken.trim()) {
         payload.statusCheckAuth = { type: "bearer", token: bearerToken.trim() };
       }
 
-      if (statusCheckAuthType === "basic" && basicUsername.trim()) {
+      if (statusCheckAuthType === "basic" && basic用户名.trim()) {
         payload.statusCheckAuth = {
           type: "basic",
-          username: basicUsername.trim(),
-          password: basicPassword,
+          username: basic用户名.trim(),
+          password: basic密码,
         };
       }
 
-      if (statusCheckAuthType === "header" && customHeaderName.trim()) {
+      if (statusCheckAuthType === "header" && customHeader名称.trim()) {
         payload.statusCheckAuth = {
           type: "header",
-          name: customHeaderName.trim(),
+          name: customHeader名称.trim(),
           value: customHeaderValue,
         };
       }
     }
 
-    if (isEditing) {
+    if (is编辑ing) {
       const updatedLinks = links.map((l) =>
         l.url === link?.url ? payload : l
       );
@@ -255,33 +255,33 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
   };
 
   const resetForm = () => {
-    setName("");
+    set名称("");
     setUrl("");
     setIcon(null);
-    setIconEdited(false);
+    setIcon编辑ed(false);
     setFolder("");
-    setStatusCheck(false);
-    setStatusCheckEndpoint("");
-    setStatusCheckMethod("GET");
-    setStatusCheckAuthType("none");
+    set状态Check(false);
+    set状态CheckEndpoint("");
+    set状态CheckMethod("GET");
+    set状态CheckAuthType("none");
     setBearerToken("");
-    setBasicUsername("");
-    setBasicPassword("");
-    setCustomHeaderName("");
+    setBasic用户名("");
+    setBasic密码("");
+    setCustomHeader名称("");
     setCustomHeaderValue("");
-    setStatusCheckShowAsUpRaw("200,201,202,204,301,302,304");
+    set状态CheckShowAsUpRaw("200,201,202,204,301,302,304");
     setLinkId(generateRandomId());
   };
 
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handle提交 = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
       await saveLink();
-      if (onClose) await onClose();
+      if (on关闭) await on关闭();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
@@ -289,7 +289,7 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
     }
   };
 
-  const handleAddAnother = async () => {
+  const handle添加Another = async () => {
     setLoading(true);
     setError(null);
 
@@ -305,24 +305,24 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="flex gap-2 justify-center relative"
+      on提交={handle提交}
+      class名称="flex gap-2 justify-center relative"
     >
-      <section className="max-h-100 overflow-scroll">
-        <Label htmlFor="link-title">Name</Label>
+      <section class名称="max-h-100 overflow-scroll">
+        <Label htmlFor="link-title">名称</Label>
         <Input
           id="link-title"
-          className="frosted"
+          class名称="frosted"
           placeholder="Title"
           value={name ?? ""}
-          onChange={(e) => setName(e.target.value)}
-          onBlur={handleNameBlur}
+          onChange={(e) => set名称(e.target.value)}
+          onBlur={handle名称Blur}
         />
 
         <Label htmlFor="link-url">URL</Label>
         <Input
           id="link-url"
-          className="frosted"
+          class名称="frosted"
           placeholder="https://example.com"
           value={url ?? ""}
           onChange={(e) => setUrl(e.target.value)}
@@ -330,15 +330,15 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
         />
 
         <Label htmlFor="link-image">Icon</Label>
-        <RadioGroup className="flex flex-wrap items-center gap-2" defaultValue="current">
+        <RadioGroup class名称="flex flex-wrap items-center gap-2" defaultValue="current">
           <Label
             key={name}
-            className="h-[35px] w-[96px] frosted rounded-md flex items-center justify-center gap-2 outline-2 outline-transparent has-checked:outline-(--primary)"
+            class名称="h-[35px] w-[96px] frosted rounded-md flex items-center justify-center gap-2 outline-2 outline-transparent has-checked:outline-(--primary)"
           >
-            <RadioGroupItem value={name} className="hidden" />
+            <RadioGroupItem value={name} class名称="hidden" />
             <Icon set={String(icon?.iconSet) || ""} url={String(icon?.url) || ""} name={String(icon?.name) || ""} />
             <span>
-              {isEditing
+              {is编辑ing
                 ? "Current"
                 : "Auto"}
             </span>
@@ -346,7 +346,7 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
           <Popover modal={true}>
             <PopoverTrigger>
               <Label
-                className="h-[35px] frosted rounded-md flex items-center justify-center px-2 gap-2 outline-2 outline-transparent cursor-pointer"
+                class名称="h-[35px] frosted rounded-md flex items-center justify-center px-2 gap-2 outline-2 outline-transparent cursor-pointer"
                 title="Set icon by link"
               >
                 <FontAwesomeIcon icon={faPaperclip} />
@@ -354,19 +354,19 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
               </Label>
             </PopoverTrigger>
 
-            <PopoverContent className="frosted p-3 text-foreground w-[300px]">
-              <div className="flex flex-col gap-2">
+            <PopoverContent class名称="frosted p-3 text-foreground w-[300px]">
+              <div class名称="flex flex-col gap-2">
                 <Label htmlFor="iconUrl">Icon URL</Label>
                 <Input
                   id="iconUrl"
                   name="iconUrl"
                   placeholder="https://example.com/icon.svg"
-                  className="frosted"
+                  class名称="frosted"
                   defaultValue={icon?.url ?? ""}
                   onChange={(e) => {
                     const url = e.target.value;
                     setIcon({ iconSet: "custom", url });
-                    setIconEdited(true);
+                    setIcon编辑ed(true);
 
                     const hidden = document.querySelector<HTMLInputElement>('input[name="icon"]');
                     if (hidden) hidden.value = url;
@@ -380,18 +380,18 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
             <PopoverTrigger>
               <Label
                 key={name}
-                className="h-[35px] frosted rounded-md flex items-center justify-center px-2 gap-2 outline-2 outline-transparent has-checked:outline-(--primary)"
+                class名称="h-[35px] frosted rounded-md flex items-center justify-center px-2 gap-2 outline-2 outline-transparent has-checked:outline-(--primary)"
               >
                 <FontAwesomeIcon icon={faEllipsisV} />
                 <span>Icon Picker</span>
               </Label>
             </PopoverTrigger>
-            <PopoverContent className="frosted text-foreground">
+            <PopoverContent class名称="frosted text-foreground">
               <IconPickerComponent
                 initialIcons={icons}
                 onSelect={(iconObj) => {
                   setIcon(iconObj);
-                  setIconEdited(true);
+                  setIcon编辑ed(true);
                   setOpen(false);
                 }}
               />
@@ -399,37 +399,37 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
           </Popover>
           <input type="hidden" name="icon" value={icon?.url ?? ""} />
         </RadioGroup>
-        <div className="mt-3 flex items-center gap-2">
+        <div class名称="mt-3 flex items-center gap-2">
           <Switch
             id="status-checks"
             checked={statusCheck}
-            onCheckedChange={(v) => setStatusCheck(Boolean(v))}
+            onCheckedChange={(v) => set状态Check(Boolean(v))}
           />
-          <Label htmlFor="status-checks" className="text-sm">
-            Status checks
+          <Label htmlFor="status-checks" class名称="text-sm">
+            状态 checks
           </Label>
         </div>
         {statusCheck && (
-          <div className="mt-3 space-y-2 rounded-md frosted p-2">
-            <div className="space-y-1">
-              <Label htmlFor="status-check-endpoint" className="text-sm">Endpoint override</Label>
+          <div class名称="mt-3 space-y-2 rounded-md frosted p-2">
+            <div class名称="space-y-1">
+              <Label htmlFor="status-check-endpoint" class名称="text-sm">Endpoint override</Label>
               <Input
                 id="status-check-endpoint"
-                className="frosted"
+                class名称="frosted"
                 placeholder="defaults to link URL"
                 value={statusCheckEndpoint}
-                onChange={(e) => setStatusCheckEndpoint(e.target.value)}
+                onChange={(e) => set状态CheckEndpoint(e.target.value)}
               />
             </div>
 
-            <div className="space-y-1">
-              <Label className="text-sm">Method</Label>
-              <Select value={statusCheckMethod} onValueChange={(value) => setStatusCheckMethod(value as StatusCheckMethod)}>
-                <SelectTrigger className="rounded-md bg-white border-0 frosted">
+            <div class名称="space-y-1">
+              <Label class名称="text-sm">Method</Label>
+              <Select value={statusCheckMethod} onValueChange={(value) => set状态CheckMethod(value as 状态CheckMethod)}>
+                <SelectTrigger class名称="rounded-md bg-white border-0 frosted">
                   <SelectValue placeholder="Method" />
                 </SelectTrigger>
-                <SelectContent className="frosted text-white">
-                  {(["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"] as StatusCheckMethod[]).map((method) => (
+                <SelectContent class名称="frosted text-white">
+                  {(["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"] as 状态CheckMethod[]).map((method) => (
                     <SelectItem key={method} value={method}>
                       {method}
                     </SelectItem>
@@ -438,13 +438,13 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
               </Select>
             </div>
 
-            <div className="space-y-1">
-              <Label className="text-sm">Auth</Label>
-              <Select value={statusCheckAuthType} onValueChange={(value) => setStatusCheckAuthType(value as "none" | "bearer" | "basic" | "header") }>
-                <SelectTrigger className="rounded-md bg-white border-0 frosted">
+            <div class名称="space-y-1">
+              <Label class名称="text-sm">Auth</Label>
+              <Select value={statusCheckAuthType} onValueChange={(value) => set状态CheckAuthType(value as "none" | "bearer" | "basic" | "header") }>
+                <SelectTrigger class名称="rounded-md bg-white border-0 frosted">
                   <SelectValue placeholder="None" />
                 </SelectTrigger>
-                <SelectContent className="frosted text-white">
+                <SelectContent class名称="frosted text-white">
                   <SelectItem value="none">None</SelectItem>
                   <SelectItem value="bearer">Bearer token</SelectItem>
                   <SelectItem value="basic">Basic auth</SelectItem>
@@ -454,11 +454,11 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
             </div>
 
             {statusCheckAuthType === "bearer" && (
-              <div className="space-y-1">
-                <Label htmlFor="status-check-bearer" className="text-sm">Bearer token</Label>
+              <div class名称="space-y-1">
+                <Label htmlFor="status-check-bearer" class名称="text-sm">Bearer token</Label>
                 <Input
                   id="status-check-bearer"
-                  className="frosted"
+                  class名称="frosted"
                   placeholder="token"
                   value={bearerToken}
                   onChange={(e) => setBearerToken(e.target.value)}
@@ -467,48 +467,48 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
             )}
 
             {statusCheckAuthType === "basic" && (
-              <div className="grid grid-cols-2 gap-2">
-                <div className="space-y-1">
-                  <Label htmlFor="status-check-basic-user" className="text-sm">Username</Label>
+              <div class名称="grid grid-cols-2 gap-2">
+                <div class名称="space-y-1">
+                  <Label htmlFor="status-check-basic-user" class名称="text-sm">用户名</Label>
                   <Input
                     id="status-check-basic-user"
-                    className="frosted"
+                    class名称="frosted"
                     placeholder="user"
-                    value={basicUsername}
-                    onChange={(e) => setBasicUsername(e.target.value)}
+                    value={basic用户名}
+                    onChange={(e) => setBasic用户名(e.target.value)}
                   />
                 </div>
-                <div className="space-y-1">
-                  <Label htmlFor="status-check-basic-pass" className="text-sm">Password</Label>
+                <div class名称="space-y-1">
+                  <Label htmlFor="status-check-basic-pass" class名称="text-sm">密码</Label>
                   <Input
                     id="status-check-basic-pass"
                     type="password"
-                    className="frosted"
+                    class名称="frosted"
                     placeholder="password"
-                    value={basicPassword}
-                    onChange={(e) => setBasicPassword(e.target.value)}
+                    value={basic密码}
+                    onChange={(e) => setBasic密码(e.target.value)}
                   />
                 </div>
               </div>
             )}
 
             {statusCheckAuthType === "header" && (
-              <div className="grid grid-cols-2 gap-2">
-                <div className="space-y-1">
-                  <Label htmlFor="status-check-header-name" className="text-sm">Header name</Label>
+              <div class名称="grid grid-cols-2 gap-2">
+                <div class名称="space-y-1">
+                  <Label htmlFor="status-check-header-name" class名称="text-sm">Header name</Label>
                   <Input
                     id="status-check-header-name"
-                    className="frosted"
+                    class名称="frosted"
                     placeholder="X-API-Key"
-                    value={customHeaderName}
-                    onChange={(e) => setCustomHeaderName(e.target.value)}
+                    value={customHeader名称}
+                    onChange={(e) => setCustomHeader名称(e.target.value)}
                   />
                 </div>
-                <div className="space-y-1">
-                  <Label htmlFor="status-check-header-value" className="text-sm">Header value</Label>
+                <div class名称="space-y-1">
+                  <Label htmlFor="status-check-header-value" class名称="text-sm">Header value</Label>
                   <Input
                     id="status-check-header-value"
-                    className="frosted"
+                    class名称="frosted"
                     placeholder="value"
                     value={customHeaderValue}
                     onChange={(e) => setCustomHeaderValue(e.target.value)}
@@ -517,33 +517,33 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
               </div>
             )}
 
-            <div className="space-y-1">
-              <Label htmlFor="status-check-up-codes" className="text-sm">Show as up (status codes)</Label>
+            <div class名称="space-y-1">
+              <Label htmlFor="status-check-up-codes" class名称="text-sm">Show as up (status codes)</Label>
               <Input
                 id="status-check-up-codes"
-                className="frosted"
+                class名称="frosted"
                 placeholder="200,201,202,204,301,302,304"
                 value={statusCheckShowAsUpRaw}
-                onChange={(e) => setStatusCheckShowAsUpRaw(e.target.value)}
+                onChange={(e) => set状态CheckShowAsUpRaw(e.target.value)}
               />
             </div>
           </div>
         )}
       </section>
 
-      <Separator orientation="vertical" className="frosted" />
+      <Separator orientation="vertical" class名称="frosted" />
 
-      <section className="flex flex-col gap-1.5 justify-center pb-10">
-        <div className="flex gap-2 justify-between items-center">
-          <Label className="font-medium">Link Group</Label>
+      <section class名称="flex flex-col gap-1.5 justify-center pb-10">
+        <div class名称="flex gap-2 justify-between items-center">
+          <Label class名称="font-medium">Link Group</Label>
           <Select
             defaultValue={link?.linkGroup}
             onValueChange={(v) => setLinkGroup(v)}
           >
-            <SelectTrigger className="rounded-full bg-white border-0 frosted">
+            <SelectTrigger class名称="rounded-full bg-white border-0 frosted">
               <SelectValue placeholder="Link Group" />
             </SelectTrigger>
-            <SelectContent className="frosted text-white">
+            <SelectContent class名称="frosted text-white">
               {linkGroups.map((grp) => (
                 <SelectItem key={grp} value={grp}>
                   {grp}
@@ -552,25 +552,25 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
             </SelectContent>
           </Select>
         </div>
-        <div className="flex gap-4 justify-between items-center">
-          <Label className="font-medium">Folder</Label>
+        <div class名称="flex gap-4 justify-between items-center">
+          <Label class名称="font-medium">Folder</Label>
           <Input
             type="text"
             placeholder="optional"
             value={folder}
             onChange={(e) => setFolder(e.target.value)}
-            className="frosted w-36"
+            class名称="frosted w-36"
           />
         </div>
 
-        <div className="mt-4">
-          <p className="text-xs text-gray-400 mb-1">
-            Preview {isEditing && "(Editing)"}
+        <div class名称="mt-4">
+          <p class名称="text-xs text-gray-400 mb-1">
+            Preview {is编辑ing && "(编辑ing)"}
           </p>
-          <div className="group flex flex-col items-center justify-between space-y-2 frosted rounded-2xl p-2 min-h-18 w-[120px] mx-auto">
+          <div class名称="group flex flex-col items-center justify-between space-y-2 frosted rounded-2xl p-2 min-h-18 w-[120px] mx-auto">
             {icon?.iconSet === "mono" ? (
               <div
-                className="h-[35px] w-[35px] bg-white group-hover:bg-(--primary) transition"
+                class名称="h-[35px] w-[35px] bg-white group-hover:bg-(--primary) transition"
                 style={{
                   maskImage: `url(${icon.url})`,
                   WebkitMaskImage: `url(${icon.url})`,
@@ -586,35 +586,35 @@ export default function LinkDetailsForm({ link, onClose, preselectOpenedGroup }:
               <img
                 src={icon.url}
                 alt={icon?.name ?? "Custom Icon"}
-                className="h-[35px] w-[35px] object-contain"
+                class名称="h-[35px] w-[35px] object-contain"
               />
             ) : null}
-            <span className="text-sm text-white">{name || "Link name"}</span>
+            <span class名称="text-sm text-white">{name || "Link name"}</span>
           </div>
         </div>
       </section>
 
-      <div className="col-span-3 mt-2 flex gap-2 justify-end absolute bottom-2 right-2">
-        {error && <p className="text-red-500">{error}</p>}
-        {!isEditing && (
+      <div class名称="col-span-3 mt-2 flex gap-2 justify-end absolute bottom-2 right-2">
+        {error && <p class名称="text-red-500">{error}</p>}
+        {!is编辑ing && (
           <Button
             type="button"
             variant="secondary"
             disabled={loading}
-            onClick={handleAddAnother}
+            onClick={handle添加Another}
           >
-            Add Another
+            添加 Another
           </Button>
         )}
 
         <Button type="submit" disabled={loading}>
           {loading
-            ? isEditing
+            ? is编辑ing
               ? "Saving..."
-              : "Adding..."
-            : isEditing
-              ? "Save"
-              : "Add"}
+              : "添加ing..."
+            : is编辑ing
+              ? "保存"
+              : "添加"}
         </Button>
       </div>
     </form>
@@ -645,9 +645,9 @@ async function getIcon(
 
 
   if (name) {
-    const safeName = name.trim().replace(/\s+/g, "-").toLowerCase();
-    if (safeName) {
-      const autoIcon = `/icons/svg/${safeName}-light.svg`;
+    const safe名称 = name.trim().replace(/\s+/g, "-").toLowerCase();
+    if (safe名称) {
+      const autoIcon = `/icons/svg/${safe名称}-light.svg`;
       if (await testImage(autoIcon)) {
         return { iconSet: "custom", url: autoIcon };
       }
@@ -682,7 +682,7 @@ export function Icon({
   if (!url || url == "undefined") {
     return (
       <div
-        className="bg-white rounded-md opacity-30 h-[22px] w-[22px]"
+        class名称="bg-white rounded-md opacity-30 h-[22px] w-[22px]"
         aria-label="icon placeholder"
       />
     );
@@ -690,7 +690,7 @@ export function Icon({
 
   return set === "mono" ? (
     <div
-      className="bg-white h-[22px] w-[22px]"
+      class名称="bg-white h-[22px] w-[22px]"
       style={{
         maskImage: `url(${url})`,
         WebkitMaskImage: `url(${url})`,
@@ -706,7 +706,7 @@ export function Icon({
     <img
       src={url}
       alt={name ?? ""}
-      className="h-[22px] w-[22px] object-contain"
+      class名称="h-[22px] w-[22px] object-contain"
     />
   );
 }
@@ -715,14 +715,14 @@ function generateRandomId(length = 8) {
   return Math.random().toString(36).substr(2, length);
 }
 
-function parseStatusCodeList(raw: string): number[] {
+function parse状态CodeList(raw: string): number[] {
   return raw
     .split(",")
     .map((entry) => Number(entry.trim()))
     .filter((code) => Number.isInteger(code) && code >= 100 && code <= 599);
 }
 
-function parseStatusCheckAuth(raw: unknown): StatusCheckAuth | undefined {
+function parse状态CheckAuth(raw: unknown): 状态CheckAuth | undefined {
   if (!raw) return undefined;
 
   let parsed: any = raw;

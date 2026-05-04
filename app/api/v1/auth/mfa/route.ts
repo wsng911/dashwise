@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       name: `dashwise (${email})`,
     });
 
-    // Save TOTP secret in user record
+    // 保存 TOTP secret in user record
     await pb.collection("users").update(userId, { totpSecret: secret.base32 });
 
     // Generate QR code URL for authenticator app

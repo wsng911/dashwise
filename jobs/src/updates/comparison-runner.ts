@@ -16,7 +16,7 @@ async function fetchLatestGithubTag(repo: string): Promise<string | null> {
 export async function runVersionComparisonRunner() {
   const details: any[] = [];
   const { DASHWISE_VERSION: localVersion, GITHUB_REPO: repo } = config;
-  const instanceName = "dashwise";
+  const instance名称 = "dashwise";
 
   const latestTag = await fetchLatestGithubTag(repo);
 
@@ -41,12 +41,12 @@ export async function runVersionComparisonRunner() {
   try {
     const records = await pb.collection("appInfo").getFullList(200);
     const record = records.find(
-      (r) => r.instanceName?.toLowerCase() === instanceName.toLowerCase()
+      (r) => r.instance名称?.toLowerCase() === instance名称.toLowerCase()
     );
 
     // updateAvailable is set to latestTag string if newUpdate is true, otherwise 0
     const payload = {
-      instanceName,
+      instance名称,
       version: localVersion,
       updateAvailable: newUpdate ? latestTag : 0,
     };

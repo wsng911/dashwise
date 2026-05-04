@@ -60,32 +60,32 @@ export default function NotificationsLayoutComponent({ children }: { children: R
     }, [pathname]);
 
     return (
-        <div className="flex h-dvh bg-(--surface) backdrop-blur-[5px] backdrop-brightness-85 text-white p-8">
-            <div className="w-[30%]">
-                <h1 className="scroll-m-20 text-4xl font-bold tracking-tight text-balance">Notifications</h1>
+        <div class名称="flex h-dvh bg-(--surface) backdrop-blur-[5px] backdrop-brightness-85 text-white p-8">
+            <div class名称="w-[30%]">
+                <h1 class名称="scroll-m-20 text-4xl font-bold tracking-tight text-balance">Notifications</h1>
 
-                <div className="relative flex flex-col h-[calc(100%-35px)] justify-between py-4">
-                    <div className="space-y-1">
+                <div class名称="relative flex flex-col h-[calc(100%-35px)] justify-between py-4">
+                    <div class名称="space-y-1">
                         <div
                             ref={activeBgRef}
-                            className="absolute left-0 w-[90%] rounded-md bg-white/20 transition-all duration-300"
+                            class名称="absolute left-0 w-[90%] rounded-md bg-white/20 transition-all duration-300"
                             style={{ zIndex: 0 }}
                         />
 
                         {navItems.map((item) => (
-                            <Link key={item.href} href={item.href} className="block group">
+                            <Link key={item.href} href={item.href} class名称="block group">
                                 <div
-                                    className={`flex items-center justify-between p-2 settings-label-div round-md relative ${pathname === item.href ? "font-bold" : ""}`}
+                                    class名称={`flex items-center justify-between p-2 settings-label-div round-md relative ${pathname === item.href ? "font-bold" : ""}`}
                                     data-href={item.href}
                                 >
-                                    <div className="flex items-center space-x-2">
-                                        <FontAwesomeIcon icon={item.icon} className="text-lg group-hover:text-(--primary)" />
+                                    <div class名称="flex items-center space-x-2">
+                                        <FontAwesomeIcon icon={item.icon} class名称="text-lg group-hover:text-(--primary)" />
                                         <Label>{item.label}</Label>
                                     </div>
 
                                     {/* Show unread badge only for Inbox */}
                                     {item.href === "/notifications/inbox" && unreadCount > 0 && (
-                                        <span className="ml-2 px-2 py-0.5 mr-10 bg-(--primary) rounded-full text-xs font-bold">
+                                        <span class名称="ml-2 px-2 py-0.5 mr-10 bg-(--primary) rounded-full text-xs font-bold">
                                             {unreadCount}
                                         </span>
                                     )}
@@ -94,20 +94,20 @@ export default function NotificationsLayoutComponent({ children }: { children: R
                         ))}
                     </div>
 
-                    <Link key="/home" href="/home" className="block group">
+                    <Link key="/home" href="/home" class名称="block group">
                         <div
-                            className={`flex items-center space-x-2 p-2 settings-label-div round-md relative`}
+                            class名称={`flex items-center space-x-2 p-2 settings-label-div round-md relative`}
                             data-href="/home"
                         >
-                            <FontAwesomeIcon icon={faHome} className=" group-hover:text-(--primary)" />
-                            <Label>Back Home</Label>
+                            <FontAwesomeIcon icon={faHome} class名称=" group-hover:text-(--primary)" />
+                            <Label>返回 Home</Label>
                         </div>
                     </Link>
                 </div>
 
             </div>
 
-            <div className="flex-1 overflow-y-auto">{children}</div>
+            <div class名称="flex-1 overflow-y-auto">{children}</div>
         </div>
     );
 }

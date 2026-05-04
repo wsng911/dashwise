@@ -26,7 +26,7 @@ const fontWeights = [
   { name: "Bold", value: "font-bold" },
 ];
 
-export default function ScreensaverSettings() {
+export default function Screensaver设置() {
   const { config, refreshConfig } = useConfig();
   const [scope, setScope] = useState<"global" | "local">("global");
   const [screensaverConfig, setScreensaverConfig] = useState(
@@ -99,28 +99,28 @@ export default function ScreensaverSettings() {
 
   return (
     <>
-      <div className="flex flex-col gap-2 mb-4">
-        <h1 className="text-3xl font-semibold">Screensaver</h1>
-        <div className="flex bg-white/5 p-1 border border-white/10 w-fit rounded-full gap-2">
+      <div class名称="flex flex-col gap-2 mb-4">
+        <h1 class名称="text-3xl font-semibold">Screensaver</h1>
+        <div class名称="flex bg-white/5 p-1 border border-white/10 w-fit rounded-full gap-2">
           <button
             onClick={() => handleScopeChange("global")}
-            className={`px-3 py-1 text-sm rounded-full transition-all ${scope === "global" ? "frosted shadow-sm" : "hover:bg-white/5 border-transparent"}`}
+            class名称={`px-3 py-1 text-sm rounded-full transition-all ${scope === "global" ? "frosted shadow-sm" : "hover:bg-white/5 border-transparent"}`}
           >
             Global
           </button>
           <button
             onClick={() => handleScopeChange("local")}
-            className={`px-3 py-1 text-sm rounded-full  transition-all ${scope === "local" ? "frosted shadow-sm" : "hover:bg-white/5 border-transparent"}`}
+            class名称={`px-3 py-1 text-sm rounded-full  transition-all ${scope === "local" ? "frosted shadow-sm" : "hover:bg-white/5 border-transparent"}`}
           >
             Local (Device)
           </button>
         </div>
       </div>
-      <div className="content space-y-6">
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Triggers</h2>
-          <div className="space-y-4 px-2">
-            <div className="flex items-center justify-between">
+      <div class名称="content space-y-6">
+        <section class名称="space-y-4">
+          <h2 class名称="text-xl font-semibold">Triggers</h2>
+          <div class名称="space-y-4 px-2">
+            <div class名称="flex items-center justify-between">
               <Label htmlFor="show-button">Show screensaver button</Label>
               <Switch
                 id="show-button"
@@ -128,14 +128,14 @@ export default function ScreensaverSettings() {
                 onCheckedChange={(checked) => updateScreensaverConfig({ showButton: checked })}
               />
             </div>
-            <div className="flex items-center justify-between">
+            <div class名称="flex items-center justify-between">
               <Label htmlFor="inactivity-time">
                 Inactivity time (seconds)
               </Label>
               <Input
                 id="inactivity-time"
                 type="number"
-                className="w-24 frosted"
+                class名称="w-24 frosted"
                 value={screensaverConfig.inactivityTimeout ?? ""}
                 onChange={(e) => setScreensaverConfig({ ...screensaverConfig, inactivityTimeout: parseInt(e.target.value, 10) })}
                 onBlur={(e) => updateScreensaverConfig({ inactivityTimeout: parseInt(e.target.value, 10) })}
@@ -144,16 +144,16 @@ export default function ScreensaverSettings() {
           </div>
         </section>
 
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Appearance</h2>
-          <div className="space-y-4 px-2">
-            <div className="w-full h-48 rounded-xl flex items-center justify-center relative overflow-hidden border frosted">
+        <section class名称="space-y-4">
+          <h2 class名称="text-xl font-semibold">Appearance</h2>
+          <div class名称="space-y-4 px-2">
+            <div class名称="w-full h-48 rounded-xl flex items-center justify-center relative overflow-hidden border frosted">
               <ClockWidget
                 font={previewFont}
                 weight={previewWeight.startsWith('font-') ? previewWeight.split('-')[1] : previewWeight}
                 color={previewColor}
                 style={{ fontSize: `${previewSize}rem` }}
-                className="p-0"
+                class名称="p-0"
               />
             </div>
 
@@ -164,27 +164,27 @@ export default function ScreensaverSettings() {
                 setUseHomePageStyle(isHome);
                 updateScreensaverConfig({ useHomePageStyle: isHome });
               }}
-              className="flex gap-2 pt-2"
+              class名称="flex gap-2 pt-2"
             >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="default" id="default" className="frosted"/>
+              <div class名称="flex items-center space-x-2">
+                <RadioGroupItem value="default" id="default" class名称="frosted"/>
                 <Label htmlFor="default">Use home page style</Label>
               </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="custom" id="custom" className="frosted"/>
+              <div class名称="flex items-center space-x-2">
+                <RadioGroupItem value="custom" id="custom" class名称="frosted"/>
                 <Label htmlFor="custom">Custom</Label>
               </div>
             </RadioGroup>
 
             {!useHomePageStyle && (
-              <div className="space-y-4 pt-2">
-                <div className="flex items-center justify-between">
+              <div class名称="space-y-4 pt-2">
+                <div class名称="flex items-center justify-between">
                   <Label>Clock Font</Label>
                   <Select
                     value={screensaverConfig.clockFont}
                     onValueChange={(val) => updateScreensaverConfig({ clockFont: val })}
                   >
-                    <SelectTrigger className="w-[180px] frosted">
+                    <SelectTrigger class名称="w-[180px] frosted">
                       <SelectValue placeholder="Select a font" />
                     </SelectTrigger>
                     <SelectContent>
@@ -197,13 +197,13 @@ export default function ScreensaverSettings() {
                   </Select>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div class名称="flex items-center justify-between">
                   <Label>Font Weight</Label>
                   <Select
                     value={screensaverConfig.clockFontWeight}
                     onValueChange={(val) => updateScreensaverConfig({ clockFontWeight: val })}
                   >
-                    <SelectTrigger className="w-[180px] frosted">
+                    <SelectTrigger class名称="w-[180px] frosted">
                       <SelectValue placeholder="Select weight" />
                     </SelectTrigger>
                     <SelectContent>
@@ -216,11 +216,11 @@ export default function ScreensaverSettings() {
                   </Select>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div class名称="flex items-center justify-between">
                   <Label>Color (with opacity)</Label>
                   <Input
                     type="text"
-                    className="w-[180px] frosted"
+                    class名称="w-[180px] frosted"
                     placeholder="rgba(255,255,255,0.8)"
                     value={screensaverConfig.color || ""}
                     onChange={(e) => setScreensaverConfig({ ...screensaverConfig, color: e.target.value })}
@@ -228,12 +228,12 @@ export default function ScreensaverSettings() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div class名称="flex items-center justify-between">
                   <Label>Clock Size (rem)</Label>
                   <Input
                     type="number"
                     step="0.5"
-                    className="w-[180px] frosted"
+                    class名称="w-[180px] frosted"
                     value={screensaverConfig.size || ""}
                     onChange={(e) => setScreensaverConfig({ ...screensaverConfig, size: parseFloat(e.target.value) })}
                     onBlur={(e) => updateScreensaverConfig({ size: parseFloat(e.target.value) })}

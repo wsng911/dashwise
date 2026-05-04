@@ -80,14 +80,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true, topicId: existingTopic.id });
     }
 
-    // --- Create new topic
+    // --- 创建 new topic
     const created: NotificationTopic = await pb.collection("notificationTopics").create({
       title,
       userId,
       priority: 1,
     });
 
-    // --- Create initial "topic created" notification
+    // --- 创建 initial "topic created" notification
     await pb.collection("notificationItems").create({
       topicId: created.id,
       content: "Topic has been created",

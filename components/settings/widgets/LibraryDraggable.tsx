@@ -17,11 +17,11 @@ export function LibraryDraggable({ info, index }: { info: WidgetInfo; index: num
       {...listeners}
       {...attributes}
       data-new-slug={info.slug}
-      className="flex flex-col items-center gap-2"
+      class名称="flex flex-col items-center gap-2"
       style={{ listStyle: "none", touchAction: "none", cursor: "grab" }}
     >
-      <WidgetComponent type={info.slug} className="h-[90px] w-full" params={info.exampleProps || {}} />
-      <span className="text-sm font-medium">{info.name}</span>
+      <WidgetComponent type={info.slug} class名称="h-[90px] w-full" params={info.exampleProps || {}} />
+      <span class名称="text-sm font-medium">{info.name}</span>
     </li>
   );
 }

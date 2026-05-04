@@ -4,12 +4,12 @@ import useAuth from "@/context/useAuth";
 import CommandBar from './CommandBar';
 import { get } from '@/lib/apiClient';
 
-type SearchBarProps = {
+type 搜索BarProps = {
   useRedirect: boolean;
   defaultOpen?: boolean;
 };
 
-type SearchItem = {
+type 搜索Item = {
   name: string;
   icon: string;
   secondaryInfo: string;
@@ -19,12 +19,12 @@ type SearchItem = {
 };
 
 
-export default function SearchBar({ useRedirect, defaultOpen }: SearchBarProps) {
+export default function 搜索Bar({ useRedirect, defaultOpen }: 搜索BarProps) {
   const [redirecting, setRedirecting] = useState(false);
   const [open, setOpen] = useState(false); // control CommandBar
 
   // fetched items from /api/v1/searchItems
-  const [searchItems, setSearchItems] = useState<SearchItem[]>([]);
+  const [searchItems, set搜索Items] = useState<搜索Item[]>([]);
   const [loadingItems, setLoadingItems] = useState(false);
   const [itemsError, setItemsError] = useState<string | null>(null);
 
@@ -58,7 +58,7 @@ export default function SearchBar({ useRedirect, defaultOpen }: SearchBarProps) 
         try {
         const tokenToUse = token;
         const data = await get('/searchItems', { token: tokenToUse, signal });
-        setSearchItems(Array.isArray(data) ? data : []);
+        set搜索Items(Array.isArray(data) ? data : []);
       } catch (err: unknown) {
         const e = err as any;
         console.warn('Failed to load searchItems', err);
@@ -67,7 +67,7 @@ export default function SearchBar({ useRedirect, defaultOpen }: SearchBarProps) 
         } else {
           setItemsError(e?.message ?? 'Failed to load items');
         }
-        setSearchItems([]);
+        set搜索Items([]);
       } finally {
         setLoadingItems(false);
       }
@@ -83,16 +83,16 @@ export default function SearchBar({ useRedirect, defaultOpen }: SearchBarProps) 
   return (
     <>
       <div
-        className={`flex items-center justify-center border frosted rounded-md
+        class名称={`flex items-center justify-center border frosted rounded-md
         focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500
         transition-transform duration-300 ${redirecting ? 'scale-105 opacity-70' : 'scale-100 opacity-100'}`}
       >
         <input
           type="text"
           data-slot="input"
-          className="w-full bg-transparent px-2 py-1.5 text-sm text-gray-900 dark:text-white placeholder-(--text-on-frosted) hover:placeholder-(--text-color) 
+          class名称="w-full bg-transparent px-2 py-1.5 text-sm text-gray-900 dark:text-white placeholder-(--text-on-frosted) hover:placeholder-(--text-color) 
                focus:outline-none"
-          placeholder="Search..."
+          placeholder="搜索..."
           onFocus={handleFocus}
         />
 

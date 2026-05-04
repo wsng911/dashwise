@@ -7,7 +7,7 @@ import { useConfig } from "@/context/ConfigContext";
 import useAuth from "@/context/useAuth";
 import { writeToConfig } from "@/lib/frontend/data/MUTATE/config/writeToConfig";
 
-export default function WallpaperBrightnessSliderComponent({ className }: { className?: string }) {
+export default function WallpaperBrightnessSliderComponent({ class名称 }: { class名称?: string }) {
   const { config, refreshConfig } = useConfig();
   const { token } = useAuth();
 
@@ -27,7 +27,7 @@ export default function WallpaperBrightnessSliderComponent({ className }: { clas
     document.body.style.backdropFilter = `brightness(${value}%) blur(${blur}px)`;
   }
 
-  async function handleSave(value: number) {
+  async function handle保存(value: number) {
     if (!token) return;
 
     setSaving(true);
@@ -56,16 +56,16 @@ export default function WallpaperBrightnessSliderComponent({ className }: { clas
 
   return (
     <div
-      className={cn(
+      class名称={cn(
         "flex items-center justify-between col-span-full p-2 rounded-md gap-4 bg-(--surface-hover) border border-transparent",
-        className
+        class名称
       )}
     >
-      <div className="flex items-center gap-1 min-w-[180px]">
-        <p className="font-medium text-foreground">Darken/Brighten</p>
+      <div class名称="flex items-center gap-1 min-w-[180px]">
+        <p class名称="font-medium text-foreground">Darken/Brighten</p>
       </div>
 
-      <div className="flex-1 flex items-center gap-3 max-w-76">
+      <div class名称="flex-1 flex items-center gap-3 max-w-76">
         <Slider
           value={[percent]}
           max={100}
@@ -78,17 +78,17 @@ export default function WallpaperBrightnessSliderComponent({ className }: { clas
           }}
           onValueCommit={([v]) => {
             const newValue = Math.round((v / 100) * (150 - 50) + 50);
-            handleSave(newValue);
+            handle保存(newValue);
           }}
-          className="flex-1"
+          class名称="flex-1"
         />
-        <span className="min-w-[50px] text-right text-medium">{brightnessValue}%</span>
+        <span class名称="min-w-[50px] text-right text-medium">{brightnessValue}%</span>
       </div>
     </div>
   );
 }
 
-export function WallpaperBrightnessDarkModeSliderComponent({ className }: { className?: string }) {
+export function WallpaperBrightnessDarkModeSliderComponent({ class名称 }: { class名称?: string }) {
   const { config, refreshConfig } = useConfig();
   const { token } = useAuth();
 
@@ -104,7 +104,7 @@ export function WallpaperBrightnessDarkModeSliderComponent({ className }: { clas
     setPercent(0);
   }, [config]);
 
-  async function handleSave(value: number) {
+  async function handle保存(value: number) {
     if (!token) return;
 
     setSaving(true);
@@ -131,16 +131,16 @@ export function WallpaperBrightnessDarkModeSliderComponent({ className }: { clas
 
   return (
     <div
-      className={cn(
+      class名称={cn(
         "flex items-center justify-between col-span-full p-2 rounded-md gap-4 bg-(--surface-hover) border border-transparent",
-        className
+        class名称
       )}
     >
-      <div className="flex items-center gap-1 min-w-[180px]">
-        <p className="font-medium text-foreground">Extra darken in dark mode</p>
+      <div class名称="flex items-center gap-1 min-w-[180px]">
+        <p class名称="font-medium text-foreground">Extra darken in dark mode</p>
       </div>
 
-      <div className="flex-1 flex items-center gap-3 max-w-76">
+      <div class名称="flex-1 flex items-center gap-3 max-w-76">
         <Slider
           value={[percent]}
           min={0}
@@ -151,11 +151,11 @@ export function WallpaperBrightnessDarkModeSliderComponent({ className }: { clas
             setPercent(v);
           }}
           onValueCommit={([v]) => {
-            handleSave(v);
+            handle保存(v);
           }}
-          className="flex-1"
+          class名称="flex-1"
         />
-        <span className="min-w-[50px] text-right text-medium">{percent}%</span>
+        <span class名称="min-w-[50px] text-right text-medium">{percent}%</span>
       </div>
     </div>
   );

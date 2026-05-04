@@ -30,15 +30,15 @@ export function enforceJobsBasicAuth(req: NextRequest) {
 	}
 
 	const [email, password] = decoded.split(":", 2);
-	const expectedEmail = process.env.PB_ADMIN_EMAIL;
-	const expectedPassword = process.env.PB_ADMIN_PASSWORD;
+	const expected邮箱 = process.env.PB_ADMIN_EMAIL;
+	const expected密码 = process.env.PB_ADMIN_PASSWORD;
 
-	if (!expectedEmail || !expectedPassword) {
+	if (!expected邮箱 || !expected密码) {
 		console.warn("Missing job auth credentials in environment");
 		return createUnauthorizedResponse();
 	}
 
-	if (email !== expectedEmail || password !== expectedPassword) {
+	if (email !== expected邮箱 || password !== expected密码) {
 		return createUnauthorizedResponse();
 	}
 

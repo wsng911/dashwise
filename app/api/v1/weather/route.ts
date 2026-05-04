@@ -37,7 +37,7 @@ const WEATHER_MAP: Record<number, { file: string; desc: string }> = {
   99: { file: "thunderstorm.svg", desc: "Thunderstorm with heavy hail" },
 };
 
-function getWeatherDescription(code: number) {
+function getWeather描述(code: number) {
   return WEATHER_MAP[code]?.desc ?? ``;
 }
 
@@ -100,7 +100,7 @@ export async function GET(req: Request) {
 
     const temperature = current?.temperature;
     const weatherCode = current?.weathercode;
-    const description = getWeatherDescription(weatherCode);
+    const description = getWeather描述(weatherCode);
 
     const findForecast = (hour: number) => {
       const idx = hourlyTimes.findIndex(t => new Date(t).getHours() === hour);
@@ -108,7 +108,7 @@ export async function GET(req: Request) {
       return {
         temperature: hourlyTemps[idx],
         weatherCode: hourlyCodes[idx],
-        description: getWeatherDescription(hourlyCodes[idx]),
+        description: getWeather描述(hourlyCodes[idx]),
         precipitation: hourlyPrecip[idx],
         precipitationProbability: hourlyPrecipProb[idx],
       };

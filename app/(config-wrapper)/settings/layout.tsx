@@ -1,7 +1,7 @@
-import SettingsLayout from "@/components/settings/SettingsLayout";
+import 设置Layout from "@/components/settings/设置Layout";
 
-export default function SettingsRootLayout({ children }: { children: React.ReactNode }) {
+export default function 设置RootLayout({ children }: { children: React.ReactNode }) {
   return (
-      <SettingsLayout>{children}</SettingsLayout>
+      <设置Layout>{children}</设置Layout>
   );
 }

@@ -16,9 +16,9 @@ export type DashdotWidgetProps = WidgetItemProps & {
     params?: DashdotWidgetParams;
 };
 
-export default function DashdotWidget({ params, className = "" }: DashdotWidgetProps & { className?: string }) {
+export default function DashdotWidget({ params, class名称 = "" }: DashdotWidgetProps & { class名称?: string }) {
     const [metrics, setMetrics] = useState<any | null>(null);
-    const [serverDetails, setServerDetails] = useState<{ url?: string; displayName?: string } | null>(null);
+    const [serverDetails, setServerDetails] = useState<{ url?: string; display名称?: string } | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -35,7 +35,7 @@ export default function DashdotWidget({ params, className = "" }: DashdotWidgetP
             const url = "/integrations/dashdot";
             const useOverride = !!params?.defaultOverride;
             const body = useOverride
-                ? { serverUrl: params?.serverLocation, displayName: params?.serverDisplayname }
+                ? { serverUrl: params?.serverLocation, display名称: params?.serverDisplayname }
                 : undefined;
             const json = await postIntegrationsDashdot(body, { token });
             setMetrics(json.metrics);
@@ -125,16 +125,16 @@ export default function DashdotWidget({ params, className = "" }: DashdotWidgetP
 
     // render columns
     return (
-        <WidgetColumnTemplate className={className} title={serverDetails?.displayName} iconUrl="/icons/png/dashdot.png" url={serverDetails?.url}>
+        <WidgetColumnTemplate class名称={class名称} title={serverDetails?.display名称} iconUrl="/icons/png/dashdot.png" url={serverDetails?.url}>
             {items.map((item, i) => (
-                <div key={i} className="grid grid-rows-[20%_1fr_30%] items-center text-center">
-                    <div className="text-xs font-medium">{item.type}</div>
+                <div key={i} class名称="grid grid-rows-[20%_1fr_30%] items-center text-center">
+                    <div class名称="text-xs font-medium">{item.type}</div>
 
-                    <div className="text-2xl whitespace-nowrap">
+                    <div class名称="text-2xl whitespace-nowrap">
                         {item.primary}
                     </div>
 
-                    <div className="text-xs text-[var(--text-on-frosted)]">
+                    <div class名称="text-xs text-[var(--text-on-frosted)]">
                         {item.secondary}
                     </div>
                 </div>

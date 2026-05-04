@@ -14,7 +14,7 @@ type Integration = {
   page?: string;
 };
 
-export default function IntegrationsSettingsPage() {
+export default function Integrations设置Page() {
   const { config, refreshConfig } = useConfig();
   const [groups, setGroups] = useState<Record<string, Integration[]>>({});
   const [activeIntegrations, setActiveIntegrations] = useState<
@@ -101,7 +101,7 @@ export default function IntegrationsSettingsPage() {
     await refreshConfig();
   }
 
-  async function handleDialogConfirm() {
+  async function handleDialog确认() {
     if (!pendingIntegration) return;
 
     const encodedProps = Object.fromEntries(
@@ -127,30 +127,30 @@ export default function IntegrationsSettingsPage() {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold mb-6">Integrations</h1>
+      <h1 class名称="text-3xl font-semibold mb-6">Integrations</h1>
 
-      <div className="space-y-8">
-        {Object.entries(groups).map(([groupName, integrations]) => (
-          <div key={groupName}>
-            <h2 className="text-xl font-semibold mb-4">
-              {groupName.charAt(0).toUpperCase() + groupName.slice(1)}
+      <div class名称="space-y-8">
+        {Object.entries(groups).map(([group名称, integrations]) => (
+          <div key={group名称}>
+            <h2 class名称="text-xl font-semibold mb-4">
+              {group名称.charAt(0).toUpperCase() + group名称.slice(1)}
             </h2>
 
-            <div className="grid gap-4">
+            <div class名称="grid gap-4">
               {integrations.map((integration) => (
                 <div
                   key={integration.name}
-                  className="frosted rounded-2xl p-4 flex flex-col gap-4"
+                  class名称="frosted rounded-2xl p-4 flex flex-col gap-4"
                 >
-                  <div className="flex justify-between items-center">
+                  <div class名称="flex justify-between items-center">
                     <div>
-                      <h3 className="text-lg font-medium">{integration.name}</h3>
-                      <p className="text-sm text-gray-100">{integration.description}</p>
+                      <h3 class名称="text-lg font-medium">{integration.name}</h3>
+                      <p class名称="text-sm text-gray-100">{integration.description}</p>
                     </div>
                     <Switch
                       checked={activeIntegrations.hasOwnProperty(integration.name)}
                       onCheckedChange={() => toggleIntegration(integration)}
-                      className="[&>span]:bg-white [&>span[data-state=checked]]:bg-white"
+                      class名称="[&>span]:bg-white [&>span[data-state=checked]]:bg-white"
                     />
                   </div>
                 </div>
@@ -161,35 +161,35 @@ export default function IntegrationsSettingsPage() {
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="frosted text-foreground">
+        <DialogContent class名称="frosted text-foreground">
           <DialogHeader>
             <DialogTitle>Enable {pendingIntegration?.name}</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-4">
+          <div class名称="space-y-4">
             {pendingIntegration?.properties &&
-              Object.entries(pendingIntegration.properties).map(([propName]) => (
+              Object.entries(pendingIntegration.properties).map(([prop名称]) => (
                 <input
-                  key={propName}
+                  key={prop名称}
                   type="text"
-                  placeholder={propName}
-                  value={pendingProps[propName] || ""}
+                  placeholder={prop名称}
+                  value={pendingProps[prop名称] || ""}
                   onChange={(e) =>
                     setPendingProps((prev) => ({
                       ...prev,
-                      [propName]: e.target.value,
+                      [prop名称]: e.target.value,
                     }))
                   }
-                  className="rounded-md p-2 text-black w-full frosted"
+                  class名称="rounded-md p-2 text-black w-full frosted"
                 />
               ))}
           </div>
 
           <DialogFooter>
             <Button variant="ghost" onClick={() => setDialogOpen(false)}>
-              Cancel
+              取消
             </Button>
-            <Button onClick={handleDialogConfirm}>Enable</Button>
+            <Button onClick={handleDialog确认}>Enable</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -1,7 +1,7 @@
 
 import https from "https";
 import axios from "axios";
-import { SearchItem } from "@/lib/jobs";
+import { 搜索Item } from "@/lib/jobs";
 
 type KarakeepBookmark = {
   id: string;
@@ -94,10 +94,10 @@ export async function getBookmarks({
           id: raw.id,
           title,
           icon,
-          collection: raw.collection ?? raw.collectionName,
+          collection: raw.collection ?? raw.collection名称,
           url: url,
           content: raw.content,
-          dateCreated: raw.createdAt ?? null,
+          date创建d: raw.createdAt ?? null,
           dateUpdated: raw.modifiedAt ?? null,
           archived: !!raw.archived,
           favourited: !!raw.favourited,
@@ -151,14 +151,14 @@ export async function getBookmarks({
 
 
 /**
- * Map a user's Karakeep bookmarks into the `SearchItem[]` format.
- * - Returns an array of SearchItem suitable to be merged into your `searchItems` array.
+ * Map a user's Karakeep bookmarks into the `搜索Item[]` format.
+ * - Returns an array of 搜索Item suitable to be merged into your `searchItems` array.
  *
  * Example usage:
- * const kkItems = await KarakeepSearchItems({ serverUrl: 'https://try.karakeep.app', token });
+ * const kkItems = await Karakeep搜索Items({ serverUrl: 'https://try.karakeep.app', token });
  * searchItems.push(...kkItems);
  */
-export async function KarakeepSearchItems({
+export async function Karakeep搜索Items({
   serverUrl,
   token,
   allowInsecureCerts
@@ -166,10 +166,10 @@ export async function KarakeepSearchItems({
   serverUrl: string;
   token?: string | null;
   allowInsecureCerts: boolean;
-}): Promise<SearchItem[]> {
+}): Promise<搜索Item[]> {
   const bookmarks = await getBookmarks({ serverUrl, token, allowInsecureCerts });
 
-  const mapped: SearchItem[] = bookmarks.map(b => ({
+  const mapped: 搜索Item[] = bookmarks.map(b => ({
     id: b.id,
     name: b.title ?? "Untitled",
     icon: b.icon ?? "link",

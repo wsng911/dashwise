@@ -1,4 +1,4 @@
-import runBackgroundJobs from "@/lib/jobs";
+import run返回groundJobs from "@/lib/jobs";
 import { NextRequest, NextResponse } from "next/server";
 import { enforceJobsBasicAuth } from "@/lib/jobs/basicAuth";
 
@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
   console.log(`[API] Starting background jobs at ${start.toISOString()}`);
 
   try {
-    await runBackgroundJobs();
+    await run返回groundJobs();
     const end = new Date();
     console.log(
       `[API] Finished background jobs at ${end.toISOString()} (duration: ${(

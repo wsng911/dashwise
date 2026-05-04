@@ -71,25 +71,25 @@ export default function TopicCombobox({ topics, value, onChange }: TopicCombobox
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          class名称="w-full justify-between"
         >
           {value?.title || "Select or create topic..."}
-          <ChevronsUpDown className="opacity-50" />
+          <ChevronsUpDown class名称="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
-        <Command className="text-black">
+      <PopoverContent class名称="w-full p-0">
+        <Command class名称="text-black">
           <CommandInput
-            placeholder="Search or type new topic..."
+            placeholder="搜索 or type new topic..."
             value={inputValue}
             onValueChange={setInputValue}
-            className="h-9"
+            class名称="h-9"
           />
           <CommandList>
             <CommandEmpty>
-              {inputValue ? `Create "${inputValue}"` : "No topics found."}
+              {inputValue ? `创建 "${inputValue}"` : "No topics found."}
             </CommandEmpty>
-            <CommandGroup className="text-black">
+            <CommandGroup class名称="text-black">
               {filtered.map((topic) => (
                 <CommandItem
                   key={topic.id}
@@ -98,7 +98,7 @@ export default function TopicCombobox({ topics, value, onChange }: TopicCombobox
                 >
                   {topic.title}
                   <Check
-                    className={cn(
+                    class名称={cn(
                       "ml-auto",
                       value?.id === topic.id ? "opacity-100" : "opacity-0"
                     )}
@@ -110,7 +110,7 @@ export default function TopicCombobox({ topics, value, onChange }: TopicCombobox
                   value={inputValue}
                   onSelect={() => handleSelect(inputValue)}
                 >
-                  Create "{inputValue}"
+                  创建 "{inputValue}"
                 </CommandItem>
               )}
             </CommandGroup>

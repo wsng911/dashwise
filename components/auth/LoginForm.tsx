@@ -6,15 +6,15 @@ import { get, post } from "@/lib/apiClient";
 import useAuth from "@/context/useAuth"
 import { useRouter } from "next/navigation"
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, Card描述, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, Alert描述, AlertTitle } from "@/components/ui/alert"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
+  Dialog描述,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -25,8 +25,8 @@ import { faCircleCheck, faExclamationTriangle } from "@fortawesome/free-solid-sv
 export default function LoginCard() {
   const router = useRouter()
   const { token, setAuth } = useAuth();
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, set邮箱] = useState("")
+  const [password, set密码] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -69,8 +69,8 @@ export default function LoginCard() {
 
       setSuccess("Login successful! Redirecting to home...");
       setTimeout(() => {
-        setEmail("");
-        setPassword("");
+        set邮箱("");
+        set密码("");
         router.push("/home");
       }, 2000);
     } catch (err: any) {
@@ -83,66 +83,66 @@ export default function LoginCard() {
 
 
   return (
-    <Card className="w-full max-w-sm frosted text-foreground backdrop-saturate-90 backdrop-brightness-90">
+    <Card class名称="w-full max-w-sm frosted text-foreground backdrop-saturate-90 backdrop-brightness-90">
       <CardHeader>
         <CardTitle>Welcome back to Dashwise!</CardTitle>
-        <CardDescription className="text-muted-foreground">
+        <Card描述 class名称="text-muted-foreground">
           Login using your credentials below.
-        </CardDescription>
+        </Card描述>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleLogin} className="flex flex-col gap-6">
+        <form on提交={handleLogin} class名称="flex flex-col gap-6">
           {error && (
             <Alert variant="destructive">
-              <FontAwesomeIcon icon={faExclamationTriangle} className="h-4 w-4" />
+              <FontAwesomeIcon icon={faExclamationTriangle} class名称="h-4 w-4" />
               <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
+              <Alert描述>{error}</Alert描述>
             </Alert>
           )}
 
           {success && (
             <Alert>
-              <FontAwesomeIcon icon={faCircleCheck} className="h-4 w-4" />
+              <FontAwesomeIcon icon={faCircleCheck} class名称="h-4 w-4" />
               <AlertTitle>Success!</AlertTitle>
-              <AlertDescription>{success}</AlertDescription>
+              <Alert描述>{success}</Alert描述>
             </Alert>
           )}
 
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+          <div class名称="grid gap-2">
+            <Label htmlFor="email">邮箱</Label>
             <Input
               id="email"
               type="email"
               placeholder="m@example.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="frosted"
+              onChange={(e) => set邮箱(e.target.value)}
+              class名称="frosted"
               required
             />
           </div>
-          <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
+          <div class名称="grid gap-2">
+            <div class名称="flex items-center">
+              <Label htmlFor="password">密码</Label>
               <Dialog>
                 <DialogTrigger asChild>
                   <Button
                     variant="link"
                     type="button"
-                    className="ml-auto inline-block h-auto p-0 text-sm underline-offset-4 hover:underline"
+                    class名称="ml-auto inline-block h-auto p-0 text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px] frosted text-foreground">
+                <DialogContent class名称="sm:max-w-[425px] frosted text-foreground">
                   <DialogHeader>
                     <DialogTitle>Problems Authenticating?</DialogTitle>
                       <div>
-                        <h3 className="font-semibold">If you're a user...</h3>
-                        <p className="text-(--text-on-frosted)">Contact your admin.</p>
+                        <h3 class名称="font-semibold">If you're a user...</h3>
+                        <p class名称="text-(--text-on-frosted)">Contact your admin.</p>
                       </div>
                       <div>
-                        <h3 className="font-semibold">If you're an admin...</h3>
-                        <p className="text-(--text-on-frosted)">
+                        <h3 class名称="font-semibold">If you're an admin...</h3>
+                        <p class名称="text-(--text-on-frosted)">
                           Go into pocketbase dashboard (authenticate using the env vars set for pocketbase container) and change login details for your user there.
                         </p>
                       </div>
@@ -154,24 +154,24 @@ export default function LoginCard() {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="frosted"
+              onChange={(e) => set密码(e.target.value)}
+              class名称="frosted"
               required
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" class名称="w-full" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </Button>
         </form>
       </CardContent>
-      <CardFooter className="flex-col gap-2">
-        <Button variant="outline" className="w-full frosted">
-          <Link href="/auth/signup">Sign up instead</Link>
+      <CardFooter class名称="flex-col gap-2">
+        <Button variant="outline" class名称="w-full frosted">
+          <Link href="/auth/signup">注册 instead</Link>
         </Button>
 
         {(enableSSO === true)  && (
-          <Button variant="outline" className="w-full frosted">
+          <Button variant="outline" class名称="w-full frosted">
             <Link href="/api/v1/auth/sso">Use SSO</Link>
           </Button>
         )}

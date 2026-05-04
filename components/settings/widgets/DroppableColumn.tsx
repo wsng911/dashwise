@@ -5,15 +5,15 @@ import { useDroppable } from "@dnd-kit/core";
 export function DroppableColumn({
   id,
   children,
-  className,
+  class名称,
 }: {
   id: string;
   children: React.ReactNode;
-  className?: string;
+  class名称?: string;
 }) {
   const { isOver, setNodeRef } = useDroppable({ id });
   return (
-    <div ref={setNodeRef} className={`${className ?? ""} ${isOver ? "outline outline-2 outline-blue-400/40" : ""}`}>
+    <div ref={setNodeRef} class名称={`${class名称 ?? ""} ${isOver ? "outline outline-2 outline-blue-400/40" : ""}`}>
       {children}
     </div>
   );

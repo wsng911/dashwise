@@ -19,7 +19,7 @@ migrate((app) => {
         "type": "text"
       },
       {
-        "cascadeDelete": false,
+        "cascade删除": false,
         "collectionId": "_pb_users_auth_",
         "hidden": false,
         "id": "relation1689669068",
@@ -45,7 +45,7 @@ migrate((app) => {
         "hidden": false,
         "id": "autodate2990389176",
         "name": "created",
-        "onCreate": true,
+        "on创建": true,
         "onUpdate": false,
         "presentable": false,
         "system": false,
@@ -55,7 +55,7 @@ migrate((app) => {
         "hidden": false,
         "id": "autodate3332085495",
         "name": "updated",
-        "onCreate": true,
+        "on创建": true,
         "onUpdate": true,
         "presentable": false,
         "system": false,
@@ -74,7 +74,7 @@ migrate((app) => {
 
   return app.save(collection);
 }, (app) => {
-  const collection = app.findCollectionByNameOrId("pbc_2530530043");
+  const collection = app.findCollectionBy名称OrId("pbc_2530530043");
 
   return app.delete(collection);
 })

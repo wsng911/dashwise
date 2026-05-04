@@ -4,12 +4,12 @@ import { getSuperuserPB } from "./pb";
 
 const JOB_LOG_COLLECTION = "jobLogs";
 
-type JobStatus = "started" | "success" | "error";
+type Job状态 = "started" | "success" | "error";
 
 interface JobLogEntry {
   job: string;
   runId: string;
-  status: JobStatus;
+  status: Job状态;
   message?: string | undefined;
   started?: string | undefined;
   updated?: string | undefined;
@@ -42,7 +42,7 @@ async function writeLog(entry: JobLogEntry) {
 }
 
 export async function runJob<T>(
-  jobName: string,
+  job名称: string,
   jobFn: () => Promise<T>,
   options: RunJobOptions = {}
 ): Promise<T> {
@@ -51,7 +51,7 @@ export async function runJob<T>(
   const startTimestamp = formatTimestamp(startTime);
 
   await writeLog({
-    job: jobName,
+    job: job名称,
     runId,
     status: "started",
     message: options.startMessage,
@@ -62,7 +62,7 @@ export async function runJob<T>(
   try {
     const result = await jobFn();
     await writeLog({
-      job: jobName,
+      job: job名称,
       runId,
       status: "success",
       message: options.successMessage,
@@ -73,7 +73,7 @@ export async function runJob<T>(
   } catch (error: any) {
     const message = options.errorMessage ?? (error?.message || String(error));
     await writeLog({
-      job: jobName,
+      job: job名称,
       runId,
       status: "error",
       message,

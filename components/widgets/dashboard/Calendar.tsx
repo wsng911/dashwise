@@ -7,7 +7,7 @@ interface CalendarWidgetProps extends WidgetItemProps {
   startMonday?: boolean;
 }
 
-export default function CalendarWeekWidget({ startMonday = true, className = "" }: CalendarWidgetProps) {
+export default function CalendarWeekWidget({ startMonday = true, class名称 = "" }: CalendarWidgetProps) {
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = new Date();
 
@@ -27,7 +27,7 @@ export default function CalendarWeekWidget({ startMonday = true, className = "" 
   });
 
   return (
-    <WidgetColumnTemplate className={className}>
+    <WidgetColumnTemplate class名称={class名称}>
       {week.map((day) => {
         const isToday =
           day.getDate() === today.getDate() &&
@@ -35,14 +35,14 @@ export default function CalendarWeekWidget({ startMonday = true, className = "" 
           day.getFullYear() === today.getFullYear();
 
         return (
-          <div key={day.toDateString()} className="day p-1 flex flex-col items-center justify-center">
+          <div key={day.toDateString()} class名称="day p-1 flex flex-col items-center justify-center">
             <div
-              className={`w-6 h-6 flex items-center justify-center rounded-full text-[clamp(0.8rem,2.5cqw,1.2rem)] ${isToday ? "bg-(--primary) font-semibold" : "text-(--text-on-frosted)"
+              class名称={`w-6 h-6 flex items-center justify-center rounded-full text-[clamp(0.8rem,2.5cqw,1.2rem)] ${isToday ? "bg-(--primary) font-semibold" : "text-(--text-on-frosted)"
                 }`}
             >
               {day.getDate()}
             </div>
-            <div className="text-[clamp(0.7rem,2cqw,1rem)] mt-1 text-foreground">
+            <div class名称="text-[clamp(0.7rem,2cqw,1rem)] mt-1 text-foreground">
               {daysOfWeek[day.getDay()][0]}
             </div>
           </div>
@@ -53,7 +53,7 @@ export default function CalendarWeekWidget({ startMonday = true, className = "" 
 
 }
 
-export function CalendarTodayWidget({ className = "" }: WidgetItemProps) {
+export function CalendarTodayWidget({ class名称 = "" }: WidgetItemProps) {
   const today = new Date();
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const months = [
@@ -67,16 +67,16 @@ export function CalendarTodayWidget({ className = "" }: WidgetItemProps) {
   const year = today.getFullYear();
 
   return (
-    <div className={`rounded-lg p-4 flex flex-col items-center justify-center text-center ${className}`}>
-      <div className="text-foreground text-[clamp(0.6rem,1.5cqw,0.9rem)] font-medium">
+    <div class名称={`rounded-lg p-4 flex flex-col items-center justify-center text-center ${class名称}`}>
+      <div class名称="text-foreground text-[clamp(0.6rem,1.5cqw,0.9rem)] font-medium">
         {weekday}
       </div>
 
-      <div className="text-[clamp(1.5rem,4cqw,2rem)] font-semibold text-(--primary)">
+      <div class名称="text-[clamp(1.5rem,4cqw,2rem)] font-semibold text-(--primary)">
         {date}
       </div>
 
-      <div className="text-(--text-on-frosted) text-[clamp(0.6rem,1.5cqw,0.9rem)]">
+      <div class名称="text-(--text-on-frosted) text-[clamp(0.6rem,1.5cqw,0.9rem)]">
         {month} {year}
       </div>
     </div>

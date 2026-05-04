@@ -100,7 +100,7 @@ async function removeNewsFeed(
         )
         : [];
 
-    // Remove the feed
+    // 移除 the feed
     current = current.filter((x) => x.feedUrl !== req.feedUrl);
 
     await pb.collection("newsFeeds").update(record.id, {

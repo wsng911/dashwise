@@ -84,7 +84,7 @@ export async function POST(
             const password = decoded.slice(idx + 1);
             const authModel = await pb
                 .collection("users")
-                .authWithPassword(identity, password);
+                .authWith密码(identity, password);
             userId = authModel?.record?.id ?? null;
         } else {
             return NextResponse.json(
@@ -112,7 +112,7 @@ export async function POST(
         if (existing) {
             topicId = existing.id;
         } else {
-            // Create notificationTopic with uuidv4 + priority 1
+            // 创建 notificationTopic with uuidv4 + priority 1
             const created = await pb.collection("notificationTopics").create({
                 title: topic,
                 userId,
@@ -127,7 +127,7 @@ export async function POST(
             content: body,
             status: "sent",
             source: "web",
-            forwardStatus: "none",
+            forward状态: "none",
         });
 
         // 5. Queue for forwarding (will be processed by jobs container)

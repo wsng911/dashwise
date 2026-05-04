@@ -127,7 +127,7 @@ export default function ConfigWrapper({ children }: { children: ReactNode }) {
     const tokenToUse = token;
     let revokeUrl: string | null = null;
 
-    const loadBackground = async () => {
+    const load返回ground = async () => {
       try {
         let finalUrl = imgUrl;
 
@@ -154,7 +154,7 @@ export default function ConfigWrapper({ children }: { children: ReactNode }) {
       }
     };
 
-    loadBackground();
+    load返回ground();
 
     return () => {
       document.body.style.backgroundImage = "";
@@ -182,10 +182,10 @@ export default function ConfigWrapper({ children }: { children: ReactNode }) {
     <ConfigProvider value={{ config, refreshConfig: fetchConfig, patchConfig }}>
       <LocalizationProvider>
         <div
-          className={cn("min-h-screen overflow-hidden")}
+          class名称={cn("min-h-screen overflow-hidden")}
           style={{
             backdropFilter: `blur(${blur}px) brightness(${appliedBrightness}%)`,
-            WebkitBackdropFilter: `blur(${blur}px) brightness(${appliedBrightness}%)`,
+            Webkit返回dropFilter: `blur(${blur}px) brightness(${appliedBrightness}%)`,
           }}
         >
           {children}

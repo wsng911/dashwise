@@ -1,13 +1,13 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((app) => {
-  const collection = app.findCollectionByNameOrId("pbc_3957763459")
+  const collection = app.findCollectionBy名称OrId("pbc_3957763459")
 
   // remove field
   collection.fields.removeById("number3449329895")
 
   return app.save(collection)
 }, (app) => {
-  const collection = app.findCollectionByNameOrId("pbc_3957763459")
+  const collection = app.findCollectionBy名称OrId("pbc_3957763459")
 
   // add field
   collection.fields.addAt(2, new Field({

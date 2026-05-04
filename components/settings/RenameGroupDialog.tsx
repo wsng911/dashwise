@@ -8,64 +8,64 @@ import { Input } from "@/components/ui/input";
 type RenameGroupDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  currentName: string;
-  onConfirm: (newName: string) => void;
+  current名称: string;
+  on确认: (new名称: string) => void;
   title?: string;
 };
 
 export default function RenameGroupDialog({
   open,
   onOpenChange,
-  currentName,
-  onConfirm,
+  current名称,
+  on确认,
   title = "Rename group",
 }: RenameGroupDialogProps) {
-  const [newName, setNewName] = useState(currentName);
+  const [new名称, setNew名称] = useState(current名称);
 
   useEffect(() => {
-    setNewName(currentName);
-  }, [currentName, open]);
+    setNew名称(current名称);
+  }, [current名称, open]);
 
-  const handleConfirm = () => {
-    if (newName.trim() && newName !== currentName) {
-      onConfirm(newName.trim());
+  const handle确认 = () => {
+    if (new名称.trim() && new名称 !== current名称) {
+      on确认(new名称.trim());
       onOpenChange(false);
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="frosted text-foreground">
+      <DialogContent class名称="frosted text-foreground">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4">
+        <div class名称="space-y-4">
           <div>
-            <label className="text-sm mb-2 block">New name</label>
+            <label class名称="text-sm mb-2 block">New name</label>
             <Input
               autoFocus
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
+              value={new名称}
+              onChange={(e) => setNew名称(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  handleConfirm();
+                  handle确认();
                 }
               }}
-              placeholder={currentName}
+              placeholder={current名称}
             />
           </div>
 
-          <div className="flex justify-end gap-2">
+          <div class名称="flex justify-end gap-2">
             <Button
               variant="outline"
               onClick={() => onOpenChange(false)}
             >
-              Cancel
+              取消
             </Button>
             <Button
-              onClick={handleConfirm}
-              disabled={!newName.trim() || newName === currentName}
+              onClick={handle确认}
+              disabled={!new名称.trim() || new名称 === current名称}
             >
               Rename
             </Button>

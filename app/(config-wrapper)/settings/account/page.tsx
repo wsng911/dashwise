@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import {
   Dialog,
   DialogContent,
-  DialogClose,
+  Dialog关闭,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -23,45 +23,45 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
-import { ChangePasswordError, ChangePasswordRequest, ChangePasswordSuccess } from "@/app/api/v1/auth/change-password/route"
+import { Alert, AlertTitle, Alert描述 } from "@/components/ui/alert"
+import { Change密码Error, Change密码Request, Change密码Success } from "@/app/api/v1/auth/change-password/route"
 import { useRouter } from "next/navigation"
-import { postAuthChangePassword } from "@/lib/apiClient";
-import { DialogDescription } from "@radix-ui/react-dialog"
+import { postAuthChange密码 } from "@/lib/apiClient";
+import { Dialog描述 } from "@radix-ui/react-dialog"
 import ExportConfigDialog from "@/components/settings/ExportConfigDialog"
 import { useConfig } from "@/context/ConfigContext"
 import useAuth from "@/context/useAuth"
 import ImportConfigDialog from "@/components/settings/ImportConfigDialog.tsx"
 
-export default function AccountSettingsPage() {
+export default function Account设置Page() {
  const { config } = useConfig();
   const router = useRouter();
   const { user, token, setAuth, logout } = useAuth();
-  const [oldPassword, setOldPassword] = useState("")
-  const [newPassword, setNewPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [old密码, setOld密码] = useState("")
+  const [new密码, setNew密码] = useState("")
+  const [confirm密码, set确认密码] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
-  const [deletePassword, setDeletePassword] = useState("")
-  const [deleteTotp, setDeleteTotp] = useState("")
-  const [deleteLoading, setDeleteLoading] = useState(false)
-  const [deleteError, setDeleteError] = useState<string | null>(null)
+  const [delete密码, set删除密码] = useState("")
+  const [deleteTotp, set删除Totp] = useState("")
+  const [deleteLoading, set删除Loading] = useState(false)
+  const [deleteError, set删除Error] = useState<string | null>(null)
 
-  const handleChangePasswordSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChange密码提交 = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
     setSuccess(null)
 
-    if (!oldPassword || !newPassword || !confirmPassword) {
+    if (!old密码 || !new密码 || !confirm密码) {
       setError("All fields are required")
       return
     }
-    if (newPassword !== confirmPassword) {
+    if (new密码 !== confirm密码) {
       setError("New passwords do not match")
       return
     }
-    if (newPassword.length < 8) {
+    if (new密码.length < 8) {
       setError("New password should be at least 8 characters")
       return
     }
@@ -71,17 +71,17 @@ export default function AccountSettingsPage() {
       // token from auth hook
 
       const payload = {
-        oldPassword,
-        newPassword,
-        confirmPassword,
-      } satisfies ChangePasswordRequest;
+        old密码,
+        new密码,
+        confirm密码,
+      } satisfies Change密码Request;
 
       try {
-        const body: any = await postAuthChangePassword(payload, { token });
-        setSuccess(body.message || "Password changed successfully");
-        setOldPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
+        const body: any = await postAuthChange密码(payload, { token });
+        setSuccess(body.message || "密码 changed successfully");
+        setOld密码("");
+        setNew密码("");
+        set确认密码("");
         if (body.token) setAuth(user, body.token);
         setTimeout(() => {
           setSuccess(null);
@@ -100,30 +100,30 @@ export default function AccountSettingsPage() {
     }
   }
 
-  const handleLogoutSubmit = async () => {
+  const handleLogout提交 = async () => {
     logout();
     router.push('/auth/login');
   }
 
-  const handleDeleteAccountSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handle删除Account提交 = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setDeleteError(null);
+    set删除Error(null);
     if (!user) {
-      setDeleteError("Unable to determine your account details");
+      set删除Error("Unable to determine your account details");
       return;
     }
-    if (!deletePassword) {
-      setDeleteError("Password is required to delete your account");
+    if (!delete密码) {
+      set删除Error("密码 is required to delete your account");
       return;
     }
 
     const payload: { email: string; password: string; totp?: string } = {
       email: user.email ?? user.username ?? "",
-      password: deletePassword,
+      password: delete密码,
     };
 
     if (!payload.email) {
-      setDeleteError("Missing email address on your profile");
+      set删除Error("Missing email address on your profile");
       return;
     }
 
@@ -131,7 +131,7 @@ export default function AccountSettingsPage() {
       payload.totp = deleteTotp;
     }
 
-    setDeleteLoading(true);
+    set删除Loading(true);
 
     try {
       const headers: Record<string, string> = { "Content-Type": "application/json" };
@@ -153,201 +153,201 @@ export default function AccountSettingsPage() {
       logout();
       router.push('/auth/login');
     } catch (err: any) {
-      setDeleteError(err?.message ?? "Failed to delete account");
+      set删除Error(err?.message ?? "Failed to delete account");
     } finally {
-      setDeleteLoading(false);
+      set删除Loading(false);
     }
   }
 
   return (
     <>
-      <h1 className="text-3xl font-semibold mb-4">Account</h1>
+      <h1 class名称="text-3xl font-semibold mb-4">Account</h1>
 
-      <div className="content grid grid-cols-[auto_1fr_auto] font-medium gap-2 items-center">
-        <section className="frosted flex rounded-lg justify-center col-span-full p-2 items-center gap-6">
-          <FontAwesomeIcon icon={faCircleUser} className="text-4xl" />
+      <div class名称="content grid grid-cols-[auto_1fr_auto] font-medium gap-2 items-center">
+        <section class名称="frosted flex rounded-lg justify-center col-span-full p-2 items-center gap-6">
+          <FontAwesomeIcon icon={faCircleUser} class名称="text-4xl" />
           <span>{user?.name ?? 'Lorem ipsum'}</span>
         </section>
 
-        <h2 className="text-xl col-span-full">Authentication</h2>
+        <h2 class名称="text-xl col-span-full">Authentication</h2>
 
         <Dialog>
-          <DialogTrigger className="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
+          <DialogTrigger class名称="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
             <FontAwesomeIcon icon={faKey} />
-            <p className="text-left">Change password</p>
+            <p class名称="text-left">Change password</p>
             <FontAwesomeIcon icon={faCaretRight} />
           </DialogTrigger>
 
-          <DialogContent className="frosted text-foreground">
+          <DialogContent class名称="frosted text-foreground">
             <DialogHeader>
               <DialogTitle>Change password</DialogTitle>
             </DialogHeader>
 
-            <form onSubmit={handleChangePasswordSubmit} className="grid gap-4">
+            <form on提交={handleChange密码提交} class名称="grid gap-4">
               {error && (
-                <Alert className="mb-2" variant="destructive">
+                <Alert class名称="mb-2" variant="destructive">
                   <AlertTitle>Error</AlertTitle>
-                  <AlertDescription>{error}</AlertDescription>
+                  <Alert描述>{error}</Alert描述>
                 </Alert>
               )}
 
               {success && (
-                <Alert className="mb-2">
+                <Alert class名称="mb-2">
                   <AlertTitle>Success</AlertTitle>
-                  <AlertDescription>{success}</AlertDescription>
+                  <Alert描述>{success}</Alert描述>
                 </Alert>
               )}
 
-              <div className="grid gap-3">
+              <div class名称="grid gap-3">
                 <Label htmlFor="old-password">Old password</Label>
                 <Input
                   id="old-password"
-                  name="oldPassword"
+                  name="old密码"
                   type="password"
                   placeholder="********"
-                  value={oldPassword}
-                  onChange={(e) => setOldPassword(e.target.value)}
+                  value={old密码}
+                  onChange={(e) => setOld密码(e.target.value)}
                   disabled={loading}
                   autoComplete="current-password"
                 />
               </div>
 
-              <div className="grid gap-3">
+              <div class名称="grid gap-3">
                 <Label htmlFor="new-password">New password</Label>
                 <Input
                   id="new-password"
-                  name="newPassword"
+                  name="new密码"
                   type="password"
                   placeholder="********"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
+                  value={new密码}
+                  onChange={(e) => setNew密码(e.target.value)}
                   disabled={loading}
                   autoComplete="new-password"
                 />
               </div>
 
-              <div className="grid gap-3">
+              <div class名称="grid gap-3">
                 <Label htmlFor="confirm-new-password">Repeat new password</Label>
                 <Input
                   id="confirm-new-password"
-                  name="confirmPassword"
+                  name="confirm密码"
                   type="password"
                   placeholder="********"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={confirm密码}
+                  onChange={(e) => set确认密码(e.target.value)}
                   disabled={loading}
                   autoComplete="new-password"
                 />
               </div>
 
               <DialogFooter>
-                <DialogClose asChild>
+                <Dialog关闭 asChild>
                   <Button variant="outline" type="button" disabled={loading}>
-                    Cancel
+                    取消
                   </Button>
-                </DialogClose>
+                </Dialog关闭>
                 <Button type="submit" disabled={loading}>
-                  {loading ? "Saving..." : "Save changes"}
+                  {loading ? "Saving..." : "保存 changes"}
                 </Button>
               </DialogFooter>
             </form>
           </DialogContent>
         </Dialog>
 
-        <div className="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
+        <div class名称="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
           <FontAwesomeIcon icon={faVault} />
           <p>Multi-factor Authentication</p>
           <FontAwesomeIcon icon={faCaretRight} />
         </div>
 
         <Dialog>
-          <DialogTrigger className="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
+          <DialogTrigger class名称="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
             <FontAwesomeIcon icon={faRightToBracket} />
-            <p className="text-left">Log out</p>
+            <p class名称="text-left">退出登录</p>
             <FontAwesomeIcon icon={faCaretRight} />
           </DialogTrigger>
 
-          <DialogContent className="frosted text-foreground">
+          <DialogContent class名称="frosted text-foreground">
             <DialogHeader>
-              <DialogTitle>Confirm Logout</DialogTitle>
+              <DialogTitle>确认 Logout</DialogTitle>
             </DialogHeader>
-            <DialogDescription>
+            <Dialog描述>
               You will have to log back in again to access your dashboard
-            </DialogDescription>
+            </Dialog描述>
 
-            <form onSubmit={handleLogoutSubmit} className="grid gap-4">
+            <form on提交={handleLogout提交} class名称="grid gap-4">
               {error && (
-                <Alert className="mb-2" variant="destructive">
+                <Alert class名称="mb-2" variant="destructive">
                   <AlertTitle>Error</AlertTitle>
-                  <AlertDescription>{error}</AlertDescription>
+                  <Alert描述>{error}</Alert描述>
                 </Alert>
               )}
 
               {success && (
-                <Alert className="mb-2">
+                <Alert class名称="mb-2">
                   <AlertTitle>Success</AlertTitle>
-                  <AlertDescription>{success}</AlertDescription>
+                  <Alert描述>{success}</Alert描述>
                 </Alert>
               )}
 
 
               <DialogFooter>
-                <DialogClose asChild>
+                <Dialog关闭 asChild>
                   <Button variant="outline" type="button" disabled={loading}>
-                    Cancel
+                    取消
                   </Button>
-                </DialogClose>
+                </Dialog关闭>
                 <Button type="submit" disabled={loading}>
-                  {loading ? "Logging out..." : "Log out"}
+                  {loading ? "Logging out..." : "退出登录"}
                 </Button>
               </DialogFooter>
             </form>
           </DialogContent>
         </Dialog>
 
-        <h2 className="text-xl col-span-full">Config</h2>
+        <h2 class名称="text-xl col-span-full">Config</h2>
         <ImportConfigDialog />
         <ExportConfigDialog jsonString={JSON.stringify(config)}/>
 
-        <h2 className="text-xl col-span-full">Other</h2>
+        <h2 class名称="text-xl col-span-full">Other</h2>
         <Dialog>
-          <DialogTrigger className="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
+          <DialogTrigger class名称="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
             <FontAwesomeIcon icon={faTrash} />
-            <p className="text-left">Delete account</p>
+            <p class名称="text-left">删除 account</p>
             <FontAwesomeIcon icon={faCaretRight} />
           </DialogTrigger>
 
-          <DialogContent className="frosted text-foreground">
+          <DialogContent class名称="frosted text-foreground">
             <DialogHeader>
-              <DialogTitle>Delete account</DialogTitle>
-              <DialogDescription>
+              <DialogTitle>删除 account</DialogTitle>
+              <Dialog描述>
                 This is irreversible. You will need to re-create your account if you proceed.
-              </DialogDescription>
+              </Dialog描述>
             </DialogHeader>
 
-            <form onSubmit={handleDeleteAccountSubmit} className="grid gap-4">
+            <form on提交={handle删除Account提交} class名称="grid gap-4">
               {deleteError && (
-                <Alert className="mb-2" variant="destructive">
+                <Alert class名称="mb-2" variant="destructive">
                   <AlertTitle>Error</AlertTitle>
-                  <AlertDescription>{deleteError}</AlertDescription>
+                  <Alert描述>{deleteError}</Alert描述>
                 </Alert>
               )}
 
-              <div className="grid gap-3">
-                <Label htmlFor="delete-password">Password</Label>
+              <div class名称="grid gap-3">
+                <Label htmlFor="delete-password">密码</Label>
                 <Input
                   id="delete-password"
-                  name="deletePassword"
+                  name="delete密码"
                   type="password"
                   placeholder="********"
-                  value={deletePassword}
-                  onChange={(e) => setDeletePassword(e.target.value)}
+                  value={delete密码}
+                  onChange={(e) => set删除密码(e.target.value)}
                   disabled={deleteLoading}
                   autoComplete="current-password"
                 />
               </div>
 
-              <div className="grid gap-3">
+              <div class名称="grid gap-3">
                 <Label htmlFor="delete-totp">TOTP code (if enabled)</Label>
                 <Input
                   id="delete-totp"
@@ -355,20 +355,20 @@ export default function AccountSettingsPage() {
                   type="text"
                   placeholder="123456"
                   value={deleteTotp}
-                  onChange={(e) => setDeleteTotp(e.target.value)}
+                  onChange={(e) => set删除Totp(e.target.value)}
                   disabled={deleteLoading}
                   autoComplete="one-time-code"
                 />
               </div>
 
               <DialogFooter>
-                <DialogClose asChild>
+                <Dialog关闭 asChild>
                   <Button variant="outline" type="button" disabled={deleteLoading}>
-                    Cancel
+                    取消
                   </Button>
-                </DialogClose>
+                </Dialog关闭>
                 <Button variant="destructive" type="submit" disabled={deleteLoading}>
-                  {deleteLoading ? "Deleting..." : "Delete account"}
+                  {deleteLoading ? "Deleting..." : "删除 account"}
                 </Button>
               </DialogFooter>
             </form>

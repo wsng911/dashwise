@@ -24,22 +24,22 @@ function DialogPortal({
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />
 }
 
-function DialogClose({
+function Dialog关闭({
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Close>) {
-  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />
+}: React.ComponentProps<typeof DialogPrimitive.关闭>) {
+  return <DialogPrimitive.关闭 data-slot="dialog-close" {...props} />
 }
 
 function DialogOverlay({
-  className,
+  class名称,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
-      className={cn(
+      class名称={cn(
         "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
-        className
+        class名称
       )}
       {...props}
     />
@@ -47,56 +47,56 @@ function DialogOverlay({
 }
 
 function DialogContent({
-  className,
+  class名称,
   children,
-  showCloseButton = true,
+  show关闭Button = true,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
-  showCloseButton?: boolean
+  show关闭Button?: boolean
 }) {
   return (
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay />
       <DialogPrimitive.Content
         data-slot="dialog-content"
-        className={cn(
+        class名称={cn(
           "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
-          className
+          class名称
         )}
         {...props}
       >
         {children}
-        {showCloseButton && (
-          <DialogPrimitive.Close
+        {show关闭Button && (
+          <DialogPrimitive.关闭
             data-slot="dialog-close"
-            className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+            class名称="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
           >
             <XIcon />
-            <span className="sr-only">Close</span>
-          </DialogPrimitive.Close>
+            <span class名称="sr-only">关闭</span>
+          </DialogPrimitive.关闭>
         )}
       </DialogPrimitive.Content>
     </DialogPortal>
   )
 }
 
-function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+function DialogHeader({ class名称, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
+      class名称={cn("flex flex-col gap-2 text-center sm:text-left", class名称)}
       {...props}
     />
   )
 }
 
-function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
+function DialogFooter({ class名称, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn(
+      class名称={cn(
         "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-        className
+        class名称
       )}
       {...props}
     />
@@ -104,26 +104,26 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function DialogTitle({
-  className,
+  class名称,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("text-lg leading-none font-semibold", className)}
+      class名称={cn("text-lg leading-none font-semibold", class名称)}
       {...props}
     />
   )
 }
 
-function DialogDescription({
-  className,
+function Dialog描述({
+  class名称,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Description>) {
+}: React.ComponentProps<typeof DialogPrimitive.描述>) {
   return (
-    <DialogPrimitive.Description
+    <DialogPrimitive.描述
       data-slot="dialog-description"
-      className={cn("text-muted-foreground text-sm", className)}
+      class名称={cn("text-muted-foreground text-sm", class名称)}
       {...props}
     />
   )
@@ -131,9 +131,9 @@ function DialogDescription({
 
 export {
   Dialog,
-  DialogClose,
+  Dialog关闭,
   DialogContent,
-  DialogDescription,
+  Dialog描述,
   DialogFooter,
   DialogHeader,
   DialogOverlay,

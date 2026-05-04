@@ -1,8 +1,8 @@
 import { getSuperuserPB } from "../lib/pb";
 
-type StatusCheckMethod = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
+type 状态CheckMethod = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
 
-type StatusCheckAuth =
+type 状态CheckAuth =
     | { type: "bearer"; token: string }
     | { type: "basic"; username: string; password: string }
     | { type: "header"; name: string; value: string };
@@ -12,12 +12,12 @@ type ConfigLink = {
     url?: string;
     statusCheck?: boolean;
     statusCheckEndpoint?: string;
-    statusCheckMethod?: StatusCheckMethod;
-    statusCheckAuth?: StatusCheckAuth | string;
+    statusCheckMethod?: 状态CheckMethod;
+    statusCheckAuth?: 状态CheckAuth | string;
     statusCheckShowAsUp?: number[];
 };
 
-export default async function indexStatusMonitoringJobs(): Promise<{
+export default async function index状态监控ingJobs(): Promise<{
     created: number;
     skipped: number;
     updated: number;
@@ -60,7 +60,7 @@ export default async function indexStatusMonitoringJobs(): Promise<{
             const desiredJobsBySource = new Map<string, {
                 endpoint: string;
                 endpointAuth: string;
-                acceptedUpStatusCodes: string;
+                acceptedUp状态Codes: string;
             }>();
 
             for (const link of configLinks) {
@@ -80,8 +80,8 @@ export default async function indexStatusMonitoringJobs(): Promise<{
                 const source = `link ${link.id}`;
                 desiredJobsBySource.set(source, {
                     endpoint,
-                    endpointAuth: serializeStatusCheckAuth(link.statusCheckAuth),
-                    acceptedUpStatusCodes: serializeAcceptedStatusCodes(link.statusCheckShowAsUp),
+                    endpointAuth: serialize状态CheckAuth(link.statusCheckAuth),
+                    acceptedUp状态Codes: serializeAccepted状态Codes(link.statusCheckShowAsUp),
                 });
             }
 
@@ -108,7 +108,7 @@ export default async function indexStatusMonitoringJobs(): Promise<{
                             source,
                             status: 'initiated',
                             endpointAuth: desired.endpointAuth,
-                            acceptedUpStatusCodes: desired.acceptedUpStatusCodes,
+                            acceptedUp状态Codes: desired.acceptedUp状态Codes,
                             linkId,
                         });
 
@@ -119,14 +119,14 @@ export default async function indexStatusMonitoringJobs(): Promise<{
 
                     const endpointChanged = existing.endpoint !== desired.endpoint;
                     const authChanged = String(existing.endpointAuth || '') !== desired.endpointAuth;
-                    const upCodesChanged = String(existing.acceptedUpStatusCodes || '') !== desired.acceptedUpStatusCodes;
+                    const upCodesChanged = String(existing.acceptedUp状态Codes || '') !== desired.acceptedUp状态Codes;
                     const wasDisabled = existing.status === 'disabled';
 
                     if (endpointChanged || authChanged || upCodesChanged || wasDisabled) {
                         const updatePayload: Record<string, any> = {
                             endpoint: desired.endpoint,
                             endpointAuth: desired.endpointAuth,
-                            acceptedUpStatusCodes: desired.acceptedUpStatusCodes,
+                            acceptedUp状态Codes: desired.acceptedUp状态Codes,
                         };
 
                         if (wasDisabled) {
@@ -248,7 +248,7 @@ function parseConfigObject(rawConfig: any): any {
     return rawConfig;
 }
 
-function serializeStatusCheckAuth(raw: unknown): string {
+function serialize状态CheckAuth(raw: unknown): string {
     if (!raw) return '';
 
     let auth: any = raw;
@@ -275,7 +275,7 @@ function serializeStatusCheckAuth(raw: unknown): string {
     return '';
 }
 
-function serializeAcceptedStatusCodes(rawCodes: unknown): string {
+function serializeAccepted状态Codes(rawCodes: unknown): string {
     if (!Array.isArray(rawCodes) || rawCodes.length === 0) {
         return JSON.stringify([200, 201, 202, 204, 301, 302, 304]);
     }

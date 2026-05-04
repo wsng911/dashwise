@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils"
 
-function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
+function Skeleton({ class名称, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="skeleton"
-      className={cn("bg-accent animate-pulse rounded-md", className)}
+      class名称={cn("bg-accent animate-pulse rounded-md", class名称)}
       {...props}
     />
   )

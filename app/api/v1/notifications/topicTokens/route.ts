@@ -23,10 +23,10 @@ export async function POST(req: NextRequest) {
 
         // --- 2. Parse body
         const body = await req.json().catch(() => ({}));
-        const { topicId, topicName, expires } = body;
+        const { topicId, topic名称, expires } = body;
 
-        if (!topicId && !topicName) {
-            return NextResponse.json({ error: "Missing topicId or topicName" }, { status: 400 });
+        if (!topicId && !topic名称) {
+            return NextResponse.json({ error: "Missing topicId or topic名称" }, { status: 400 });
         }
 
         // --- 3. Resolve topic (ensure it belongs to the authed user)
@@ -40,10 +40,10 @@ export async function POST(req: NextRequest) {
             } catch (err) {
                 return NextResponse.json({ error: "Topic not found", details: (err as any).message }, { status: 404 });
             }
-        } else if (topicName) {
-            // Escape double quotes in topicName for the filter
-            const safeName = String(topicName).replace(/"/g, '\\"');
-            const topics = await pb.collection("notificationTopics").getFullList({ filter: `userId="${userId}" && title="${safeName}"` });
+        } else if (topic名称) {
+            // Escape double quotes in topic名称 for the filter
+            const safe名称 = String(topic名称).replace(/"/g, '\\"');
+            const topics = await pb.collection("notificationTopics").getFullList({ filter: `userId="${userId}" && title="${safe名称}"` });
             if (!topics || topics.length === 0) {
                 return NextResponse.json({ error: "Topic not found for user with that name" }, { status: 404 });
             }
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
             createPayload.expires = expiresDate.toISOString();
         }
 
-        // --- 5. Create record
+        // --- 5. 创建 record
         const created = await pb.collection("notificationTopicTokens").create(createPayload);
 
         // Optionally expand topic when returning
@@ -169,7 +169,7 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ error: "Token not found or not owned by user" }, { status: 404 });
         }
 
-        // --- 4. Delete token
+        // --- 4. 删除 token
         await pb.collection("notificationTopicTokens").delete(tokenId);
 
         return NextResponse.json({ success: true });

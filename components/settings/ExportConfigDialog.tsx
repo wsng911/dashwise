@@ -4,7 +4,7 @@ import React from "react"
 import {
   Dialog,
   DialogContent,
-  DialogClose,
+  Dialog关闭,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -28,26 +28,26 @@ export default function ExportConfigDialog({ jsonString }: { jsonString: string 
 
   return (
     <Dialog>
-      <DialogTrigger className="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
+      <DialogTrigger class名称="grid grid-cols-subgrid border border-transparent hover-frosted items-center col-span-full p-1.5 rounded-md">
         <FontAwesomeIcon icon={faDownload} />
-        <p className="text-left">Export Your Config</p>
+        <p class名称="text-left">Export Your Config</p>
         <FontAwesomeIcon icon={faCaretRight} />
       </DialogTrigger>
 
-      <DialogContent className="frosted text-foreground">
+      <DialogContent class名称="frosted text-foreground">
         <DialogHeader>
           <DialogTitle>Export Config</DialogTitle>
         </DialogHeader>
 
-        <pre className="bg-gray-900 p-4 rounded text-sm overflow-auto max-h-96">
+        <pre class名称="bg-gray-900 p-4 rounded text-sm overflow-auto max-h-96">
           {JSON.stringify(JSON.parse(jsonString), null, 2)}
         </pre>
 
 
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Close</Button>
-          </DialogClose>
+          <Dialog关闭 asChild>
+            <Button variant="outline">关闭</Button>
+          </Dialog关闭>
           <Button onClick={handleDownload}>Download JSON</Button>
         </DialogFooter>
       </DialogContent>

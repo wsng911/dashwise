@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
     }
 }
 
-// Create new forwarder
+// 创建 new forwarder
 export async function POST(req: NextRequest) {
     try {
         const pb = getServerPB();
@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Topic not found", details: (err as any).message }, { status: 404 });
         }
 
-        // --- 4. Create forwarder record
+        // --- 4. 创建 forwarder record
         const createPayload: any = {
             topic: topicRecord.id,
             target: target,
@@ -137,7 +137,7 @@ export async function PUT(req: NextRequest) {
     }
 }
 
-// Delete forwarder
+// 删除 forwarder
 export async function DELETE(req: NextRequest) {
     try {
         const pb = getServerPB();
@@ -163,7 +163,7 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ error: "Forwarder not found or not owned by user" }, { status: 404 });
         }
 
-        // --- 4. Delete forwarder
+        // --- 4. 删除 forwarder
         await pb.collection("notificationForwarders").delete(forwarderId);
 
         return NextResponse.json({ success: true });

@@ -1,14 +1,14 @@
 import https from "https";
 import axios from "axios";
-import { SearchItem } from "@/lib/jobs";
+import { 搜索Item } from "@/lib/jobs";
 
 /** Minimal normalized Jellyfin item we care about */
 type JellyfinItem = {
     Id: string;
-    Name: string;
+    名称: string;
     Type?: string;
     PrimaryImageTag?: string | null;
-    SeriesName?: string | null;
+    Series名称?: string | null;
     Album?: string | null;
     // raw payload can be attached if needed
     raw?: any;
@@ -76,10 +76,10 @@ export async function getJellyfinItems({
             .filter(Boolean)
             .map((it) => ({
                 Id: it.Id,
-                Name: it.Name ?? it.Title ?? "Untitled",
+                名称: it.名称 ?? it.Title ?? "Untitled",
                 Type: it.Type,
                 PrimaryImageTag: it.PrimaryImageTag ?? null,
-                SeriesName: it.SeriesName ?? null,
+                Series名称: it.Series名称 ?? null,
                 Album: it.Album ?? null,
                 raw: it,
             }));
@@ -101,10 +101,10 @@ export async function getJellyfinItems({
 }
 
 /**
- * Map Jellyfin items to your SearchItem[] format.
- * - Creates thumbnail and web UI action links.
+ * Map Jellyfin items to your 搜索Item[] format.
+ * - 创建s thumbnail and web UI action links.
  */
-export async function JellyfinSearchItems({
+export async function Jellyfin搜索Items({
     serverUrl,
     token,
     userId,
@@ -114,25 +114,25 @@ export async function JellyfinSearchItems({
     token?: string | null;
     userId?: string | null;
     allowInsecureCerts?: boolean;
-}): Promise<SearchItem[]> {
+}): Promise<搜索Item[]> {
     const items = await getJellyfinItems({ serverUrl, token, allowInsecureCerts });
     const base = serverUrl.replace(/\/+$/, "");
-    const mapped: SearchItem[] = items.map((it) => {
+    const mapped: 搜索Item[] = items.map((it) => {
 
         // action opens the item in the Jellyfin web UI
         const actionUrl = `${base}/web/index.html#/details?id=${encodeURIComponent(it.Id)}`;
 
-        const secondary = it.SeriesName ?? it.Album ?? it.Type ?? "";
+        const secondary = it.Series名称 ?? it.Album ?? it.Type ?? "";
 
         return {
             id: it.Id,
-            name: it.Name ?? "Untitled",
+            name: it.名称 ?? "Untitled",
             icon: "/icons/png/jellyfin-light.png",
             secondaryInfo: secondary,
             type: "jellyfinItem",
             action: `url:${actionUrl}`,
-            tags: [it.Name, "jellyfin", secondary].filter((t): t is string => !!t)
-        } as SearchItem;
+            tags: [it.名称, "jellyfin", secondary].filter((t): t is string => !!t)
+        } as 搜索Item;
     });
 
 

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
-import CreateTopicTokenDialogComponent from "@/components/notifications/CreateTopicTokenDialog";
+import 创建TopicTokenDialogComponent from "@/components/notifications/创建TopicTokenDialog";
 import { get, del } from "@/lib/apiClient";
 
 export type TokenItem = {
@@ -109,18 +109,18 @@ export default function NotificationTokensPage() {
 
     return (
         <>
-            <div className="flex items-center justify-between mb-4">
-                <h1 className="text-3xl font-semibold">Tokens</h1>
-                <Button onClick={() => setNewTokenDialogVisible(true)}>Add token</Button>
+            <div class名称="flex items-center justify-between mb-4">
+                <h1 class名称="text-3xl font-semibold">Tokens</h1>
+                <Button onClick={() => setNewTokenDialogVisible(true)}>添加 token</Button>
             </div>
 
-            <div className="space-y-4">
+            <div class名称="space-y-4">
                 {/* Topic chips */}
-                <div className="flex gap-2 overflow-x-auto mb-4">
+                <div class名称="flex gap-2 overflow-x-auto mb-4">
                     <button
                         key="all"
                         onClick={() => setActiveTopic(null)}
-                        className={cn(
+                        class名称={cn(
                             "px-4 py-2 rounded-xl text-sm transition whitespace-nowrap",
                             activeTopic === null
                                 ? "bg-white/20 backdrop-blur-md text-white border border-(--primary)"
@@ -134,7 +134,7 @@ export default function NotificationTokensPage() {
                         <button
                             key={t.id}
                             onClick={() => setActiveTopic(t.id)}
-                            className={cn(
+                            class名称={cn(
                                 "px-4 py-2 rounded-xl text-sm transition whitespace-nowrap",
                                 activeTopic === t.id
                                     ? "bg-white/20 backdrop-blur-md text-white border border-(--primary)"
@@ -150,16 +150,16 @@ export default function NotificationTokensPage() {
                 {filtered.map((tk) => (
                     <div
                         key={tk.id}
-                        className="frosted p-4 rounded-xl border border-white/20 backdrop-blur-md flex justify-between items-start shadow-lg group"
+                        class名称="frosted p-4 rounded-xl border border-white/20 backdrop-blur-md flex justify-between items-start shadow-lg group"
                     >
-                        <div className="flex flex-col gap-2 w-full">
-                            <div className="flex justify-between text-xs text-muted-foreground">
-                                <span className="font-semibold">{tk.topic?.title ?? tk.topic?.id}</span>
+                        <div class名称="flex flex-col gap-2 w-full">
+                            <div class名称="flex justify-between text-xs text-muted-foreground">
+                                <span class名称="font-semibold">{tk.topic?.title ?? tk.topic?.id}</span>
                                 <span>{fmt(tk.created)}</span>
                             </div>
 
                             <div
-                                className={cn(
+                                class名称={cn(
                                     "font-mono text-sm group-hover:text-(--primary)",
                                     visible[tk.id] ? "font-bold" : ""
                                 )}
@@ -167,14 +167,14 @@ export default function NotificationTokensPage() {
                                 {visible[tk.id] ? tk.token ?? "—" : mask(tk.token)}
                             </div>
 
-                            <div className="text-xs text-muted-foreground">
+                            <div class名称="text-xs text-muted-foreground">
                                 Expires: {tk.expires ? fmt(tk.expires) : "Never"}
                             </div>
 
                             <Button
                                 variant="ghost"
                                 size="sm"
-                                className="w-fit px-2"
+                                class名称="w-fit px-2"
                                 onClick={() => setVisible((s) => ({ ...s, [tk.id]: !s[tk.id] }))}
                             >
                                 {visible[tk.id] ? "Hide" : "Show"}
@@ -183,12 +183,12 @@ export default function NotificationTokensPage() {
 
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="sm" className="p-2">
+                                <Button variant="ghost" size="sm" class名称="p-2">
                                     <MoreHorizontal />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="frosted">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuContent align="end" class名称="frosted">
+                                <DropdownMenuLabel>操作</DropdownMenuLabel>
                                 <DropdownMenuItem onClick={() => copy(tk.token)}>Copy token</DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => navigator.clipboard.writeText(tk.id)}>Copy token ID</DropdownMenuItem>
                                 <DropdownMenuSeparator />
@@ -199,17 +199,17 @@ export default function NotificationTokensPage() {
                 ))}
 
                 {!filtered.length && (
-                    <div className="flex flex-col items-center justify-center h-48 text-muted-foreground">
-                        <h2 className="text-lg font-semibold mb-1">No tokens</h2>
+                    <div class名称="flex flex-col items-center justify-center h-48 text-muted-foreground">
+                        <h2 class名称="text-lg font-semibold mb-1">No tokens</h2>
                         <p>Nothing here yet</p>
                     </div>
                 )}
 
-                <CreateTopicTokenDialogComponent
+                <创建TopicTokenDialogComponent
                     open={newTokenDialogVisible}
                     onOpenChange={setNewTokenDialogVisible}
                     topics={topics}
-                    onTokenCreated={async (newItem: TokenItem) => {
+                    onToken创建d={async (newItem: TokenItem) => {
                         setItems((old) => [...old, newItem]);
 
                         // Refresh topics if the new topic is not already present

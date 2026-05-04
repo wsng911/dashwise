@@ -14,14 +14,14 @@ import LocationSelectFormComponent from "./LocationSelectForm";
 
 type Glanceable = {
     type: string;
-    displayName?: string;
+    display名称?: string;
     description?: string;
     example?: string;
     exampleProps?: Record<string, any>;
     properties?: Record<string, string>;
 };
 
-export default function GlanceablePropertiesSettingsComponent({
+export default function GlanceableProperties设置Component({
     selected,
     currentTab,
     isCurrent
@@ -40,19 +40,19 @@ export default function GlanceablePropertiesSettingsComponent({
     });
 
     const [saving, setSaving] = useState(false);
-    const [saveError, setSaveError] = useState<string | null>(null);
-    const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
+    const [saveError, set保存Error] = useState<string | null>(null);
+    const [saveSuccess, set保存Success] = useState<string | null>(null);
 
     useEffect(() => {
         const def = isCurrent === true ? selected.properties : selected.exampleProps;
         setParams(def ?? {});
     }, [selected]);
 
-    async function handleSave() {
-        setSaveError(null);
-        setSaveSuccess(null);
+    async function handle保存() {
+        set保存Error(null);
+        set保存Success(null);
             if (!token) {
-                setSaveError('No auth token found (pb token)');
+                set保存Error('No auth token found (pb token)');
                 return;
             }
 
@@ -61,7 +61,7 @@ export default function GlanceablePropertiesSettingsComponent({
             // Build updated glanceables from local config (preferred) or fall back to glanceables.json
             const existing = config?.glanceables && Array.isArray(config.glanceables)
                 ? [...config.glanceables]
-                : glanceables_mapped.slice(0, 2).map(g => ({ type: g.type, displayName: g.displayName, description: g.description, properties: g.exampleProps ?? {} }));
+                : glanceables_mapped.slice(0, 2).map(g => ({ type: g.type, display名称: g.display名称, description: g.description, properties: g.exampleProps ?? {} }));
 
             const updatedGlanceables = [...existing];
             const index = currentTab === 'left' ? 0 : 1;
@@ -80,13 +80,13 @@ export default function GlanceablePropertiesSettingsComponent({
             await writeToConfig('glanceables', updatedGlanceables, {
                 token,
                 onSuccess: () => {
-                    setSaveSuccess('Saved glanceables successfully');
+                    set保存Success('保存d glanceables successfully');
                     refreshConfig();
                 },
             });
         } catch (err: any) {
             console.error('Error saving glanceables:', err);
-            setSaveError(err?.message ?? 'Failed to save glanceables');
+            set保存Error(err?.message ?? 'Failed to save glanceables');
         } finally {
             setSaving(false);
         }
@@ -95,36 +95,36 @@ export default function GlanceablePropertiesSettingsComponent({
     return (
         <section>
             <Preview type={selected.type} params={params} />
-            <EditProperties
+            <编辑Properties
                 type={selected.type}
                 glanceables={glanceables_mapped}
                 params={params}
                 setParams={setParams}
             />
-            <div className="mt-4 flex items-center gap-3">
-                <Button onClick={handleSave} disabled={saving} variant="default">
-                    {saving ? 'Saving...' : 'Save Glanceables'}
+            <div class名称="mt-4 flex items-center gap-3">
+                <Button onClick={handle保存} disabled={saving} variant="default">
+                    {saving ? 'Saving...' : '保存 Glanceables'}
                 </Button>
-                {saveSuccess && <div className="text-sm text-green-600">{saveSuccess}</div>}
-                {saveError && <div className="text-sm text-red-600">{saveError}</div>}
+                {saveSuccess && <div class名称="text-sm text-green-600">{saveSuccess}</div>}
+                {saveError && <div class名称="text-sm text-red-600">{saveError}</div>}
             </div>
         </section>
     );
 
 }
 
-function Preview({ type, params, className }: GlanceableProps & { params?: Record<string, any> }) {
+function Preview({ type, params, class名称 }: GlanceableProps & { params?: Record<string, any> }) {
     return (
         <div>
-            <h3 className="text-lg">Preview</h3>
-            <div className="flex items-center justify-center w-full py-2">
-                <GlanceableComponent type={type} params={params} className="font-medium text-lg" />
+            <h3 class名称="text-lg">Preview</h3>
+            <div class名称="flex items-center justify-center w-full py-2">
+                <GlanceableComponent type={type} params={params} class名称="font-medium text-lg" />
             </div>
         </div>
     );
 }
 
-function EditProperties({
+function 编辑Properties({
     type,
     glanceables,
     params,
@@ -141,7 +141,7 @@ function EditProperties({
     if (!propsSchema) {
         return (
             <div>
-                <h3 className="text-lg">Edit Properties</h3>
+                <h3 class名称="text-lg">编辑 Properties</h3>
                 <p>No properties to edit</p>
             </div>
         );
@@ -149,17 +149,17 @@ function EditProperties({
 
     return (
         <div>
-            <h3 className="text-lg">Edit Properties</h3>
-            <div className="space-y-3 mt-2">
-                {Object.entries(propsSchema).map(([propName, schema]) => (
-                    <div key={propName}>
-                        <label className="block text-sm font-medium mb-1">{propName}</label>
+            <h3 class名称="text-lg">编辑 Properties</h3>
+            <div class名称="space-y-3 mt-2">
+                {Object.entries(propsSchema).map(([prop名称, schema]) => (
+                    <div key={prop名称}>
+                        <label class名称="block text-sm font-medium mb-1">{prop名称}</label>
                         <PropertyInput
-                            name={propName}
+                            name={prop名称}
                             schema={schema}
-                            value={params?.[propName]}
+                            value={params?.[prop名称]}
                             onChange={(val) =>
-                                setParams(prev => ({ ...prev, [propName]: val }))
+                                setParams(prev => ({ ...prev, [prop名称]: val }))
                             }
                         />
                     </div>
@@ -209,7 +209,7 @@ function PropertyInput({
                 : [];
         return (
             <Select value={(value as string) || ""} onValueChange={onChange}>
-                <SelectTrigger className="w-full">
+                <SelectTrigger class名称="w-full">
                     <SelectValue placeholder="Select timezone" />
                 </SelectTrigger>
                 <SelectContent>
@@ -233,9 +233,9 @@ function PropertyInput({
                         onChange(e.target.value);
                     }}
                     placeholder="e.g. YYYY-MM-DD HH:mm"
-                    className="border rounded p-1 w-full"
+                    class名称="border rounded p-1 w-full"
                 />
-                <div className="text-xs text-muted-foreground mt-1">
+                <div class名称="text-xs text-muted-foreground mt-1">
                     Use date format strings (e.g. <code>YYYY-MM-DD</code>, <code>HH:mm</code>)
                 </div>
             </div>
@@ -243,7 +243,7 @@ function PropertyInput({
     }
 
     if (isLocation) {
-        const locationValue = (value as any) ?? { displayName: "", coordinates: "" };
+        const locationValue = (value as any) ?? { display名称: "", coordinates: "" };
         return (
             <LocationSelectFormComponent
                 value={locationValue}
@@ -257,7 +257,7 @@ function PropertyInput({
         const selectedValue = (value as string) ?? options[0];
         return (
             <Select value={selectedValue} onValueChange={onChange}>
-                <SelectTrigger className="w-full">
+                <SelectTrigger class名称="w-full">
                     <SelectValue placeholder={options[0].toUpperCase()} />
                 </SelectTrigger>
                 <SelectContent>
@@ -274,13 +274,13 @@ function PropertyInput({
     if (isBool) {
         const checked = Boolean(value);
         return (
-            <div className="flex items-center space-x-2">
+            <div class名称="flex items-center space-x-2">
                 <Checkbox
                     id={name}
                     checked={checked}
                     onCheckedChange={(checked) => onChange(checked)}
                 />
-                <label htmlFor={name} className="text-sm font-medium">
+                <label htmlFor={name} class名称="text-sm font-medium">
                     {name}
                 </label>
             </div>
@@ -295,7 +295,7 @@ function PropertyInput({
                 setText(e.target.value);
                 onChange(e.target.value);
             }}
-            className="border rounded p-1 w-full frosted"
+            class名称="border rounded p-1 w-full frosted"
         />
     );
 }

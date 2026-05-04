@@ -3,7 +3,7 @@ import { getServerPB, getSuperuserPB } from '@/lib/pb';
 import config from '@/lib/config';
 
 export async function GET() {
-  const instanceName = "dashwise";
+  const instance名称 = "dashwise";
 
   try {
     let record;
@@ -11,7 +11,7 @@ export async function GET() {
     try {
       // Fetch the specific record for this instance.
       record = await pb.collection("appInfo").getFirstListItem(
-        `instanceName = "${instanceName.toLowerCase()}"`
+        `instance名称 = "${instance名称.toLowerCase()}"`
       );
     } catch (err: any) {
       if (err.status === 404) {

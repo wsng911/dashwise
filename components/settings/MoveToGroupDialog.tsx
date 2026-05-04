@@ -23,7 +23,7 @@ export default function MoveToGroupDialog({
   title = "Move to group",
 }: MoveToGroupDialogProps) {
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
-  const [newGroupName, setNewGroupName] = useState("");
+  const [newGroup名称, setNewGroup名称] = useState("");
 
   const toggleGroup = (group: string) => {
     setExpandedGroups((prev) => ({
@@ -35,63 +35,63 @@ export default function MoveToGroupDialog({
   const handleSelectGroup = (group: string) => {
     onSelect(group);
     onOpenChange(false);
-    setNewGroupName("");
+    setNewGroup名称("");
   };
 
-  const handleCreateNewGroup = () => {
-    if (newGroupName.trim()) {
-      onSelect(newGroupName.trim());
+  const handle创建NewGroup = () => {
+    if (newGroup名称.trim()) {
+      onSelect(newGroup名称.trim());
       onOpenChange(false);
-      setNewGroupName("");
+      setNewGroup名称("");
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="frosted text-foreground max-w-md">
+      <DialogContent class名称="frosted text-foreground max-w-md">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-3 max-h-96 overflow-y-auto">
+        <div class名称="space-y-3 max-h-96 overflow-y-auto">
           {/* List of existing groups */}
           {groups.length > 0 ? (
-            <div className="space-y-1">
+            <div class名称="space-y-1">
               {groups.map((group) => (
                 <div key={group}>
                   <button
                     onClick={() => handleSelectGroup(group)}
-                    className="w-full text-left px-3 py-2 rounded-md hover:bg-white/10 transition flex items-center gap-2"
+                    class名称="w-full text-left px-3 py-2 rounded-md hover:bg-white/10 transition flex items-center gap-2"
                   >
-                    <FontAwesomeIcon icon={faFolder} className="text-sm" />
+                    <FontAwesomeIcon icon={faFolder} class名称="text-sm" />
                     <span>{group}</span>
                   </button>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-sm text-white/60">No groups yet</p>
+            <p class名称="text-sm text-white/60">No groups yet</p>
           )}
 
-          {/* Create new group */}
-          <div className="border-t pt-3 mt-3">
-            <p className="text-xs text-white/60 mb-2">Create new group</p>
-            <div className="flex gap-2">
+          {/* 创建 new group */}
+          <div class名称="border-t pt-3 mt-3">
+            <p class名称="text-xs text-white/60 mb-2">创建 new group</p>
+            <div class名称="flex gap-2">
               <Input
                 placeholder="Group name"
-                value={newGroupName}
-                onChange={(e) => setNewGroupName(e.target.value)}
+                value={newGroup名称}
+                onChange={(e) => setNewGroup名称(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    handleCreateNewGroup();
+                    handle创建NewGroup();
                   }
                 }}
-                className="text-sm"
+                class名称="text-sm"
               />
               <Button
                 size="sm"
-                onClick={handleCreateNewGroup}
-                disabled={!newGroupName.trim()}
+                onClick={handle创建NewGroup}
+                disabled={!newGroup名称.trim()}
               >
                 <FontAwesomeIcon icon={faPlus} />
               </Button>

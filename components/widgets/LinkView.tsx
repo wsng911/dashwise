@@ -4,13 +4,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { useConfig } from "@/context/ConfigContext";
 import useAuth from "@/context/useAuth";
 import { cn } from "@/lib/utils";
-import { getMonitoringStatus } from "@/lib/apiClient";
+import { get监控ing状态 } from "@/lib/apiClient";
 import { PaginatedCarouselViewComponent } from "./PaginatedCarouselView";
-import MonitoringDialog, { JobEntry } from "./MonitoringDialog";
+import 监控ingDialog, { JobEntry } from "./监控ingDialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { PopoverClose } from "@radix-ui/react-popover";
+import { Popover关闭 } from "@radix-ui/react-popover";
 import { Button } from "../ui/button";
 
 export interface LinkType {
@@ -53,9 +53,9 @@ export default function LinkView() {
   }
 
 
-  const [statusMap, setStatusMap] = useState<Record<string, boolean>>({});
+  const [statusMap, set状态Map] = useState<Record<string, boolean>>({});
 
-  const [monitoringDetails, setMonitoringDetails] = useState<Record<string, {
+  const [monitoringDetails, set监控ingDetails] = useState<Record<string, {
     status: string;
     dateChanged: string | null;
     durationChanged: number | null;
@@ -64,7 +64,7 @@ export default function LinkView() {
 
   const [openDialogFor, setOpenDialogFor] = useState<string | null>(null);
 
-  function serverStatusToBool(status?: string | null): boolean | undefined {
+  function server状态ToBool(status?: string | null): boolean | undefined {
     if (status === undefined || status === null) return undefined;
     if (status === "healthy") return true;
     if (status === "disabled") return undefined;
@@ -75,22 +75,22 @@ export default function LinkView() {
     tokenRef.current = token;
   }, [token]);
 
-  async function fetchMonitoringStatuses() {
+  async function fetch监控ing状态es() {
       try {
       if (typeof window === "undefined") return;
       const tokenToUse = tokenRef.current;
       if (!tokenToUse) {
         // no token — clear details
-        setMonitoringDetails(null);
-        setStatusMap({});
+        set监控ingDetails(null);
+        set状态Map({});
         return;
       }
 
       let data: any = null;
       try {
-        data = await getMonitoringStatus({ token: tokenToUse });
+        data = await get监控ing状态({ token: tokenToUse });
       } catch (err) {
-        console.warn("/api/v1/monitoringStatus error:", err);
+        console.warn("/api/v1/monitoring状态 error:", err);
         return;
       }
 
@@ -106,14 +106,14 @@ export default function LinkView() {
         }
       }
 
-      setMonitoringDetails(normalized);
+      set监控ingDetails(normalized);
 
       // map to simple boolean status map keyed by linkId
       const next: Record<string, boolean> = {};
       for (const [linkId, entry] of Object.entries(normalized)) {
-        next[linkId] = serverStatusToBool((entry as any).status) as boolean;
+        next[linkId] = server状态ToBool((entry as any).status) as boolean;
       }
-      setStatusMap(next);
+      set状态Map(next);
     } catch (err) {
       console.error("Failed to fetch monitoring statuses:", err);
     }
@@ -122,11 +122,11 @@ export default function LinkView() {
   // Initial fetch + periodic polling (30s). No client favicon probes anywhere.
   useEffect(() => {
     let mounted = true;
-    fetchMonitoringStatuses();
+    fetch监控ing状态es();
 
     const id = window.setInterval(() => {
       if (!mounted) return;
-      fetchMonitoringStatuses();
+      fetch监控ing状态es();
     }, 30000);
 
     return () => {
@@ -142,14 +142,14 @@ export default function LinkView() {
     : undefined;
 
   return (
-    <div className="space-y-2">
+    <div class名称="space-y-2">
       {/* GROUP BUTTONS */}
-      <div className="flex gap-2">
+      <div class名称="flex gap-2">
         {config.linkGroups.map((g) => (
           <button
             key={g}
             onClick={() => setActiveGroup(g)}
-            className={cn(
+            class名称={cn(
               "px-4 py-2 rounded-xl text-sm font-medium transition",
               activeGroup === g
                 ? "bg-white/20 backdrop-blur-md text-white border border-(--primary)"
@@ -167,9 +167,9 @@ export default function LinkView() {
           if (item.type === "link") {
             const link = item.link;
             const serverEntry = link.id && monitoringDetails ? monitoringDetails[link.id] : undefined;
-            const serverStatus = serverEntry?.status;
-            const isHealthy = serverStatus === "healthy";
-            const isDisabled = serverStatus === "disabled";
+            const server状态 = serverEntry?.status;
+            const isHealthy = server状态 === "healthy";
+            const isDisabled = server状态 === "disabled";
             const showDot = Boolean(link.statusCheck);
             const isMono = link.icon?.includes("-light");
 
@@ -179,11 +179,11 @@ export default function LinkView() {
                 href={link.url}
                 target={config?.global?.linkOpenBehaviour === "newtab" ? "_blank" : "_self"}
                 rel={config?.global?.linkOpenBehaviour === "newtab" ? "noopener noreferrer" : undefined}
-                className="group flex flex-col items-center justify-between space-y-2 frosted rounded-2xl p-2 hover:text-(primary) transition-colors min-h-18 w-full"
+                class名称="group flex flex-col items-center justify-between space-y-2 frosted rounded-2xl p-2 hover:text-(primary) transition-colors min-h-18 w-full"
               >
                 {isMono ? (
                   <div
-                    className="h-[35px] w-[35px] bg-white group-hover:bg-(--primary) transition"
+                    class名称="h-[35px] w-[35px] bg-white group-hover:bg-(--primary) transition"
                     style={{
                       maskImage: `url(${link.icon})`,
                       WebkitMaskImage: `url(${link.icon})`,
@@ -196,11 +196,11 @@ export default function LinkView() {
                     }}
                   />
                 ) : link.icon ? (
-                  <img src={link.icon} alt={link.name ?? "Icon"} className="h-[35px] w-[35px] object-contain" />
+                  <img src={link.icon} alt={link.name ?? "Icon"} class名称="h-[35px] w-[35px] object-contain" />
                 ) : null}
 
-                <div className="flex items-center w-full justify-center">
-                  <span className="text-sm text-white">{link.name}</span>
+                <div class名称="flex items-center w-full justify-center">
+                  <span class名称="text-sm text-white">{link.name}</span>
 
                   {showDot && (
                     <button
@@ -213,10 +213,10 @@ export default function LinkView() {
                           setOpenDialogFor(link.id);
                         }
                       }}
-                      className="ml-2 flex items-center justify-center"
+                      class名称="ml-2 flex items-center justify-center"
                     >
                       <span
-                        className="h-2 w-2 rounded-full inline-block hover:cursor-pointer hover:ring-2"
+                        class名称="h-2 w-2 rounded-full inline-block hover:cursor-pointer hover:ring-2"
                         style={{
                           backgroundColor: isHealthy ? "var(--primary)" : isDisabled ? "#9CA3AF" : "#6B7280",
                         }}
@@ -236,32 +236,32 @@ export default function LinkView() {
               <PopoverTrigger asChild>
                 <button
                   type="button"
-                  className="group flex flex-col items-center justify-between space-y-2 frosted rounded-2xl p-2 hover:text-(primary) transition-colors min-h-18 w-full"
+                  class名称="group flex flex-col items-center justify-between space-y-2 frosted rounded-2xl p-2 hover:text-(primary) transition-colors min-h-18 w-full"
                   aria-label={`Open folder ${folder.name}`}
                   title={folder.name}
                 >
-                  <div className="h-[35px] w-[35px] flex items-center justify-center">
+                  <div class名称="h-[35px] w-[35px] flex items-center justify-center">
 
-                    <FontAwesomeIcon icon={faFolder} className="h-6 w-6" />
+                    <FontAwesomeIcon icon={faFolder} class名称="h-6 w-6" />
                   </div>
 
-                  <div className="flex items-center w-full justify-center">
-                    <span className="text-sm text-white">{folder.name}</span>
+                  <div class名称="flex items-center w-full justify-center">
+                    <span class名称="text-sm text-white">{folder.name}</span>
                   </div>
                 </button>
               </PopoverTrigger>
 
-              <PopoverContent className="w-[350px] frosted text-foreground space-y-2">
-                <header className="flex justify-between items-center">
-                <h4 className="font-semibold mb-2">{folder.name}</h4>
-                <PopoverClose asChild>
-                  <Button variant="ghost" className="">
+              <PopoverContent class名称="w-[350px] frosted text-foreground space-y-2">
+                <header class名称="flex justify-between items-center">
+                <h4 class名称="font-semibold mb-2">{folder.name}</h4>
+                <Popover关闭 asChild>
+                  <Button variant="ghost" class名称="">
                     <FontAwesomeIcon icon={faXmark}/>
                   </Button>
-                </PopoverClose>
+                </Popover关闭>
                 </header>
                 <div
-                  className="grid gap-3"
+                  class名称="grid gap-3"
                   style={{
                     gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
                   }}
@@ -269,9 +269,9 @@ export default function LinkView() {
                   {folder.links.map((child) => {
                     const serverEntry =
                       child.id && monitoringDetails ? monitoringDetails[child.id] : undefined;
-                    const serverStatus = serverEntry?.status;
-                    const isHealthy = serverStatus === "healthy";
-                    const isDisabled = serverStatus === "disabled";
+                    const server状态 = serverEntry?.status;
+                    const isHealthy = server状态 === "healthy";
+                    const isDisabled = server状态 === "disabled";
                     const showDot = Boolean(child.statusCheck);
                     const isMono = child.icon?.includes("-light");
 
@@ -287,11 +287,11 @@ export default function LinkView() {
                             ? "noopener noreferrer"
                             : undefined
                         }
-                        className="group frosted rounded-2xl p-2 hover:text-(primary) transition-colors min-h-18 flex flex-col items-center justify-between space-y-2"
+                        class名称="group frosted rounded-2xl p-2 hover:text-(primary) transition-colors min-h-18 flex flex-col items-center justify-between space-y-2"
                       >
                         {isMono ? (
                           <div
-                            className="h-[30px] w-[30px] bg-white group-hover:bg-(--primary) transition"
+                            class名称="h-[30px] w-[30px] bg-white group-hover:bg-(--primary) transition"
                             style={{
                               maskImage: `url(${child.icon})`,
                               WebkitMaskImage: `url(${child.icon})`,
@@ -307,17 +307,17 @@ export default function LinkView() {
                           <img
                             src={child.icon}
                             alt={child.name ?? "Icon"}
-                            className="h-[30px] w-[30px] object-contain"
+                            class名称="h-[30px] w-[30px] object-contain"
                           />
                         ) : (
-                          <FontAwesomeIcon icon={faFolder} className="h-5 w-5" />
+                          <FontAwesomeIcon icon={faFolder} class名称="h-5 w-5" />
                         )}
 
-                        <div className="flex items-center justify-center w-full">
-                          <span className="text-xs text-white">{child.name}</span>
+                        <div class名称="flex items-center justify-center w-full">
+                          <span class名称="text-xs text-white">{child.name}</span>
                           {showDot && (
                             <span
-                              className="ml-1 h-2 w-2 rounded-full inline-block"
+                              class名称="ml-1 h-2 w-2 rounded-full inline-block"
                               style={{
                                 backgroundColor: isHealthy
                                   ? "var(--primary)"
@@ -338,15 +338,15 @@ export default function LinkView() {
         })}
       </PaginatedCarouselViewComponent>
 
-      {/* Monitoring dialog (opens when clicking a monitored link's dot) */}
+      {/* 监控ing dialog (opens when clicking a monitored link's dot) */}
       {selectedLink && (
-        <MonitoringDialog
+        <监控ingDialog
           open={!!selectedLink}
           onOpenChange={(val) => {
             if (!val) setOpenDialogFor(null);
           }}
           link={selectedLink}
-          onCheckTriggered={fetchMonitoringStatuses}
+          onCheckTriggered={fetch监控ing状态es}
           details={
             selectedLink.id && monitoringDetails
               ? (monitoringDetails[selectedLink.id] as JobEntry)

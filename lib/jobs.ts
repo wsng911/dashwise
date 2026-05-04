@@ -1,6 +1,6 @@
-import { beszelSearchItems } from "./clients/beszel/client.ts";
-import { JellyfinSearchItems } from "./clients/jellyfin/client.ts";
-import { KarakeepSearchItems } from "./clients/karakeep/client.ts";
+import { beszel搜索Items } from "./clients/beszel/client.ts";
+import { Jellyfin搜索Items } from "./clients/jellyfin/client.ts";
+import { Karakeep搜索Items } from "./clients/karakeep/client.ts";
 import config from "./config.ts";
 import pb, { getSuperuserPB } from "./pb.ts";
 
@@ -34,13 +34,13 @@ type UserConfig = {
     };
 };
 
-type UserSearchItem = {
+type User搜索Item = {
     id?: string;
     associatedUserId: string;
     searchItems: string; // JSON string of all search items
 };
 
-export type SearchItem = {
+export type 搜索Item = {
     id?: string;
     name: string;
     icon: string;
@@ -50,7 +50,7 @@ export type SearchItem = {
     tags?: string[];
 };
 
-function mapSearchItemsToJSON(items: SearchItem[]) {
+function map搜索ItemsToJSON(items: 搜索Item[]) {
     return JSON.stringify(
         items
             .map(i => ({
@@ -65,7 +65,7 @@ function mapSearchItemsToJSON(items: SearchItem[]) {
     );
 }
 
-export default async function runBackgroundJobs() {
+export default async function run返回groundJobs() {
     try {
         const pb = await getSuperuserPB();
         const configs = await pb.collection("userConfig").getFullList<UserConfig>()
@@ -76,7 +76,7 @@ export default async function runBackgroundJobs() {
 
             const links = userConfig.config?.links ?? [];
 
-            let searchItems: SearchItem[];
+            let searchItems: 搜索Item[];
 
             //initially, its just an array of links
             searchItems = links.map(link => ({
@@ -96,7 +96,7 @@ export default async function runBackgroundJobs() {
 
                 if (!token || !serverUrl) return;
 
-                const bookmarks = await KarakeepSearchItems({ serverUrl, token, allowInsecureCerts: config.allowInsecureCertsForIntegrationUrls });
+                const bookmarks = await Karakeep搜索Items({ serverUrl, token, allowInsecureCerts: config.allowInsecureCertsForIntegrationUrls });
                 searchItems.push(...bookmarks);
             }
 
@@ -107,7 +107,7 @@ export default async function runBackgroundJobs() {
                 const token = Buffer.from(JellyfinConfig.api_token, "base64").toString("utf-8");
                 const serverUrl = Buffer.from(JellyfinConfig.server_location, "base64").toString("utf-8");
 
-                const items = await JellyfinSearchItems({ serverUrl, token, allowInsecureCerts: config.allowInsecureCertsForIntegrationUrls });
+                const items = await Jellyfin搜索Items({ serverUrl, token, allowInsecureCerts: config.allowInsecureCertsForIntegrationUrls });
                 searchItems.push(...items);
             }
 
@@ -119,28 +119,28 @@ export default async function runBackgroundJobs() {
                 const pb_email = Buffer.from(JellyfinConfig.pb_email, "base64").toString("utf-8");
                 const pb_password = Buffer.from(JellyfinConfig.pb_password, "base64").toString("utf-8");
 
-                const items = await beszelSearchItems({ url: serverUrl, pb_email, pb_password, allowInsecureCerts: config.allowInsecureCertsForIntegrationUrls });
+                const items = await beszel搜索Items({ url: serverUrl, pb_email, pb_password, allowInsecureCerts: config.allowInsecureCertsForIntegrationUrls });
                 searchItems.push(...items);
             }
 
-            const desiredJson = mapSearchItemsToJSON(searchItems);
+            const desiredJson = map搜索ItemsToJSON(searchItems);
 
             // Check for existing record
-            const existing = await pb.collection("userSearchItems")
-                .getFirstListItem<UserSearchItem>(`associatedUserId="${associatedUserId}"`)
+            const existing = await pb.collection("user搜索Items")
+                .getFirstListItem<User搜索Item>(`associatedUserId="${associatedUserId}"`)
                 .catch(() => null);
 
 
             if (existing) {
                 // Update only if different
                 if (existing.searchItems !== desiredJson) {
-                    await pb.collection("userSearchItems").update(existing.id!, {
+                    await pb.collection("user搜索Items").update(existing.id!, {
                         searchItems: desiredJson,
                     });
                 }
             } else {
-                // Create new
-                await pb.collection("userSearchItems").create({
+                // 创建 new
+                await pb.collection("user搜索Items").create({
                     associatedUserId,
                     searchItems: desiredJson,
                 });

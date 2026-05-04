@@ -20,7 +20,7 @@ async function parseResponse<T = any>(res: Response): Promise<T> {
 
 function buildUrl(url: string, qs?: Record<string, string | number | boolean>) {
   if (!qs || Object.keys(qs).length === 0) return url;
-  const params = new URLSearchParams(
+  const params = new URL搜索Params(
     Object.entries(qs).reduce<Record<string, string>>((acc, [k, v]) => {
       acc[k] = String(v);
       return acc;

@@ -20,12 +20,12 @@ type LinkItem = {
   tags?: string[];
   isBangAction?: boolean;
   bangEngineSlug?: string;
-  bangEngineName?: string;
-  isSearchEngine?: boolean;
+  bangEngine名称?: string;
+  is搜索Engine?: boolean;
   engineSlug?: string;
 };
 
-type SearchEngine = {
+type 搜索Engine = {
   icon?: string;
   name?: string;
   slug?: string;
@@ -35,7 +35,7 @@ type SearchEngine = {
   url_params?: string;
 };
 
-type IncomingSearchItem = {
+type Incoming搜索Item = {
   name?: string;
   icon?: string;
   secondaryInfo?: string;
@@ -49,11 +49,11 @@ type IncomingSearchItem = {
 type CommandBarProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  searchItems: IncomingSearchItem[];
+  searchItems: Incoming搜索Item[];
 };
 
 
-function normalizeConfigLinks(input: IncomingSearchItem[] = []): LinkItem[] {
+function normalizeConfigLinks(input: Incoming搜索Item[] = []): LinkItem[] {
   return input
     .filter((it) => !it.type || it.type === 'link' || it.type === 'karakeepBookmark' || it.type === 'jellyfinItem')
     .map((it) => {
@@ -93,7 +93,7 @@ function normalizeConfigLinks(input: IncomingSearchItem[] = []): LinkItem[] {
 export default function CommandBar({ open, setOpen, searchItems }: CommandBarProps) {
   const { config } = useConfig();
   // search engines still read from config (unchanged)
-  const searchEngines: SearchEngine[] = (config.searchEngines || []) as SearchEngine[];
+  const searchEngines: 搜索Engine[] = (config.searchEngines || []) as 搜索Engine[];
 
   const links: LinkItem[] = React.useMemo(() => normalizeConfigLinks(searchItems || []), [searchItems]);
 
@@ -226,13 +226,13 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
       const fallbackEngine = searchEngines.find((se) => (se.slug || '').toLowerCase() === config.global.searchEngineShortcutFallback)
       if (engine) {
         items.unshift({
-          name: `Search with ${engine.name} (${engine.slug ? '!' + engine.slug : ''})`,
+          name: `搜索 with ${engine.name} (${engine.slug ? '!' + engine.slug : ''})`,
           url: '__bang_search__',
           icon: engine.icon,
           linkGroup: engine.name,
           isBangAction: true,
           bangEngineSlug: engine.slug,
-          bangEngineName: engine.name,
+          bangEngine名称: engine.name,
         } as LinkItem);
       } else if (fallbackEngine) {
         items.unshift({
@@ -242,7 +242,7 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
           linkGroup: "Dashwise",
           isBangAction: true,
           bangEngineSlug: fallbackEngine?.slug,
-          bangEngineName: fallbackEngine?.name,
+          bangEngine名称: fallbackEngine?.name,
         } as LinkItem);
       }
     }
@@ -250,11 +250,11 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
     // --- 3. Default search engine (only once) ---
     if (!parsed || !searchEngines.find((se) => (se.slug || '').toLowerCase() === parsed.slug)) {
       items.push({
-        name: `Search ${defaultEngine?.name || 'web'}`,
+        name: `搜索 ${defaultEngine?.name || 'web'}`,
         url: '__search_action__',
         icon: defaultEngine?.icon,
         linkGroup: defaultEngine?.name || 'web',
-        type: 'Search',
+        type: '搜索',
       } as LinkItem);
     }
 
@@ -267,8 +267,8 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
           url: `__engine_search__:${se.slug}`,
           icon: se.icon,
           linkGroup: se.name,
-          type: 'Search',
-          isSearchEngine: true,
+          type: '搜索',
+          is搜索Engine: true,
           engineSlug: se.slug,
         } as LinkItem);
       });
@@ -314,14 +314,14 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
     const a = actions[index];
     if (!a) return;
     if (a.url === '__bang_search__') {
-      openBangSearch(query, a.bangEngineSlug);
+      openBang搜索(query, a.bangEngineSlug);
     } else if (a.url === '__forward_search__') {
-      openBangSearch(`!${a.bangEngineSlug + '' + query}`, a.bangEngineSlug);
+      openBang搜索(`!${a.bangEngineSlug + '' + query}`, a.bangEngineSlug);
     } else if (a.url === '__search_action__') {
-      openSearch(query);
+      open搜索(query);
     } else if (a.url.startsWith('__engine_search__:')) {
       const slug = a.url.split(':', 2)[1];
-      openEngineSearch(slug, query);
+      openEngine搜索(slug, query);
     } else if (a.url.startsWith('command:')) {
       openCommandClient(a.url);
     } else {
@@ -339,7 +339,7 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
     setOpen(false);
   }
 
-  function openSearch(q: string) {
+  function open搜索(q: string) {
     const engine = defaultEngine;
     if (!engine) return;
     const template = engine.url_params || engine.url_home || '';
@@ -348,7 +348,7 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
     openUrl(searchUrl, config?.global?.linkOpenBehaviour ?? 'sametab');
   }
 
-  function openBangSearch(q: string, slug?: string) {
+  function openBang搜索(q: string, slug?: string) {
     if (!slug) return;
     const parsed = parseBang(q);
     const terms = parsed ? parsed.rest : '';
@@ -360,7 +360,7 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
     openUrl(searchUrl, config?.global?.linkOpenBehaviour ?? 'sametab');
   }
 
-  function openEngineSearch(slug?: string, q?: string) {
+  function openEngine搜索(slug?: string, q?: string) {
     if (!slug) return;
     const engine = searchEngines.find((se) => (se.slug || '').toLowerCase() === (slug || '').toLowerCase());
     if (!engine) return;
@@ -389,56 +389,56 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTitle className='hidden'>Search Bar</DialogTitle>
-      <DialogContent className="min-w-[50vw] mx-auto frosted backdrop-blur-md rounded-lg p-0 shadow-lg text-foreground grid-rows-[auto_35vh_auto] gap-1">
+      <DialogTitle class名称='hidden'>搜索 Bar</DialogTitle>
+      <DialogContent class名称="min-w-[50vw] mx-auto frosted backdrop-blur-md rounded-lg p-0 shadow-lg text-foreground grid-rows-[auto_35vh_auto] gap-1">
         <div>
           <input
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Search your links, integrations, or press Enter to search the web..."
-            className="w-full flex-1 mx-3 mt-3 pt-1 rounded border border-none focus:outline-none"
+            placeholder="搜索 your links, integrations, or press Enter to search the web..."
+            class名称="w-full flex-1 mx-3 mt-3 pt-1 rounded border border-none focus:outline-none"
             aria-label="Command search"
           />
-          <Separator className='my-2 bg-(--text-primary)/20' />
+          <Separator class名称='my-2 bg-(--text-primary)/20' />
         </div>
 
-        <div ref={listRef} className="max-h-full overflow-auto  mx-3">
+        <div ref={listRef} class名称="max-h-full overflow-auto  mx-3">
           {actions.map((item, index) => {
-            const isSearchAction = item.url === '__search_action__';
+            const is搜索Action = item.url === '__search_action__';
             const isBangAction = item.url === '__bang_search__' || item.isBangAction;
-            const isCommand = !isSearchAction && !isBangAction && item.url?.startsWith('command:');
+            const isCommand = !is搜索Action && !isBangAction && item.url?.startsWith('command:');
             const isHighlighted = highlightIndex === index;
             return (
               <button
                 ref={(el) => { itemRefs.current[index] = el; }}
                 key={item.url + item.name + index}
                 onClick={(e) => onClickLink(e, item)}
-                className={`w-full text-left px-2 py-2 flex items-center gap-3 rounded ${isHighlighted ? 'bg-white/20 text-white' : 'hover:bg-white/10'}`}
+                class名称={`w-full text-left px-2 py-2 flex items-center gap-3 rounded ${isHighlighted ? 'bg-white/20 text-white' : 'hover:bg-white/10'}`}
               >
-                <div className={`w-6 h-6 rounded-md flex items-center justify-center bg-white/20`}>
+                <div class名称={`w-6 h-6 rounded-md flex items-center justify-center bg-white/20`}>
                   {item.icon ? (
                     <Icon src={item.icon} size={4} />
                   ) : isValidUrl(item.url) ? (
-                    <FontAwesomeIcon icon={faGlobe} className='text-xs' />
+                    <FontAwesomeIcon icon={faGlobe} class名称='text-xs' />
                   ) : (
-                    <div className="w-4 h-4 bg-gray-300 rounded-sm" />
+                    <div class名称="w-4 h-4 bg-gray-300 rounded-sm" />
                   )}
                 </div>
-                <div className="flex-1 flex items-center min-w-0">
-                  <div className="flex-1 min-w-0 flex gap-2 items-center overflow-hidden">
-                    <div className="text-sm font-medium truncate flex-shrink min-w-0">
+                <div class名称="flex-1 flex items-center min-w-0">
+                  <div class名称="flex-1 min-w-0 flex gap-2 items-center overflow-hidden">
+                    <div class名称="text-sm font-medium truncate flex-shrink min-w-0">
                       {item.name}
                     </div>
 
-                    <span className="text-xs text-muted-foreground truncate flex-shrink-0 max-w-[30%]">
+                    <span class名称="text-xs text-muted-foreground truncate flex-shrink-0 max-w-[30%]">
                       {item.linkGroup || ""}
                     </span>
                   </div>
 
-                  <div className="ml-3 text-xs text-muted-foreground whitespace-nowrap">
-                    {isCommand ? <span className="italic">use client</span> : <span>{item.type}</span>}
+                  <div class名称="ml-3 text-xs text-muted-foreground whitespace-nowrap">
+                    {isCommand ? <span class名称="italic">use client</span> : <span>{item.type}</span>}
                   </div>
                 </div>
               </button>
@@ -446,9 +446,9 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
           })}
         </div>
         <div>
-          <Separator className='bg-(--text-primary)/20 my-2' />
+          <Separator class名称='bg-(--text-primary)/20 my-2' />
 
-          <div className="text-xs text-gray-400  mx-3 mb-3">Use ↑ ↓ to navigate · Press escape to close searchbar · Click or press Enter to open</div>
+          <div class名称="text-xs text-gray-400  mx-3 mb-3">Use ↑ ↓ to navigate · Press escape to close searchbar · Click or press Enter to open</div>
         </div>
       </DialogContent>
     </Dialog>
@@ -457,13 +457,13 @@ export default function CommandBar({ open, setOpen, searchItems }: CommandBarPro
 type IconProps = {
   src?: string;       // URL of the icon
   size?: number;      // optional size in pixels, default is 24
-  className?: string; // optional CSS classes
+  class名称?: string; // optional CSS classes
 };
 
-export function Icon({ src, size = 24, className }: IconProps) {
+export function Icon({ src, size = 24, class名称 }: IconProps) {
   if (!src) {
     // No icon URL provided → render a placeholder
-    return <div className={`w-${size} h-${size} bg-gray-300 ${className}`} />;
+    return <div class名称={`w-${size} h-${size} bg-gray-300 ${class名称}`} />;
   }
 
   // Check if we should use a CSS mask
@@ -473,7 +473,7 @@ export function Icon({ src, size = 24, className }: IconProps) {
   if (shouldMask) {
     return (
       <div
-        className={`w-${size} h-${size} ${className}`}
+        class名称={`w-${size} h-${size} ${class名称}`}
         style={{
           backgroundColor: 'var(--primary)',
           maskImage: `url(${src})`,
@@ -490,7 +490,7 @@ export function Icon({ src, size = 24, className }: IconProps) {
   }
 
   // Default: render a normal <img> tag
-  return <img src={src} alt="" className={cn("h-4", className)} />;
+  return <img src={src} alt="" class名称={cn("h-4", class名称)} />;
 }
 
 function isValidUrl(url?: string) {

@@ -9,7 +9,7 @@ interface PaginatedCarouselViewProps {
   minCols?: number;
   maxCols?: number;
   maxRows?: number;
-  className?: string;
+  class名称?: string;
 }
 
 export function PaginatedCarouselViewComponent({
@@ -19,7 +19,7 @@ export function PaginatedCarouselViewComponent({
   minCols = 2,
   maxCols = 4,
   maxRows = 3,
-  className,
+  class名称,
 }: PaginatedCarouselViewProps) {
   const [rows, setRows] = useState(3);
   const [cols, setCols] = useState(3);
@@ -148,20 +148,20 @@ export function PaginatedCarouselViewComponent({
   }, [containerRef]);
 
   return (
-    <div className={cn("space-y-2", className)}>
+    <div class名称={cn("space-y-2", class名称)}>
       <div
         ref={containerRef}
         onScroll={onScroll}
-        className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory gap-2"
+        class名称="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory gap-2"
         style={{
           touchAction: "pan-x",
           scrollSnapStop: "always",
         }}
       >
         {pages.map((page, pi) => (
-          <div key={pi} className="flex-none w-full snap-center">
+          <div key={pi} class名称="flex-none w-full snap-center">
             <div
-              className="grid gap-2"
+              class名称="grid gap-2"
               style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
             >
               {page}
@@ -171,12 +171,12 @@ export function PaginatedCarouselViewComponent({
       </div>
 
       {pages.length > 1 && (
-        <div className="flex justify-center mt-2 space-x-2">
+        <div class名称="flex justify-center mt-2 space-x-2">
           {pages.map((_, i) => (
             <button
               key={i}
               onClick={() => scrollTo(i)}
-              className={cn(
+              class名称={cn(
                 "w-2.5 h-2.5 rounded-full transition",
                 i === currentPage ? "bg-white" : "bg-white/40 hover:bg-white/70"
               )}
